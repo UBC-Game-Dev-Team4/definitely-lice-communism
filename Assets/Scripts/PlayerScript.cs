@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DefaultNamespace;
+using UnityEngine;
 using Util;
 
 namespace Player
@@ -9,6 +10,7 @@ namespace Player
     [DisallowMultipleComponent, RequireComponent(typeof(Rigidbody2D))]
     public class PlayerScript : MonoBehaviour
     {
+        #region singleton
         /// <summary>
         /// Private single instance of <see cref="PlayerScript"/>
         /// </summary>
@@ -31,7 +33,7 @@ namespace Player
                 return _player;
             }
         }
-        
+        #endregion
         [Tooltip("Movement speed of player (excludes jumping)"), Min(0)]
         public float movementSpeed = 5;
 
@@ -45,7 +47,8 @@ namespace Player
         public Vector2 groundCheckSize = new Vector2(0.9f, 0.1f);
         [Tooltip("Layers to query in ground detection")]
         public LayerMask groundCheckLayerMask;
-        
+
+        private InteractableDetector _detector;
         private Rigidbody2D _body;
 
         /// <summary>
@@ -56,6 +59,7 @@ namespace Player
         private void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
+            _detector = GetComponentInChildren<InteractableDetector>();
             _player = this;
         }
 
@@ -74,6 +78,10 @@ namespace Player
                 _body.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
             }
 
+            if (Input.GetKeyDown(SettingsManager.Instance.interactKey))
+            {
+                _detector.Interact(this);
+            }
         }
 
         /// <summary>
