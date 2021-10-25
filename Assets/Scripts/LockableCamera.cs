@@ -3,52 +3,52 @@ using Player;
 using UnityEngine;
 using UnityEngine.U2D;
 
-namespace Util {
+namespace Util
+{
     /// <summary>
-    /// Script to be attached to the camera that can move with the player or with free camera enabled.
+    ///     Script to be attached to the camera that can move with the player or with free camera enabled.
     /// </summary>
-    [DisallowMultipleComponent, RequireComponent(typeof(PixelPerfectCamera))]
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(PixelPerfectCamera))]
     public class LockableCamera : MonoBehaviour
     {
         /// <summary>
-        /// Private single instance of <see cref="LockableCamera"/>
+        ///     Private single instance of <see cref="LockableCamera" />
         /// </summary>
-        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern"/>
+        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
         private static LockableCamera _instance;
+
+        [Tooltip("Camera state to start at")]
+        public CameraState startingCameraState = CameraState.CreateMovingCameraState(new Vector3(0, 0, -10));
+
+        private readonly Stack<CameraState> _states = new Stack<CameraState>();
+        private PixelPerfectCamera _camera;
+        private CameraState _currentActiveState;
+        private PlayerScript _player;
+
+        private SettingsManager _settings;
+
         /// <summary>
-        /// Accessor to singleton instance of <see cref="LockableCamera"/>
+        ///     Accessor to singleton instance of <see cref="LockableCamera" />
         /// </summary>
-        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern"/>
+        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
         public static LockableCamera Instance
         {
             get
             {
                 if (_instance != null) return _instance;
                 if (Camera.main == null)
-                {
                     Debug.LogWarning("Warning: Camera.main is null. Returning null.");
-                }
                 else
-                {
                     _instance = Camera.main.transform.GetComponent<LockableCamera>();
-                }
 
                 return _instance;
             }
         }
 
-        private SettingsManager _settings;
-        private PlayerScript _player;
-        private readonly Stack<CameraState> _states = new Stack<CameraState>();
-        private PixelPerfectCamera _camera;
-        private CameraState _currentActiveState;
-        [Tooltip("Camera state to start at")]
-        public CameraState startingCameraState = CameraState.CreateMovingCameraState(new Vector3(0, 0, -10));
-
         /// <summary>
-        /// Sets singleton instance, locates other required objects (player/settings), sets to initial position.
-        ///
-        /// Runs upon object being added/initialized, but before Start
+        ///     Sets singleton instance, locates other required objects (player/settings), sets to initial position.
+        ///     Runs upon object being added/initialized, but before Start
         /// </summary>
         private void Awake()
         {
@@ -62,9 +62,9 @@ namespace Util {
             ApplyState(startingCameraState);
             _currentActiveState = startingCameraState;
         }
-        
+
         /// <summary>
-        /// Called once per frame - updates its position
+        ///     Called once per frame - updates its position
         /// </summary>
         private void Update()
         {
@@ -79,13 +79,11 @@ namespace Util {
             }
 
             if (!_currentActiveState.isStationary)
-            {
                 transform.position = _player.transform.position + _currentActiveState.cameraOffset;
-            }
         }
 
         /// <summary>
-        /// On destroy, remove singleton instance
+        ///     On destroy, remove singleton instance
         /// </summary>
         private void OnDestroy()
         {
@@ -94,7 +92,7 @@ namespace Util {
         }
 
         /// <summary>
-        /// Adds a state to the list of states and sets that as current state
+        ///     Adds a state to the list of states and sets that as current state
         /// </summary>
         /// <param name="state">New camera state</param>
         public void PushState(CameraState state)
@@ -105,7 +103,7 @@ namespace Util {
         }
 
         /// <summary>
-        /// Revert back to previous state, if none exists, go back to starting state
+        ///     Revert back to previous state, if none exists, go back to starting state
         /// </summary>
         public void PopState()
         {
@@ -114,9 +112,9 @@ namespace Util {
             _currentActiveState = _states.Peek();
             ApplyState(_currentActiveState);
         }
-        
+
         /// <summary>
-        /// Applies a given state's settings (i.e. position + offset/camera res)
+        ///     Applies a given state's settings (i.e. position + offset/camera res)
         /// </summary>
         /// <param name="state">State settings to apply</param>
         private void ApplyState(CameraState state)
@@ -125,13 +123,13 @@ namespace Util {
             {
                 transform.position = _player.transform.position + state.cameraOffset;
                 _camera.refResolutionX = state.cameraIdealWidth;
-                _camera.refResolutionY = Mathf.FloorToInt(state.cameraIdealWidth * 1/CameraState.AspectRatio);
+                _camera.refResolutionY = Mathf.FloorToInt(state.cameraIdealWidth * 1 / CameraState.AspectRatio);
             }
             else
             {
                 transform.position = state.positionOnLock;
                 _camera.refResolutionX = state.cameraIdealWidth;
-                _camera.refResolutionY = Mathf.FloorToInt(state.cameraIdealWidth * 1/CameraState.AspectRatio);
+                _camera.refResolutionY = Mathf.FloorToInt(state.cameraIdealWidth * 1 / CameraState.AspectRatio);
             }
         }
     }

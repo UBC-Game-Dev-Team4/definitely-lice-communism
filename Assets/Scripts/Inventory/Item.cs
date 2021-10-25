@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ItemInventory
 {
     /// <summary>
-    /// Represents an item.
+    ///     Represents an item.
     /// </summary>
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
     public class Item : ScriptableObject

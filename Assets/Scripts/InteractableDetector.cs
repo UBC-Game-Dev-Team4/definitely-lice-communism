@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -8,18 +6,12 @@ namespace DefaultNamespace
     [RequireComponent(typeof(Collider2D))]
     public class InteractableDetector : Interactable
     {
-        private List<Interactable> list = new List<Interactable>();
         private Collider2D _collider;
+        private readonly List<Interactable> list = new List<Interactable>();
+
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
-        }
-
-        public override void Interact(object src, params object[] args)
-        {
-            base.Interact(src, args);
-            list.Sort(new InteractableComparator(transform.position));
-            if (list.Count > 0) list[0].Interact(src, args);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -32,6 +24,13 @@ namespace DefaultNamespace
         {
             Interactable interactable = other.GetComponent<Interactable>();
             if (interactable != null) list.Remove(interactable);
+        }
+
+        public override void Interact(object src, params object[] args)
+        {
+            base.Interact(src, args);
+            list.Sort(new InteractableComparator(transform.position));
+            if (list.Count > 0) list[0].Interact(src, args);
         }
 
         private class InteractableComparator : IComparer<Interactable>
