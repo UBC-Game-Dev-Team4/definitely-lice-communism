@@ -4,22 +4,21 @@ using UnityEngine.UI;
 namespace ItemInventory
 {
     /// <summary>
-    /// Script for an inventory slot.
+    ///     Script for an inventory slot.
     /// </summary>
     /// <remarks>
-    /// Based on Brackeys INVENTORY CODE - Making an RPG in Unity (E06)
+    ///     Based on Brackeys INVENTORY CODE - Making an RPG in Unity (E06)
     /// </remarks>
     public class InventorySlot : MonoBehaviour
     {
-        [Tooltip("Displayed icon.")]
-        public Image icon;
-        [Tooltip("Button to remove item.")]
-        public Button removeButton;
+        [Tooltip("Displayed icon.")] public Image icon;
+
+        [Tooltip("Button to remove item.")] public Button removeButton;
 
         private Item _item;
 
         /// <summary>
-        /// Adds the item to the slot.
+        ///     Adds the item to the slot.
         /// </summary>
         /// <param name="newItem"></param>
         public void AddItem(Item newItem)
@@ -32,7 +31,7 @@ namespace ItemInventory
         }
 
         /// <summary>
-        /// Clears the icon from the slot and the item.
+        ///     Clears the icon from the slot and the item.
         /// </summary>
         public void ClearSlot()
         {
@@ -43,6 +42,9 @@ namespace ItemInventory
             removeButton.interactable = false;
         }
 
-        public void OnRemoveButton() => Inventory.Instance.Remove(_item);
+        public void OnRemoveButton()
+        {
+            Inventory.Instance.Remove(_item);
+        }
     }
 }
