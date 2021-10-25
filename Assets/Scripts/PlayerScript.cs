@@ -34,6 +34,8 @@ namespace Player
             }
         }
         #endregion
+        [Tooltip("Whether debug data is drawn")]
+        public bool debug = false;
         [Tooltip("Movement speed of player (excludes jumping)"), Min(0)]
         public float movementSpeed = 5;
 
@@ -72,6 +74,11 @@ namespace Player
             if (_body.velocity.x * Input.GetAxis("Horizontal") < 0)
                 multiplier = turnAroundMultiplier; // turn around faster
             _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * Input.GetAxis("Horizontal") * multiplier, 0), ForceMode2D.Impulse);
+            if (debug)
+            {
+                var position = transform.position;
+                Debug.DrawLine(position,(Vector2)position+groundCheckOffset,Color.red);
+            }
             if (Physics2D.OverlapBox((Vector2) transform.position + groundCheckOffset, groundCheckSize, 0,
                 groundCheckLayerMask) != null && Input.GetKeyDown(SettingsManager.Instance.jumpKey))
             {
