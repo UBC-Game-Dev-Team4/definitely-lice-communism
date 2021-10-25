@@ -35,7 +35,7 @@ namespace Player
         }
         #endregion
         [Tooltip("Whether debug data is drawn")]
-        public bool debug = false;
+        public bool debug;
         [Tooltip("Movement speed of player (excludes jumping)"), Min(0)]
         public float movementSpeed = 5;
 

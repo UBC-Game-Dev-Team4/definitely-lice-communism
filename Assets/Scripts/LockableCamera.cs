@@ -42,6 +42,7 @@ namespace Util {
         private readonly Stack<CameraState> _states = new Stack<CameraState>();
         private PixelPerfectCamera _camera;
         private CameraState _currentActiveState;
+        [Tooltip("Camera state to start at")]
         public CameraState startingCameraState = CameraState.CreateMovingCameraState(new Vector3(0, 0, -10));
 
         /// <summary>
@@ -92,6 +93,10 @@ namespace Util {
             _instance = null;
         }
 
+        /// <summary>
+        /// Adds a state to the list of states and sets that as current state
+        /// </summary>
+        /// <param name="state">New camera state</param>
         public void PushState(CameraState state)
         {
             _states.Push(state);
@@ -99,6 +104,9 @@ namespace Util {
             ApplyState(state);
         }
 
+        /// <summary>
+        /// Revert back to previous state, if none exists, go back to starting state
+        /// </summary>
         public void PopState()
         {
             _states.Pop();
@@ -106,7 +114,11 @@ namespace Util {
             _currentActiveState = _states.Peek();
             ApplyState(_currentActiveState);
         }
-
+        
+        /// <summary>
+        /// Applies a given state's settings (i.e. position + offset/camera res)
+        /// </summary>
+        /// <param name="state">State settings to apply</param>
         private void ApplyState(CameraState state)
         {
             if (!state.isStationary)
