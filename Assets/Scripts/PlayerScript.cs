@@ -66,7 +66,7 @@ namespace Player
         /// <summary>
         /// Called once per frame - move the player.
         /// </summary>
-        void Update()
+        private void Update()
         {
             float multiplier = 1;
             if (_body.velocity.x * Input.GetAxis("Horizontal") < 0)
