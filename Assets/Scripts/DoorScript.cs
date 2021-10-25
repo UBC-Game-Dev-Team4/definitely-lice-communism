@@ -19,7 +19,8 @@ namespace DefaultNamespace
 
         public void OnDrawGizmosSelected()
         {
-            Gizmos.DrawCube(positionOnInteract,Vector3.one);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(positionOnInteract,0.5f);
         }
     }
 }
