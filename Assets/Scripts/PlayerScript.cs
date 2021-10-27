@@ -1,4 +1,5 @@
-﻿using DefaultNamespace;
+﻿using System;
+using DefaultNamespace;
 using UnityEngine;
 using Util;
 
@@ -8,7 +9,7 @@ namespace Player
     ///     Script attached to a player object
     /// </summary>
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Animator)), RequireComponent(typeof(SpriteRenderer))]
     public class PlayerScript : MonoBehaviour
     {
         [Tooltip("Whether debug data is drawn")]
@@ -35,6 +36,10 @@ namespace Player
 
         private InteractableDetector _detector;
 
+        private Animator _animator;
+
+        private SpriteRenderer _renderer;
+
         /// <summary>
         ///     Locates required objects and sets singleton instance
         ///     Runs upon object being added/initialized, but before Start
@@ -43,6 +48,8 @@ namespace Player
         {
             _body = GetComponent<Rigidbody2D>();
             _detector = GetComponentInChildren<InteractableDetector>();
+            _animator = GetComponent<Animator>();
+            _renderer = GetComponent<SpriteRenderer>();
             _player = this;
         }
 
@@ -52,9 +59,11 @@ namespace Player
         private void Update()
         {
             float multiplier = 1;
-            if (_body.velocity.x * Input.GetAxis("Horizontal") < 0)
+            float horizontalAxis = Input.GetAxis("Horizontal");
+            if (_body.velocity.x * horizontalAxis < 0)
                 multiplier = turnAroundMultiplier; // turn around faster
-            _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * Input.GetAxis("Horizontal") * multiplier, 0),
+            
+            _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * horizontalAxis * multiplier, 0),
                 ForceMode2D.Impulse);
             if (debug)
             {
@@ -64,9 +73,32 @@ namespace Player
 
             if (Physics2D.OverlapBox((Vector2) transform.position + groundCheckOffset, groundCheckSize, 0,
                 groundCheckLayerMask) != null && Input.GetKeyDown(SettingsManager.Instance.jumpKey))
+            {
                 _body.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
+                _animator.SetFloat(WalkSpeedParameter,0);
+            }
 
             if (Input.GetKeyDown(SettingsManager.Instance.interactKey)) _detector.Interact(this);
+
+            if (Math.Abs(_body.velocity.y) < 0.001f)
+            {
+                _animator.SetFloat(WalkSpeedParameter,1);
+                if (_body.velocity.x > 0.01f)
+                {
+                    _renderer.flipX = false;
+                    _animator.SetTrigger(StartMovingTrigger);
+                }
+                else if (_body.velocity.x < -0.01f)
+                {
+                    _renderer.flipX = true;
+                    _animator.SetTrigger(StartMovingTrigger);
+                }
+                else
+                {
+                    _animator.ResetTrigger(StartMovingTrigger);
+                    _animator.SetTrigger(StopMovingTrigger);
+                }
+            }
         }
 
         /// <summary>
@@ -77,6 +109,11 @@ namespace Player
             _player = null;
         }
 
+        
+        private static readonly int StartMovingTrigger = Animator.StringToHash("StartMovingTrigger");
+        private static readonly int StopMovingTrigger = Animator.StringToHash("StopMovingTrigger");
+        private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
+        
         #region singleton
 
         /// <summary>
