@@ -19,14 +19,12 @@ namespace Util
         private static LockableCamera _instance;
 
         [Tooltip("Camera state to start at")]
-        public CameraState startingCameraState = CameraState.CreateMovingCameraState(new Vector3(0, 0, -10));
+        public CameraState startingCameraState = CameraState.CreateFreeXYCameraState(new Vector3(0, 0, -10));
 
         private readonly Stack<CameraState> _states = new Stack<CameraState>();
         private PixelPerfectCamera _camera;
         private CameraState _currentActiveState;
         private PlayerScript _player;
-
-        private SettingsManager _settings;
 
         /// <summary>
         ///     Accessor to singleton instance of <see cref="LockableCamera" />
@@ -56,7 +54,6 @@ namespace Util
                 Debug.LogWarning("Warning: Existing GlobalCameraLocator. Rewriting...");
             _instance = this;
             _camera = GetComponent<PixelPerfectCamera>();
-            _settings = SettingsManager.Instance;
             _player = PlayerScript.Instance;
             _states.Push(startingCameraState);
             ApplyState(startingCameraState);
@@ -68,18 +65,7 @@ namespace Util
         /// </summary>
         private void Update()
         {
-            if (!_settings.toggleFreeLook)
-            {
-                if (Input.GetKeyDown(_settings.freeLookKey) || Input.GetKeyUp(_settings.freeLookKey))
-                    _currentActiveState.isStationary = !_currentActiveState.isStationary;
-            }
-            else if (Input.GetKeyDown(_settings.freeLookKey))
-            {
-                _currentActiveState.isStationary = !_currentActiveState.isStationary;
-            }
-
-            if (!_currentActiveState.isStationary)
-                transform.position = _player.transform.position + _currentActiveState.cameraOffset;
+            transform.position = _currentActiveState.GetCameraPos(_player.transform.position);
         }
 
         /// <summary>
@@ -119,18 +105,9 @@ namespace Util
         /// <param name="state">State settings to apply</param>
         private void ApplyState(CameraState state)
         {
-            if (!state.isStationary)
-            {
-                transform.position = _player.transform.position + state.cameraOffset;
-                _camera.refResolutionX = state.cameraIdealWidth;
-                _camera.refResolutionY = Mathf.FloorToInt(state.cameraIdealWidth * 1 / CameraState.AspectRatio);
-            }
-            else
-            {
-                transform.position = state.positionOnLock;
-                _camera.refResolutionX = state.cameraIdealWidth;
-                _camera.refResolutionY = Mathf.FloorToInt(state.cameraIdealWidth * 1 / CameraState.AspectRatio);
-            }
+            transform.position = state.GetCameraPos(_player.transform.position);
+            _camera.refResolutionX = state.cameraIdealWidth;
+            _camera.refResolutionY = Mathf.FloorToInt(state.cameraIdealWidth * 1 / CameraState.AspectRatio);
         }
     }
 }

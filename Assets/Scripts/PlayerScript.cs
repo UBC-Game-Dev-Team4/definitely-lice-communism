@@ -86,19 +86,13 @@ namespace Player
                 if (_body.velocity.x > 0.01f)
                 {
                     _renderer.flipX = false;
-                    _animator.SetTrigger(StartMovingTrigger);
                 }
                 else if (_body.velocity.x < -0.01f)
                 {
                     _renderer.flipX = true;
-                    _animator.SetTrigger(StartMovingTrigger);
-                }
-                else
-                {
-                    _animator.ResetTrigger(StartMovingTrigger);
-                    _animator.SetTrigger(StopMovingTrigger);
                 }
             }
+            _animator.SetFloat(VelocityXParameter,_body.velocity.x);
         }
 
         /// <summary>
@@ -109,10 +103,17 @@ namespace Player
             _player = null;
         }
 
+        /// <summary>
+        /// Makes the player stationary.
+        /// </summary>
+        public void StopMoving()
+        {
+            _body.velocity = Vector2.zero;
+            _animator.SetFloat(VelocityXParameter,0);
+        }
         
-        private static readonly int StartMovingTrigger = Animator.StringToHash("StartMovingTrigger");
-        private static readonly int StopMovingTrigger = Animator.StringToHash("StopMovingTrigger");
         private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
+        private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
         
         #region singleton
 

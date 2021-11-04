@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7727797871777599338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 80, y: 2.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,7 +118,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingCameraState:
-    isStationary: 0
-    positionOnLock: {x: 0, y: 0, z: 0}
-    cameraOffset: {x: 0, y: 1.805, z: -10}
+    movementModeX: 1
+    movementFixedX: 0
+    movementRangeXLeft: -4.52
+    movementRangeXRight: 34.6
+    movementModeY: 0
+    movementFixedY: 2.3
+    movementRangeYLeft: 0
+    movementRangeYRight: 0
+    cameraOffset: {x: 0, y: 0, z: -10}
     cameraIdealWidth: 320

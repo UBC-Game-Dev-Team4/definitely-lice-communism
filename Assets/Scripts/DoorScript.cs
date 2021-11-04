@@ -10,7 +10,7 @@ namespace DefaultNamespace
     public class DoorScript : Interactable
     {
         [Tooltip("Camera state to set camera to upon interaction with this object")]
-        public CameraState cameraStateOnInteract = CameraState.CreateMovingCameraState(Vector3.zero);
+        public CameraState cameraStateOnInteract = CameraState.CreateFreeXYCameraState(Vector3.zero);
 
         [Tooltip("Whether the camera state should revert to previous state")]
         public bool shouldPopCameraStateOnInteract;
@@ -38,6 +38,7 @@ namespace DefaultNamespace
             else
                 LockableCamera.Instance.PushState(cameraStateOnInteract);
             player.transform.position = positionOnInteract;
+            player.StopMoving();
         }
     }
 }
