@@ -1,4 +1,4 @@
-# definitely-lice-communism
+# Game-lol
 A 2D game made by Team 4 of the UBC Game Development club (Team Spyder).
 
 ![Team Spyder logo here](Assets/Sprites/teamspyder.png)
