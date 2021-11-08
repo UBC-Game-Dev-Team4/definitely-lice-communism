@@ -163,5 +163,10 @@ namespace Util
             return new CameraState(CameraMovementMode.Fixed, movementFixedX, 0, 0, CameraMovementMode.Fixed,
                 movementFixedY, 0, 0, cameraOffset, cameraIdealWidth);
         }
+
+        public CameraState Copy() =>
+            new CameraState(movementModeX, movementFixedX, movementRangeXLeft, movementRangeXRight,
+                movementModeY, movementFixedY, movementRangeYLeft, movementRangeYRight, cameraOffset.normalized,
+                cameraIdealWidth);
     }
 }
