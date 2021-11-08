@@ -21,9 +21,8 @@ namespace Util
         [Tooltip("Camera state to start at")]
         public CameraState startingCameraState = CameraState.CreateFreeXYCameraState(new Vector3(0, 0, -10));
 
-        private readonly Stack<CameraState> _states = new Stack<CameraState>();
         private PixelPerfectCamera _camera;
-        private CameraState _currentActiveState;
+        private CameraState _cameraState;
         private PlayerScript _player;
 
         /// <summary>
@@ -55,9 +54,8 @@ namespace Util
             _instance = this;
             _camera = GetComponent<PixelPerfectCamera>();
             _player = PlayerScript.Instance;
-            _states.Push(startingCameraState);
+            _cameraState = startingCameraState;
             ApplyState(startingCameraState);
-            _currentActiveState = startingCameraState;
         }
 
         /// <summary>
@@ -65,7 +63,7 @@ namespace Util
         /// </summary>
         private void Update()
         {
-            transform.position = _currentActiveState.GetCameraPos(_player.transform.position);
+            transform.position = _cameraState.GetCameraPos(_player.transform.position);
         }
 
         /// <summary>
@@ -73,30 +71,13 @@ namespace Util
         /// </summary>
         private void OnDestroy()
         {
-            _states.Clear();
             _instance = null;
         }
 
-        /// <summary>
-        ///     Adds a state to the list of states and sets that as current state
-        /// </summary>
-        /// <param name="state">New camera state</param>
-        public void PushState(CameraState state)
+        public void SetState(ref CameraState state)
         {
-            _states.Push(state);
-            _currentActiveState = state;
+            _cameraState = state.Copy();
             ApplyState(state);
-        }
-
-        /// <summary>
-        ///     Revert back to previous state, if none exists, go back to starting state
-        /// </summary>
-        public void PopState()
-        {
-            _states.Pop();
-            if (_states.Count == 0) _states.Push(startingCameraState);
-            _currentActiveState = _states.Peek();
-            ApplyState(_currentActiveState);
         }
 
         /// <summary>

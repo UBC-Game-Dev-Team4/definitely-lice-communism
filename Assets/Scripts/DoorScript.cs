@@ -9,15 +9,11 @@ namespace DefaultNamespace
     /// </summary>
     public class DoorScript : Interactable
     {
-        [Tooltip("Camera state to set camera to upon interaction with this object")]
-        public CameraState cameraStateOnInteract = CameraState.CreateFreeXYCameraState(Vector3.zero);
-
-        [Tooltip("Whether the camera state should revert to previous state")]
-        public bool shouldPopCameraStateOnInteract;
-
         [Tooltip("Position to teleport player on interaction")]
         public Vector3 positionOnInteract;
 
+        public AreaScript areaToTeleportTo;
+        
         /// <summary>
         ///     Draw a wireframe sphere around the position to teleport to
         /// </summary>
@@ -33,10 +29,11 @@ namespace DefaultNamespace
         {
             base.Interact(src, args);
             if (!(src is PlayerScript player)) return;
-            if (shouldPopCameraStateOnInteract)
-                LockableCamera.Instance.PopState();
-            else
-                LockableCamera.Instance.PushState(cameraStateOnInteract);
+            if (areaToTeleportTo != null)
+            {
+                LockableCamera.Instance.SetState(ref areaToTeleportTo.cameraStateOnEnter);
+            }
+
             player.transform.position = positionOnInteract;
             player.StopMoving();
         }
