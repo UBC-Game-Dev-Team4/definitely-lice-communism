@@ -81,17 +81,7 @@ namespace Player
             if (Input.GetKeyDown(SettingsManager.Instance.interactKey)) _detector.Interact(this);
 
             if (Math.Abs(_body.velocity.y) < 0.001f)
-            {
                 _animator.SetFloat(WalkSpeedParameter,1);
-                if (_body.velocity.x > 0.01f)
-                {
-                    _renderer.flipX = false;
-                }
-                else if (_body.velocity.x < -0.01f)
-                {
-                    _renderer.flipX = true;
-                }
-            }
             _animator.SetFloat(VelocityXParameter,_body.velocity.x);
         }
 
