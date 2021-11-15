@@ -228,6 +228,8 @@ MonoBehaviour:
   groundCheckLayerMask:
     serializedVersion: 2
     m_Bits: 55
+  movementEnabled: 1
+  interactionEnabled: 1
 --- !u!95 &1639940097668940824
 Animator:
   serializedVersion: 3
