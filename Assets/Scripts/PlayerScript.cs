@@ -32,13 +32,17 @@ namespace Player
         [Tooltip("Layers to query in ground detection")]
         public LayerMask groundCheckLayerMask;
 
+        [Tooltip("Whether movement is disabled")]
+        public bool movementEnabled = true;
+
+        [Tooltip("Whether interaction is disabled")]
+        public bool interactionEnabled = true;
+
         private Rigidbody2D _body;
 
         private InteractableDetector _detector;
 
         private Animator _animator;
-
-        private SpriteRenderer _renderer;
 
         /// <summary>
         ///     Locates required objects and sets singleton instance
@@ -49,7 +53,6 @@ namespace Player
             _body = GetComponent<Rigidbody2D>();
             _detector = GetComponentInChildren<InteractableDetector>();
             _animator = GetComponent<Animator>();
-            _renderer = GetComponent<SpriteRenderer>();
             _player = this;
         }
 
@@ -58,27 +61,30 @@ namespace Player
         /// </summary>
         private void Update()
         {
-            float multiplier = 1;
-            float horizontalAxis = Input.GetAxis("Horizontal");
-            if (_body.velocity.x * horizontalAxis < 0)
-                multiplier = turnAroundMultiplier; // turn around faster
-            
-            _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * horizontalAxis * multiplier, 0),
-                ForceMode2D.Impulse);
-            if (debug)
+            if (movementEnabled)
             {
-                Vector3 position = transform.position;
-                Debug.DrawLine(position, (Vector2) position + groundCheckOffset, Color.red);
+                float multiplier = 1;
+                float horizontalAxis = Input.GetAxis("Horizontal");
+                if (_body.velocity.x * horizontalAxis < 0)
+                    multiplier = turnAroundMultiplier; // turn around faster
+
+                _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * horizontalAxis * multiplier, 0),
+                    ForceMode2D.Impulse);
+                if (debug)
+                {
+                    Vector3 position = transform.position;
+                    Debug.DrawLine(position, (Vector2) position + groundCheckOffset, Color.red);
+                }
+
+                if (Physics2D.OverlapBox((Vector2) transform.position + groundCheckOffset, groundCheckSize, 0,
+                    groundCheckLayerMask) != null && Input.GetKeyDown(SettingsManager.Instance.jumpKey))
+                {
+                    _body.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
+                    _animator.SetFloat(WalkSpeedParameter, 0);
+                }
             }
 
-            if (Physics2D.OverlapBox((Vector2) transform.position + groundCheckOffset, groundCheckSize, 0,
-                groundCheckLayerMask) != null && Input.GetKeyDown(SettingsManager.Instance.jumpKey))
-            {
-                _body.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
-                _animator.SetFloat(WalkSpeedParameter,0);
-            }
-
-            if (Input.GetKeyDown(SettingsManager.Instance.interactKey)) _detector.Interact(this);
+            if (interactionEnabled && Input.GetKeyDown(SettingsManager.Instance.interactKey)) _detector.Interact(this);
 
             if (Math.Abs(_body.velocity.y) < 0.001f)
                 _animator.SetFloat(WalkSpeedParameter,1);

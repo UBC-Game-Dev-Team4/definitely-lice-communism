@@ -80,6 +80,16 @@ namespace Util
             ApplyState(state);
         }
 
+        public void FreezeStateInCurrentPosition()
+        {
+            Vector3 position = transform.position;
+            Vector3 offset = _cameraState.cameraOffset;
+            float newX = position.x - offset.x;
+            float newY = position.y - offset.y;
+            _cameraState = CameraState.CreateFixedXYCameraState(newX, newY, offset,_cameraState.cameraIdealWidth);
+            ApplyState(_cameraState);
+        }
+
         /// <summary>
         ///     Applies a given state's settings (i.e. position + offset/camera res)
         /// </summary>

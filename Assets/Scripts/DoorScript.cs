@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using System.Collections;
+using Player;
 using UnityEngine;
 using Util;
 
@@ -7,13 +8,32 @@ namespace DefaultNamespace
     /// <summary>
     ///     Script attached to an interactable door
     /// </summary>
+    [RequireComponent(typeof(Animator))]
     public class DoorScript : Interactable
     {
         [Tooltip("Position to teleport player on interaction")]
         public Vector3 positionOnInteract;
 
+        [Tooltip("Area to teleport to/camera state to set")]
         public AreaScript areaToTeleportTo;
+
+        [Tooltip("Delay after door open animation before player disappears")]
+        public float delayBeforeEnter = 1;
         
+        [Tooltip("Delay after player disappearing before door closes")]
+        public float delayJustAfterEnter = 0.4f;
+        [Tooltip("Delay after door close animation starts before camera is set correctly")]
+        public float delayAfterDoorClose = 0.4f;
+        
+        private Animator _animator;
+        private static readonly int OpenTrigger = Animator.StringToHash("OpenTrigger");
+        private static readonly int CloseTrigger = Animator.StringToHash("CloseTrigger");
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
         /// <summary>
         ///     Draw a wireframe sphere around the position to teleport to
         /// </summary>
@@ -29,13 +49,28 @@ namespace DefaultNamespace
         {
             base.Interact(src, args);
             if (!(src is PlayerScript player)) return;
+            StartCoroutine(nameof(DoorInteractCoroutine), player);
+        }
+
+        public IEnumerator DoorInteractCoroutine(PlayerScript player)
+        {
+            player.StopMoving();
+            player.movementEnabled = false;
+            player.interactionEnabled = false;
+            _animator.SetTrigger(OpenTrigger);
+            yield return new WaitForSeconds(delayBeforeEnter);
+            LockableCamera.Instance.FreezeStateInCurrentPosition();
+            player.transform.position = positionOnInteract;
+            yield return new WaitForSeconds(delayJustAfterEnter);
+            _animator.SetTrigger(CloseTrigger);
+            yield return new WaitForSeconds(delayAfterDoorClose);
             if (areaToTeleportTo != null)
             {
                 LockableCamera.Instance.SetState(ref areaToTeleportTo.cameraStateOnEnter);
             }
 
-            player.transform.position = positionOnInteract;
-            player.StopMoving();
+            player.movementEnabled = true;
+            player.interactionEnabled = true;
         }
     }
 }
