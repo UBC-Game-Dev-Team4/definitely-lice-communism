@@ -13,26 +13,26 @@ namespace Sound
     public class SoundManager : MonoBehaviour
     {
         [SerializeField] private string pathToMasterMixer = "Sound/MasterMixer"; // relative to Resource folder
-        private AudioMixer MasterAudioMixer;
+        private AudioMixer _masterAudioMixer;
 
         /// <summary>
         ///     Whether this object is initialized (i.e. fields are non null).
         /// </summary>
         /// <returns>Whether the fields are non-null.</returns>
-        public bool IsInitialized => MasterAudioMixer != null;
+        public bool IsInitialized => _masterAudioMixer != null;
 
         /// <summary>
         ///     Checks if there's an existing singleton, and if not, initializes fields.
         /// </summary>
         private void Awake()
         {
-            if (Instance != null && privateStaticInstance != this)
+            if (Instance != null && _instance != this)
                 Debug.LogWarning("Multiple DialogueManagers In Scene! Keeping old singleton. " + Instance + ", " +
                                  this);
             if (Instance == null)
             {
                 InitializeFields();
-                privateStaticInstance = this;
+                _instance = this;
             }
         }
 
@@ -41,7 +41,7 @@ namespace Sound
         /// </summary>
         public void InitializeFields()
         {
-            MasterAudioMixer = Resources.Load(pathToMasterMixer) as AudioMixer;
+            _masterAudioMixer = Resources.Load(pathToMasterMixer) as AudioMixer;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -85,7 +85,7 @@ namespace Sound
         /// <returns>Corresponding audio mixer group to the SoundOutputType.</returns>
         private AudioMixerGroup GetAudioMixerGroup(SoundOutputType type)
         {
-            return MasterAudioMixer.FindMatchingGroups(type.GetAudioMixerString())[0];
+            return _masterAudioMixer.FindMatchingGroups(type.GetAudioMixerString())[0];
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Sound
 
         #region Singleton Design Pattern
 
-        private static SoundManager privateStaticInstance;
+        private static SoundManager _instance;
 
         /// <summary>
         ///     Gets a singleton instance of SoundManager.
@@ -122,22 +122,22 @@ namespace Sound
         {
             get
             {
-                if (privateStaticInstance == null)
+                if (_instance == null)
                 {
-                    privateStaticInstance = FindObjectOfType<SoundManager>(); // if null, find Sound manager
-                    if (privateStaticInstance == null) // if still null - one does not exist in scene
+                    _instance = FindObjectOfType<SoundManager>(); // if null, find Sound manager
+                    if (_instance == null) // if still null - one does not exist in scene
                     {
                         GameObject container = new GameObject("SoundManager"); // create gameobject
-                        privateStaticInstance = container.AddComponent<SoundManager>(); // add Soundmanager
-                        privateStaticInstance.InitializeFields();
+                        _instance = container.AddComponent<SoundManager>(); // add Soundmanager
+                        _instance.InitializeFields();
                     }
-                    else if (!privateStaticInstance.IsInitialized)
+                    else if (!_instance.IsInitialized)
                     {
-                        privateStaticInstance.InitializeFields();
+                        _instance.InitializeFields();
                     }
                 }
 
-                return privateStaticInstance; // return singleton
+                return _instance; // return singleton
             }
         }
 

@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Util;
 
 namespace Editor
 {
+    /// <summary>
+    /// Custom property drawer for <see cref="CameraState"/>
+    /// </summary>
     [CustomPropertyDrawer(typeof(CameraState))]
     public class CameraStatePropertyDrawer : PropertyDrawer
     {
+        /// <summary>
+        /// Gets the number of drawn properties for this camera state
+        /// </summary>
+        /// <param name="property">Serialized camera state property</param>
+        /// <returns>NUmber of properties</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If serialiezd property has invalid enum type</exception>
         private int GetNumberOfDrawnProperties(SerializedProperty property)
         {
             int retVal = 5; // label/modeX/ modeY/ offset/ idealWidth
@@ -52,6 +59,8 @@ namespace Editor
             return retVal;
         }
 
+        /// <inheritdoc cref="PropertyDrawer.OnGUI"/>
+        /// <exception cref="ArgumentOutOfRangeException">If serialized CameraState has invalid enum values</exception>
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
@@ -127,28 +136,49 @@ namespace Editor
             EditorGUI.EndProperty();
         }
 
+        /// <inheritdoc cref="PropertyDrawer.GetPropertyHeight"/>
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             return base.GetPropertyHeight(property, label)*(GetNumberOfDrawnProperties(property)+1);
         }
     }
 
+    /// <summary>
+    /// Extension methods to serialized properties
+    /// </summary>
     public static class PropertyExtensions
     {
-        private static Dictionary<string, CameraMovementMode> nameToMode = new Dictionary<string, CameraMovementMode>();
+        /// <summary>
+        /// Dictionary of names to camera modes
+        /// </summary>
+        private static readonly Dictionary<string, CameraMovementMode> NameToMode = new Dictionary<string, CameraMovementMode>();
 
+        /// <summary>
+        /// Static constructor that initializes the <see cref="NameToMode"/> dictionary
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Should not be thrown, unless somehow Enum.GetValues returns bad enum values</exception>
         static PropertyExtensions()
         {
             Array values = Enum.GetValues(typeof(CameraMovementMode));
             foreach (var value in values)
             {
-                nameToMode[Enum.GetName(typeof(CameraMovementMode), value) ?? throw new InvalidOperationException()] = (CameraMovementMode) value;
+                NameToMode[Enum.GetName(typeof(CameraMovementMode), value) ?? throw new InvalidOperationException()] = (CameraMovementMode) value;
             }
         }
+        /// <summary>
+        /// Returns stored <see cref="CameraMovementMode"/> value in a serialized property given the property name
+        /// </summary>
+        /// <param name="property">SerializedProperty that has a field </param>
+        /// <param name="name">Field name</param>
+        /// <returns>Stored CameraMovementMode</returns>
+        /// <exception cref="ArgumentException">If property/field does not have a valid CameraMovementMode</exception>
         public static CameraMovementMode GetCameraMovementMode(this SerializedProperty property, string name)
         {
             SerializedProperty propertyRelative = property.FindPropertyRelative(name);
-            return nameToMode[propertyRelative.enumNames[propertyRelative.enumValueIndex]];
+            if (NameToMode.TryGetValue(propertyRelative.enumNames[propertyRelative.enumValueIndex],
+                out CameraMovementMode result))
+                return result;
+            throw new ArgumentException("Field " + name + " has invalid CameraMovementMode");
         }
     }
 }

@@ -9,7 +9,8 @@ namespace Editor
 //[CustomEditor(typeof(-class_name-))/*, CanEditMultipleObjects*/] 
     public class EditorTemplate : UnityEditor.Editor
     {
-        private static readonly string[] dontInclude = new string[] {"m_Script"};
+        // ReSharper disable once UnusedMember.Local
+        private static readonly string[] DontInclude = new string[] {"m_Script"};
 
         /// <summary>
         /// Runs upon it being shown in editor

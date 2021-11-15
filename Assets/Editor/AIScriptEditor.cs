@@ -10,7 +10,7 @@ namespace Editor
     [CustomEditor(typeof(AIScript),true), CanEditMultipleObjects]
     public class AIScriptEditor : UnityEditor.Editor
     {
-        private static readonly string[] dontInclude = new string[] {"m_Script"};
+        private static readonly string[] DontInclude = new string[] {"m_Script"};
 
         /// <summary>
         /// Runs upon it being shown in editor
@@ -19,7 +19,7 @@ namespace Editor
         {
             EditorGUI.BeginChangeCheck();
             // If not editing multiple object, one can just do script = (class_name) target;
-            if (targets.Length > 1) DrawPropertiesExcluding(serializedObject, dontInclude);
+            if (targets.Length > 1) DrawPropertiesExcluding(serializedObject, DontInclude);
             else
             {
                 AIScript script = (AIScript) target;

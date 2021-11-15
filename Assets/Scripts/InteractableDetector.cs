@@ -3,11 +3,17 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
+    /// <summary>
+    /// Script to detect the presence of interactable objects
+    /// </summary>
     [RequireComponent(typeof(Collider2D))]
     public class InteractableDetector : Interactable
     {
         private Collider2D _collider;
-        private readonly List<Interactable> list = new List<Interactable>();
+        /// <summary>
+        /// List of interactable items within range
+        /// </summary>
+        private readonly List<Interactable> _list = new List<Interactable>();
 
         private void Awake()
         {
@@ -17,31 +23,43 @@ namespace DefaultNamespace
         private void OnTriggerEnter2D(Collider2D other)
         {
             Interactable interactable = other.GetComponent<Interactable>();
-            if (interactable != null) list.Add(interactable);
+            if (interactable != null) _list.Add(interactable);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             Interactable interactable = other.GetComponent<Interactable>();
-            if (interactable != null) list.Remove(interactable);
+            if (interactable != null) _list.Remove(interactable);
         }
-
+        
+        /// <inheritdoc cref="Interactable.Interact"/>
         public override void Interact(object src, params object[] args)
         {
             base.Interact(src, args);
-            list.Sort(new InteractableComparator(transform.position));
-            if (list.Count > 0) list[0].Interact(src, args);
+            _list.Sort(new InteractableComparator(transform.position));
+            if (_list.Count > 0) _list[0].Interact(src, args);
         }
 
+        /// <summary>
+        /// Custom comparator to compare interactable objects by distance from a point
+        /// </summary>
         private class InteractableComparator : IComparer<Interactable>
         {
+            /// <summary>
+            /// Distance to compare to
+            /// </summary>
             private readonly Vector3 _position;
 
+            /// <summary>
+            /// Constructor with given point to find distance to
+            /// </summary>
+            /// <param name="referencePos">Point to find distance to</param>
             public InteractableComparator(Vector3 referencePos)
             {
                 _position = referencePos;
             }
 
+            /// <inheritdoc cref="IComparer{T}.Compare"/>
             public int Compare(Interactable x, Interactable y)
             {
                 if (ReferenceEquals(x, y)) return 0;

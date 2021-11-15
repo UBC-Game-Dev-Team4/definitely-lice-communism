@@ -52,6 +52,10 @@ namespace DefaultNamespace
             StartCoroutine(nameof(DoorInteractCoroutine), player);
         }
 
+        /// <summary>
+        /// Coroutine that runs when a player interacts with the door
+        /// </summary>
+        /// <param name="player">Player that interacted with this door script</param>
         public IEnumerator DoorInteractCoroutine(PlayerScript player)
         {
             player.StopMoving();

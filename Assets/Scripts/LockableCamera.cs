@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Player;
+﻿using Player;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -74,12 +73,19 @@ namespace Util
             _instance = null;
         }
 
+        /// <summary>
+        /// Sets the camera state to be this new state
+        /// </summary>
+        /// <param name="state">New camera state</param>
         public void SetState(ref CameraState state)
         {
             _cameraState = state.Copy();
             ApplyState(state);
         }
 
+        /// <summary>
+        /// Sets the camera state to be a new state where the camera is frozen at its current location
+        /// </summary>
         public void FreezeStateInCurrentPosition()
         {
             Vector3 position = transform.position;

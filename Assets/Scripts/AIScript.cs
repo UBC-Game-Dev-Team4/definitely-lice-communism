@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
+    /// <summary>
+    /// Mode of NPC AI movement
+    /// </summary>
     public enum AIMode
     {
         /// <summary>
@@ -54,9 +56,9 @@ namespace DefaultNamespace
         [Tooltip("Deceleration while not moving")]
         public float deceleration = 7.5f;
         [Tooltip("Whether the cat should move left or right")]
-        public bool directionIsLeft = false;
-        protected bool shouldBeMoving = false;
-        protected float currentSpeed = 0;
+        public bool directionIsLeft;
+        protected bool shouldBeMoving;
+        protected float currentSpeed;
         protected Rigidbody2D body;
 
         /// <summary>
@@ -132,13 +134,13 @@ namespace DefaultNamespace
         /// <summary>
         /// Properly sets the mode and restarts coroutines
         /// </summary>
-        /// <param name="mode">New AIMode to set to</param>
+        /// <param name="newMode">New AIMode to set to</param>
         /// <exception cref="ArgumentOutOfRangeException">If invalid enum parameter is used</exception>
-        public virtual void SetMode(AIMode mode)
+        public virtual void SetMode(AIMode newMode)
         {
-            this.mode = mode;
+            mode = newMode;
             StopAllCoroutines();
-            switch (mode)
+            switch (newMode)
             {
                 case AIMode.Wander:
                     StartCoroutine(nameof(WanderCoroutine));
