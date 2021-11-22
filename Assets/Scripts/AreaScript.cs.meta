@@ -3,7 +3,13 @@ guid: cbcdc85e449d51b4ca76339883671560
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - backgroundMusic: {instanceID: 0}
+  - musicTargetAudioMixer: {fileID: 7475149374305949419, guid: d6165673366359c49bb51f70071d1087,
+      type: 2}
+  - musicFadeAudioMixer: {fileID: 3200976170318806786, guid: d6165673366359c49bb51f70071d1087,
+      type: 2}
+  - audioMixer: {fileID: 24100000, guid: d6165673366359c49bb51f70071d1087, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
