@@ -43,6 +43,36 @@ namespace Player
         private InteractableDetector _detector;
 
         private Animator _animator;
+        
+        
+        private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
+        private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
+        
+        #region singleton
+
+        /// <summary>
+        ///     Private single instance of <see cref="PlayerScript" />
+        /// </summary>
+        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
+        private static PlayerScript _player;
+
+        /// <summary>
+        ///     Accessor to singleton instance of <see cref="PlayerScript" />
+        /// </summary>
+        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
+        public static PlayerScript Instance
+        {
+            get
+            {
+                if (_player == null)
+                    _player = FindObjectOfType<PlayerScript>();
+                if (_player == null) Debug.LogWarning("Warning: player singleton is still null.");
+
+                return _player;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         ///     Locates required objects and sets singleton instance
@@ -68,8 +98,7 @@ namespace Player
                 if (_body.velocity.x * horizontalAxis < 0)
                     multiplier = turnAroundMultiplier; // turn around faster
 
-                _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * horizontalAxis * multiplier, 0),
-                    ForceMode2D.Impulse);
+                _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * horizontalAxis * multiplier, 0), ForceMode2D.Impulse);
                 if (debug)
                 {
                     Vector3 position = transform.position;
@@ -107,34 +136,5 @@ namespace Player
             _body.velocity = Vector2.zero;
             _animator.SetFloat(VelocityXParameter,0);
         }
-        
-        private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
-        private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
-        
-        #region singleton
-
-        /// <summary>
-        ///     Private single instance of <see cref="PlayerScript" />
-        /// </summary>
-        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
-        private static PlayerScript _player;
-
-        /// <summary>
-        ///     Accessor to singleton instance of <see cref="PlayerScript" />
-        /// </summary>
-        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
-        public static PlayerScript Instance
-        {
-            get
-            {
-                if (_player == null)
-                    _player = FindObjectOfType<PlayerScript>();
-                if (_player == null) Debug.LogWarning("Warning: player singleton is still null.");
-
-                return _player;
-            }
-        }
-
-        #endregion
     }
 }

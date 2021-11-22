@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.Audio;
 using static Sound.SoundOutputType;
@@ -7,11 +8,12 @@ namespace Sound
 {
     /// <summary>
     ///     Represents a sound manager that routes sounds to the correct audio mixer device.
-    ///     TODO: use to extend Singleton<SoundManager></SoundManager>
     /// </summary>
     [DisallowMultipleComponent]
     public class SoundManager : MonoBehaviour
     {
+        private const float SilentVolume = 0.0001f;
+        private const string MusicFadeVolumeParameter = "MusicFadeVolume";
         [SerializeField] private string pathToMasterMixer = "Sound/MasterMixer"; // relative to Resource folder
         private AudioMixer _masterAudioMixer;
 
@@ -20,6 +22,36 @@ namespace Sound
         /// </summary>
         /// <returns>Whether the fields are non-null.</returns>
         public bool IsInitialized => _masterAudioMixer != null;
+        
+        #region Singleton Design Pattern
+
+        private static SoundManager _instance;
+
+        /// <summary>
+        ///     Gets a singleton instance of SoundManager.
+        /// </summary>
+        public static SoundManager Instance
+        {
+            get
+            {
+                if (_instance != null) return _instance; // return singleton
+                _instance = FindObjectOfType<SoundManager>(); // if null, find Sound manager
+                if (_instance == null) // if still null - one does not exist in scene
+                {
+                    GameObject container = new GameObject("SoundManager"); // create game object
+                    _instance = container.AddComponent<SoundManager>(); // add SoundManager
+                    _instance.InitializeFields();
+                }
+                else if (!_instance.IsInitialized)
+                {
+                    _instance.InitializeFields();
+                }
+
+                return _instance; // return singleton
+            }
+        }
+
+        #endregion
 
         /// <summary>
         ///     Checks if there's an existing singleton, and if not, initializes fields.
@@ -29,11 +61,9 @@ namespace Sound
             if (Instance != null && _instance != this)
                 Debug.LogWarning("Multiple DialogueManagers In Scene! Keeping old singleton. " + Instance + ", " +
                                  this);
-            if (Instance == null)
-            {
-                InitializeFields();
-                _instance = this;
-            }
+            if (Instance != null) return;
+            InitializeFields();
+            _instance = this;
         }
 
         /// <summary>
@@ -43,6 +73,33 @@ namespace Sound
         {
             _masterAudioMixer = Resources.Load(pathToMasterMixer) as AudioMixer;
             DontDestroyOnLoad(gameObject);
+        }
+        
+        /// <summary>
+        /// Coroutine to fade out the music fade audio mixer group over a set duration.
+        /// </summary>
+        /// <param name="source">Audio source playing (to fade)</param>
+        /// <param name="audioMixer">Audio mixer containing MusicFadeVolume parameter</param>
+        /// <param name="duration">Duration of fade</param>
+        /// <param name="resetVolume">After stopping the clip, whether the fade should reset so another fade can happen</param>
+        /// <returns>Coroutine</returns>
+        public static IEnumerator StartMusicFadeOut(AudioSource source, AudioMixer audioMixer, float duration = 1, bool resetVolume = true)
+        {
+            float currentTime = 0;
+            audioMixer.GetFloat(MusicFadeVolumeParameter, out float currentVol);
+            currentVol = Mathf.Pow(10, currentVol / 20);
+
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                float newVol = Mathf.Lerp(currentVol, SilentVolume, currentTime / duration);
+                audioMixer.SetFloat(MusicFadeVolumeParameter, Mathf.Log10(newVol) * 20);
+                yield return null;
+            }
+            
+            source.Stop();
+            if (resetVolume)
+                audioMixer.SetFloat("MusicFadeVolume", 1);
         }
 
         /// <summary>
@@ -83,65 +140,10 @@ namespace Sound
         /// </summary>
         /// <param name="type">SoundOutputType to find the AudioMixerGroup of.</param>
         /// <returns>Corresponding audio mixer group to the SoundOutputType.</returns>
-        private AudioMixerGroup GetAudioMixerGroup(SoundOutputType type)
+        public AudioMixerGroup GetAudioMixerGroup(SoundOutputType type)
         {
             return _masterAudioMixer.FindMatchingGroups(type.GetAudioMixerString())[0];
         }
-
-        /// <summary>
-        ///     Plays a sound to a given sound output mixer.
-        ///     Note that you can instead, in inspector, change the sound output audio mixer of the audio source, as this does the
-        ///     same thing.
-        /// </summary>
-        /// <param name="source">AudioSource in question.</param>
-        /// <param name="type">SoundOutputType of source (e.g. master).</param>
-        public void PlaySound(AudioSource source, SoundOutputType type)
-        {
-            source.outputAudioMixerGroup = GetAudioMixerGroup(type);
-            source.Play();
-        }
-
-        /// <summary>
-        ///     Stops a sound currently playing.
-        ///     I don't know why you would call this.
-        /// </summary>
-        /// <param name="source">AudioSource in question.</param>
-        public void StopSound(AudioSource source)
-        {
-            source.Stop();
-        }
-
-        #region Singleton Design Pattern
-
-        private static SoundManager _instance;
-
-        /// <summary>
-        ///     Gets a singleton instance of SoundManager.
-        /// </summary>
-        public static SoundManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<SoundManager>(); // if null, find Sound manager
-                    if (_instance == null) // if still null - one does not exist in scene
-                    {
-                        GameObject container = new GameObject("SoundManager"); // create gameobject
-                        _instance = container.AddComponent<SoundManager>(); // add Soundmanager
-                        _instance.InitializeFields();
-                    }
-                    else if (!_instance.IsInitialized)
-                    {
-                        _instance.InitializeFields();
-                    }
-                }
-
-                return _instance; // return singleton
-            }
-        }
-
-        #endregion
     }
 
     /// <summary>

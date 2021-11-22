@@ -24,6 +24,9 @@ namespace DefaultNamespace
         public float delayJustAfterEnter = 0.4f;
         [Tooltip("Delay after door close animation starts before camera is set correctly")]
         public float delayAfterDoorClose = 0.4f;
+
+        [Tooltip("Area of Door")]
+        public AreaScript currentArea;
         
         private Animator _animator;
         private static readonly int OpenTrigger = Animator.StringToHash("OpenTrigger");
@@ -62,6 +65,11 @@ namespace DefaultNamespace
             player.movementEnabled = false;
             player.interactionEnabled = false;
             _animator.SetTrigger(OpenTrigger);
+            if (currentArea != null && areaToTeleportTo != null)
+            {
+                if (areaToTeleportTo.HasBackgroundMusic())
+                    currentArea.FadeBackgroundMusic(delayBeforeEnter);
+            }
             yield return new WaitForSeconds(delayBeforeEnter);
             LockableCamera.Instance.FreezeStateInCurrentPosition();
             player.transform.position = positionOnInteract;
@@ -71,6 +79,7 @@ namespace DefaultNamespace
             if (areaToTeleportTo != null)
             {
                 LockableCamera.Instance.SetState(ref areaToTeleportTo.cameraStateOnEnter);
+                areaToTeleportTo.PlayBackgroundMusic();
             }
 
             player.movementEnabled = true;
