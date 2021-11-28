@@ -223,11 +223,11 @@ MonoBehaviour:
   movementSpeed: 5
   jumpSpeed: 5
   turnAroundMultiplier: 2
-  groundCheckOffset: {x: -0.15, y: -1.1}
+  groundCheckOffset: {x: -0.15, y: -0.9}
   groundCheckSize: {x: 0.45, y: 0.1}
   groundCheckLayerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 1079
   movementEnabled: 1
   interactionEnabled: 1
 --- !u!95 &1639940097668940824
