@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.Audio;
+using Util;
 using static Sound.SoundOutputType;
 
 namespace Sound
@@ -83,7 +84,7 @@ namespace Sound
         /// <param name="duration">Duration of fade</param>
         /// <param name="resetVolume">After stopping the clip, whether the fade should reset so another fade can happen</param>
         /// <returns>Coroutine</returns>
-        public static IEnumerator StartMusicFadeOut(AudioSource source, AudioMixer audioMixer, float duration = 1, bool resetVolume = true)
+        public static IEnumerator StartMusicFadeOut(AudioSource source, AudioMixer audioMixer, float duration = 1, bool resetVolume = true, bool shouldClearAreaScriptBGM = false)
         {
             float currentTime = 0;
             audioMixer.GetFloat(MusicFadeVolumeParameter, out float currentVol);
@@ -98,6 +99,8 @@ namespace Sound
             }
             
             source.Stop();
+            if (shouldClearAreaScriptBGM)
+                AreaScript.CurrentlyActiveBackgroundMusic = null;
             if (resetVolume)
                 audioMixer.SetFloat("MusicFadeVolume", 1);
         }

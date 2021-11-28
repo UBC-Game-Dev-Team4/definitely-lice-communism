@@ -8,7 +8,6 @@ namespace DefaultNamespace
     /// <summary>
     ///     Script attached to an interactable door
     /// </summary>
-    [RequireComponent(typeof(Animator))]
     public class DoorScript : Interactable
     {
         [Tooltip("Position to teleport player on interaction")]
@@ -35,6 +34,7 @@ namespace DefaultNamespace
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            if (_animator == null) Debug.Log("Animator is null!!!!");
         }
 
         /// <summary>
@@ -64,22 +64,31 @@ namespace DefaultNamespace
             player.StopMoving();
             player.movementEnabled = false;
             player.interactionEnabled = false;
-            _animator.SetTrigger(OpenTrigger);
+            bool skipPlay = false;
+            if (_animator != null)
+                _animator.SetTrigger(OpenTrigger);
             if (currentArea != null && areaToTeleportTo != null)
             {
-                if (areaToTeleportTo.HasBackgroundMusic())
+                if (areaToTeleportTo.HasBackgroundMusic() && AreaScript.CurrentlyActiveBackgroundMusic != areaToTeleportTo.backgroundMusic &&
+                    (AreaScript.CurrentlyActiveBackgroundMusic == null || areaToTeleportTo.backgroundMusic == null || AreaScript.CurrentlyActiveBackgroundMusic.clip != areaToTeleportTo.backgroundMusic.clip))
                     currentArea.FadeBackgroundMusic(delayBeforeEnter);
+                if (AreaScript.CurrentlyActiveBackgroundMusic == areaToTeleportTo.backgroundMusic)
+                    skipPlay = true;
+                else if (AreaScript.CurrentlyActiveBackgroundMusic != null && areaToTeleportTo.backgroundMusic != null)
+                    skipPlay = AreaScript.CurrentlyActiveBackgroundMusic.clip == areaToTeleportTo.backgroundMusic.clip;
             }
             yield return new WaitForSeconds(delayBeforeEnter);
             LockableCamera.Instance.FreezeStateInCurrentPosition();
             player.transform.position = positionOnInteract;
             yield return new WaitForSeconds(delayJustAfterEnter);
-            _animator.SetTrigger(CloseTrigger);
+            if (_animator != null)
+                _animator.SetTrigger(CloseTrigger);
             yield return new WaitForSeconds(delayAfterDoorClose);
             if (areaToTeleportTo != null)
             {
                 LockableCamera.Instance.SetState(ref areaToTeleportTo.cameraStateOnEnter);
-                areaToTeleportTo.PlayBackgroundMusic();
+                if (!skipPlay)
+                    areaToTeleportTo.PlayBackgroundMusic();
             }
 
             player.movementEnabled = true;

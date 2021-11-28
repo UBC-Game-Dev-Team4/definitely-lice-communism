@@ -9,6 +9,9 @@ namespace Util
     /// <summary>
     /// Script attached to a given room/area
     /// </summary>
+    /// <remarks>
+    /// Any BGM MUST NOT BE MARKED AS PLAY ON AWAKE.
+    /// </remarks>
     public class AreaScript : MonoBehaviour
     {
         [Tooltip("Player's camera state on enter")]
@@ -25,6 +28,14 @@ namespace Util
 
         [Tooltip("Background Music audio mixer")]
         public AudioMixer audioMixer;
+
+        [Tooltip("Whether music should be played on awake.")]
+        public bool playMusicOnAwake = false;
+
+        /// <summary>
+        /// Currently Playing Background Music
+        /// </summary>
+        public static AudioSource CurrentlyActiveBackgroundMusic;
         
         private DoorScript[] _doors;
         private AreaScript[] _adjacentAreas;
@@ -33,6 +44,7 @@ namespace Util
         {
             _doors = transform.GetComponentsInChildren<DoorScript>();
             _adjacentAreas = _doors.Select(door => door.areaToTeleportTo).Where(door => door != null).ToArray();
+            if (playMusicOnAwake) PlayBackgroundMusic();
         }
 
         /// <summary>
@@ -41,9 +53,16 @@ namespace Util
         /// <param name="fadeoutDuration">Time it takes to fade out the music</param>
         public void FadeBackgroundMusic(float fadeoutDuration = 1)
         {
+            if (CurrentlyActiveBackgroundMusic != null && audioMixer != null)
+            {
+                CurrentlyActiveBackgroundMusic.outputAudioMixerGroup = musicFadeAudioMixer;
+                StartCoroutine(SoundManager.StartMusicFadeOut(CurrentlyActiveBackgroundMusic, audioMixer,
+                    fadeoutDuration, true, true));
+                return;
+            }
             if (backgroundMusic == null || audioMixer == null) return;
             backgroundMusic.outputAudioMixerGroup = musicFadeAudioMixer;
-            StartCoroutine(SoundManager.StartMusicFadeOut(backgroundMusic, audioMixer, fadeoutDuration, true));
+            StartCoroutine(SoundManager.StartMusicFadeOut(backgroundMusic, audioMixer, fadeoutDuration, true,true));
         }
 
         
@@ -61,6 +80,7 @@ namespace Util
             if (backgroundMusic == null) return;
             if (musicTargetAudioMixer != null)
                 backgroundMusic.outputAudioMixerGroup = musicTargetAudioMixer;
+            CurrentlyActiveBackgroundMusic = backgroundMusic;
             backgroundMusic.Play();
         }
 
