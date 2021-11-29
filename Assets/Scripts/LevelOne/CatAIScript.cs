@@ -1,4 +1,5 @@
 ﻿
+using LevelOne;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -9,6 +10,12 @@ namespace DefaultNamespace
     [RequireComponent(typeof(SpriteRenderer))]
     public class CatAIScript : AIScript
     {
+        
+        [Tooltip("Whether the cat should run away")]
+        public bool shouldRunAway = true;
+
+        [Tooltip("Offset when calculating looking at player direction")]
+        public float lookAtPlayerOffset = 0.25f;
         [Space]
         [Header("Sprites")]
         [Tooltip("Sprite of cat looking left")]
@@ -17,12 +24,15 @@ namespace DefaultNamespace
         public Sprite spriteLookRight;
         [Tooltip("Sprite of cat not moving")]
         public Sprite spriteStationary;
+
         private SpriteRenderer _renderer;
+        private CatInteractable _catInteractable;
         
         /// <inheritdoc cref="AIScript.Awake"/>
         protected override void Awake()
         {
             base.Awake();
+            _catInteractable = GetComponentInChildren<CatInteractable>();
             _renderer = GetComponent<SpriteRenderer>();
         }
 
@@ -30,6 +40,7 @@ namespace DefaultNamespace
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+            if (mode == AIMode.Stationary) return;
             switch (currentSpeed > 0)
             {
                 case true when directionIsLeft:
@@ -42,6 +53,21 @@ namespace DefaultNamespace
                     _renderer.sprite = spriteStationary;
                     break;
             }
+        }
+
+        public void FacePlayer(Transform player)
+        {
+            if (player.transform.position.x + lookAtPlayerOffset < transform.position.x)
+                _renderer.sprite = spriteLookLeft;
+            else if (player.transform.position.x - lookAtPlayerOffset > transform.position.x)
+                _renderer.sprite = spriteLookRight;
+            else _renderer.sprite = spriteStationary;
+        }
+
+        public void SetRunAway(bool newValue, bool forceSet = false)
+        {
+            if (shouldRunAway == newValue && !forceSet) return;
+            _catInteractable.isInteractable = !newValue;
         }
     }
 }

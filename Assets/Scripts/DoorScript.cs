@@ -34,7 +34,6 @@ namespace DefaultNamespace
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            if (_animator == null) Debug.Log("Animator is null!!!!");
         }
 
         /// <summary>

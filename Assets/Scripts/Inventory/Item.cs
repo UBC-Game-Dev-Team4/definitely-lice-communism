@@ -15,6 +15,7 @@ namespace ItemInventory
         public override bool Equals(object other)
         {
             if (!(other is Item item)) return false;
+            if (item == null) return false;
             return name.Equals(item.name) && icon.Equals(item.icon) && isDefaultItem == item.isDefaultItem;
         }
 
