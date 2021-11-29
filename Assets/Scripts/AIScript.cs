@@ -67,7 +67,7 @@ namespace DefaultNamespace
         protected virtual void Awake()
         {
             body = GetComponent<Rigidbody2D>();
-            SetMode(mode);
+            SetMode(mode, true);
         }
 
         /// <summary>
@@ -80,6 +80,7 @@ namespace DefaultNamespace
         {
             while (mode == AIMode.WanderLocked)
             {
+                shouldBeMoving = false;
                 float delay = Random.Range(minDelayBeforeWander, maxDelayBeforeWander);
                 yield return new WaitForSeconds(delay);
                 float duration = Random.Range(minWanderDuration, maxWanderDuration);
@@ -88,7 +89,6 @@ namespace DefaultNamespace
                 else if (transform.position.x >= wanderLockXRight) directionIsLeft = true;
                 else directionIsLeft = Random.Range(0, 2) == 1;
                 yield return new WaitForSeconds(duration);
-                shouldBeMoving = false;
             }
         }
 
@@ -114,10 +114,14 @@ namespace DefaultNamespace
         /// </summary>
         protected virtual void FixedUpdate()
         {
-            if (transform.position.x <= wanderLockXLeft && directionIsLeft)
-                shouldBeMoving = false;
-            else if (transform.position.x >= wanderLockXRight && !directionIsLeft)
-                shouldBeMoving = false;
+            if (mode == AIMode.WanderLocked)
+            {
+                if (transform.position.x <= wanderLockXLeft && directionIsLeft)
+                    shouldBeMoving = false;
+                else if (transform.position.x >= wanderLockXRight && !directionIsLeft)
+                    shouldBeMoving = false;
+            }
+
             if (shouldBeMoving)
             {
                 if (currentSpeed < maxSpeed)
@@ -128,7 +132,8 @@ namespace DefaultNamespace
             {
                 currentSpeed = Mathf.Max(0, currentSpeed - deceleration * Time.fixedDeltaTime);
             }
-            body.MovePosition(body.position + new Vector2((directionIsLeft ? -1 : 1) * currentSpeed * Time.fixedDeltaTime,0));
+            if (currentSpeed != 0)
+                body.MovePosition(body.position + new Vector2((directionIsLeft ? -1 : 1) * currentSpeed * Time.fixedDeltaTime,0));
         }
         
         /// <summary>
@@ -136,8 +141,10 @@ namespace DefaultNamespace
         /// </summary>
         /// <param name="newMode">New AIMode to set to</param>
         /// <exception cref="ArgumentOutOfRangeException">If invalid enum parameter is used</exception>
-        public virtual void SetMode(AIMode newMode)
+        public virtual void SetMode(AIMode newMode, bool forceSet = false)
         {
+            if (newMode == mode && !forceSet) return;
+            Debug.Log("New Mode: " + newMode);
             mode = newMode;
             StopAllCoroutines();
             switch (newMode)
@@ -152,6 +159,7 @@ namespace DefaultNamespace
                     shouldBeMoving = true;
                     break;
                 case AIMode.Stationary:
+                    shouldBeMoving = false;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

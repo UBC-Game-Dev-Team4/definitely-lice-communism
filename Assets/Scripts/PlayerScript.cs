@@ -43,7 +43,7 @@ namespace Player
         private InteractableDetector _detector;
 
         private Animator _animator;
-        
+        private bool _isFacingLeft = false;
         
         private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
         private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
@@ -117,7 +117,16 @@ namespace Player
 
             if (Math.Abs(_body.velocity.y) < 0.001f)
                 _animator.SetFloat(WalkSpeedParameter,1);
-            _animator.SetFloat(VelocityXParameter,_body.velocity.x);
+            
+            
+            if (_body.velocity.x < -0.01) _isFacingLeft = true;
+            else if (_body.velocity.x > 0.01) _isFacingLeft = false;
+            else
+            {
+                _animator.SetFloat(VelocityXParameter, _isFacingLeft ? -0.0001f : 0.0001f);
+            }
+            if (_body.velocity.x < -0.01 || _body.velocity.x > 0.01)
+                _animator.SetFloat(VelocityXParameter,_body.velocity.x);
         }
 
         /// <summary>
