@@ -7,7 +7,7 @@ namespace LevelOne
     /// <summary>
     ///     A dumpster that is interactable. Gives player an item upon interaction.
     /// </summary>
-    public class DumpsterInteractable
+    public class DumpsterInteractable : Interactable
     {
         public bool isInteractable;
         public Item item;
