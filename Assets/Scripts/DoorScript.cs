@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ItemInventory;
 using Player;
 using UnityEngine;
 using Util;
@@ -26,7 +27,13 @@ namespace DefaultNamespace
 
         [Tooltip("Area of Door")]
         public AreaScript currentArea;
-        
+
+        [Tooltip("Whether the door is locked or not")]
+        public bool locked = false;
+
+        [Tooltip("Item to open the door")]
+        public Item itemToOpen = null;
+
         private Animator _animator;
         private static readonly int OpenTrigger = Animator.StringToHash("OpenTrigger");
         private static readonly int CloseTrigger = Animator.StringToHash("CloseTrigger");
@@ -52,7 +59,17 @@ namespace DefaultNamespace
         {
             base.Interact(src, args);
             if (!(src is PlayerScript player)) return;
-            StartCoroutine(nameof(DoorInteractCoroutine), player);
+            
+            if (!locked)
+                StartCoroutine(nameof(DoorInteractCoroutine), player);
+            else
+            {
+                if (Inventory.Instance.HasActiveItem(itemToOpen))
+                {
+                    locked = false;
+                    Debug.Log("Door unlocked!!!!!!!");
+                }
+            }
         }
 
         /// <summary>
