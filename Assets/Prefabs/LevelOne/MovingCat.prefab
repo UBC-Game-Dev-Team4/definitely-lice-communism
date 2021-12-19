@@ -309,6 +309,7 @@ MonoBehaviour:
   acceleration: 10
   deceleration: 25
   directionIsLeft: 0
+  catFoodItem: {fileID: 11400000, guid: 0aeeaf61f8cc31b49b4fc629f3745d6b, type: 2}
   shouldRunAway: 1
   lookAtPlayerOffset: 0.25
   spriteLookLeft: {fileID: 21300000, guid: af128cd02a1a6d948b7816bd97b6c156, type: 3}

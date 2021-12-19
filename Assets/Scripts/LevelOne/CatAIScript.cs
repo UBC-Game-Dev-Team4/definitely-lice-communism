@@ -1,8 +1,8 @@
-﻿
-using LevelOne;
+﻿using DefaultNamespace;
+using ItemInventory;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace LevelOne
 {
     /// <summary>
     /// AI script for a cat :3
@@ -10,6 +10,8 @@ namespace DefaultNamespace
     [RequireComponent(typeof(SpriteRenderer))]
     public class CatAIScript : AIScript
     {
+        [Tooltip("Item to make cat not run away")]
+        public Item catFoodItem;
         
         [Tooltip("Whether the cat should run away")]
         public bool shouldRunAway = true;
@@ -40,6 +42,8 @@ namespace DefaultNamespace
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+            shouldRunAway = !Inventory.Instance.HasActiveItem(catFoodItem);
+            _catInteractable.isInteractable = !shouldRunAway;
             if (mode == AIMode.Stationary) return;
             switch (currentSpeed > 0)
             {

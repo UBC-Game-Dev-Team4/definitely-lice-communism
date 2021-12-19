@@ -1,8 +1,7 @@
-﻿using System;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
 
-namespace Util
+namespace LevelOne
 {
     /// <summary>
     /// Script to detect player and make the cat move away

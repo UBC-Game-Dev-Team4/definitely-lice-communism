@@ -29,10 +29,10 @@ namespace DefaultNamespace
         public AreaScript currentArea;
 
         [Tooltip("Whether the door is locked or not")]
-        public bool locked = false;
+        public bool locked;
 
         [Tooltip("Item to open the door")]
-        public Item itemToOpen = null;
+        public Item itemToOpen;
 
         private Animator _animator;
         private static readonly int OpenTrigger = Animator.StringToHash("OpenTrigger");
@@ -41,7 +41,7 @@ namespace DefaultNamespace
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            if (_animator == null) Debug.Log("Animator is null!!!!");
+            if (_animator == null) Debug.Log("[DoorScript::Awake] Animator is null - door animation not being played");
         }
 
         /// <summary>
@@ -86,13 +86,13 @@ namespace DefaultNamespace
                 _animator.SetTrigger(OpenTrigger);
             if (currentArea != null && areaToTeleportTo != null)
             {
-                if (areaToTeleportTo.HasBackgroundMusic() && AreaScript.CurrentlyActiveBackgroundMusic != areaToTeleportTo.backgroundMusic &&
-                    (AreaScript.CurrentlyActiveBackgroundMusic == null || areaToTeleportTo.backgroundMusic == null || AreaScript.CurrentlyActiveBackgroundMusic.clip != areaToTeleportTo.backgroundMusic.clip))
+                if (areaToTeleportTo.HasBackgroundMusic() && AreaScript.currentlyActiveBackgroundMusic != areaToTeleportTo.backgroundMusic &&
+                    (AreaScript.currentlyActiveBackgroundMusic == null || areaToTeleportTo.backgroundMusic == null || AreaScript.currentlyActiveBackgroundMusic.clip != areaToTeleportTo.backgroundMusic.clip))
                     currentArea.FadeBackgroundMusic(delayBeforeEnter);
-                if (AreaScript.CurrentlyActiveBackgroundMusic == areaToTeleportTo.backgroundMusic)
+                if (AreaScript.currentlyActiveBackgroundMusic == areaToTeleportTo.backgroundMusic)
                     skipPlay = true;
-                else if (AreaScript.CurrentlyActiveBackgroundMusic != null && areaToTeleportTo.backgroundMusic != null)
-                    skipPlay = AreaScript.CurrentlyActiveBackgroundMusic.clip == areaToTeleportTo.backgroundMusic.clip;
+                else if (AreaScript.currentlyActiveBackgroundMusic != null && areaToTeleportTo.backgroundMusic != null)
+                    skipPlay = AreaScript.currentlyActiveBackgroundMusic.clip == areaToTeleportTo.backgroundMusic.clip;
             }
             yield return new WaitForSeconds(delayBeforeEnter);
             LockableCamera.Instance.FreezeStateInCurrentPosition();

@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 2, y: 3}
   m_EdgeRadius: 0
 --- !u!114 &6275091454658264040
 MonoBehaviour:
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 6275091454840931719}
   - component: {fileID: 1639940097668940824}
   m_Layer: 8
-  m_Name: MainCharacterPrefab
+  m_Name: PlayerDetectivePrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   groundCheckSize: {x: 0.45, y: 0.1}
   groundCheckLayerMask:
     serializedVersion: 2
-    m_Bits: 1079
+    m_Bits: 9271
   movementEnabled: 1
   interactionEnabled: 1
 --- !u!95 &1639940097668940824
