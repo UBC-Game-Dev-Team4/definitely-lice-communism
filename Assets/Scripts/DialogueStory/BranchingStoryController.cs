@@ -17,6 +17,8 @@ namespace DialogueStory
     {
         private BranchingStory _inkStory;
 
+        public const int DialogueKnotChoice = 0;
+
         /// <summary>
         /// Current location of the story.
         /// </summary>
@@ -65,7 +67,7 @@ namespace DialogueStory
         {
             if (State != StoryStates.Idle) return;
             // Move to the interrogation knot, but don't continue
-            _inkStory.MakeChoice(1);
+            _inkStory.MakeChoice(DialogueKnotChoice);
 
             EnterStoryMode();
             State = StoryStates.InDialogue;
