@@ -16,6 +16,9 @@ namespace Util
         [Tooltip("Key to press to jump")] public KeyCode jumpKey = KeyCode.Space;
 
         [Tooltip("Key to open inventory")] public KeyCode inventoryKey = KeyCode.I;
+        
+        [Tooltip("Inventory to progress dialogue")]
+        public KeyCode nextDialogueKey = KeyCode.F;
 
         [Tooltip("Key to interact with objects")]
         public KeyCode interactKey = KeyCode.E;
