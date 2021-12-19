@@ -21,6 +21,7 @@ namespace Editor
         private int GetNumberOfDrawnProperties(SerializedProperty property)
         {
             int retVal = 5; // label/modeX/ modeY/ offset/ idealWidth
+            if (!EditorGUIUtility.wideMode) retVal++; // vector3 can be rendered on next line
             switch (property.GetCameraMovementMode(nameof(CameraState.movementModeX)))
             {
                 case CameraMovementMode.Fixed:
@@ -130,6 +131,7 @@ namespace Editor
             var cameraOffsetRect = new Rect(position.x, position.y + yOffset * height, position.width, height);
             EditorGUI.PropertyField(cameraOffsetRect, property.FindPropertyRelative(nameof(CameraState.cameraOffset)));
             yOffset++;
+            if (!EditorGUIUtility.wideMode) yOffset++;
             var idealWidthRect = new Rect(position.x, position.y + yOffset * height, position.width, height);
             EditorGUI.PropertyField(idealWidthRect, property.FindPropertyRelative(nameof(CameraState.cameraIdealWidth)));
             EditorGUI.indentLevel--;

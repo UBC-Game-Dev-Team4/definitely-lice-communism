@@ -135,11 +135,12 @@ namespace DefaultNamespace
             if (currentSpeed != 0)
                 body.MovePosition(body.position + new Vector2((directionIsLeft ? -1 : 1) * currentSpeed * Time.fixedDeltaTime,0));
         }
-        
+
         /// <summary>
         /// Properly sets the mode and restarts coroutines
         /// </summary>
         /// <param name="newMode">New AIMode to set to</param>
+        /// <param name="forceSet">If true, sets the mode and starts coroutines anyways if newMode is the same</param>
         /// <exception cref="ArgumentOutOfRangeException">If invalid enum parameter is used</exception>
         public virtual void SetMode(AIMode newMode, bool forceSet = false)
         {

@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Title
+namespace MainMenu
 {
     /// <summary>
     ///     Script attached to the title canvas - used to load a scene
     /// </summary>
     [DisallowMultipleComponent]
-    public class TitleCanvasScript : MonoBehaviour
+    public class MainMenuCanvasScript : MonoBehaviour
     {
         /// <summary>
         ///     Loads a scene by given name, if it exists

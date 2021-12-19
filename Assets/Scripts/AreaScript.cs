@@ -30,12 +30,12 @@ namespace Util
         public AudioMixer audioMixer;
 
         [Tooltip("Whether music should be played on awake.")]
-        public bool playMusicOnAwake = false;
+        public bool playMusicOnAwake;
 
         /// <summary>
         /// Currently Playing Background Music
         /// </summary>
-        public static AudioSource CurrentlyActiveBackgroundMusic;
+        public static AudioSource currentlyActiveBackgroundMusic;
         
         private DoorScript[] _doors;
         private AreaScript[] _adjacentAreas;
@@ -53,10 +53,10 @@ namespace Util
         /// <param name="fadeoutDuration">Time it takes to fade out the music</param>
         public void FadeBackgroundMusic(float fadeoutDuration = 1)
         {
-            if (CurrentlyActiveBackgroundMusic != null && audioMixer != null)
+            if (currentlyActiveBackgroundMusic != null && audioMixer != null)
             {
-                CurrentlyActiveBackgroundMusic.outputAudioMixerGroup = musicFadeAudioMixer;
-                StartCoroutine(SoundManager.StartMusicFadeOut(CurrentlyActiveBackgroundMusic, audioMixer,
+                currentlyActiveBackgroundMusic.outputAudioMixerGroup = musicFadeAudioMixer;
+                StartCoroutine(SoundManager.StartMusicFadeOut(currentlyActiveBackgroundMusic, audioMixer,
                     fadeoutDuration, true, true));
                 return;
             }
@@ -80,7 +80,7 @@ namespace Util
             if (backgroundMusic == null) return;
             if (musicTargetAudioMixer != null)
                 backgroundMusic.outputAudioMixerGroup = musicTargetAudioMixer;
-            CurrentlyActiveBackgroundMusic = backgroundMusic;
+            currentlyActiveBackgroundMusic = backgroundMusic;
             backgroundMusic.Play();
         }
 

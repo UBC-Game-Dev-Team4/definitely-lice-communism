@@ -43,7 +43,7 @@ namespace Player
         private InteractableDetector _detector;
 
         private Animator _animator;
-        private bool _isFacingLeft = false;
+        private bool _isFacingLeft;
         
         private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
         private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");

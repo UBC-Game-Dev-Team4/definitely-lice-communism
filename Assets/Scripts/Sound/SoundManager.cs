@@ -100,7 +100,7 @@ namespace Sound
             
             source.Stop();
             if (shouldClearAreaScriptBGM)
-                AreaScript.CurrentlyActiveBackgroundMusic = null;
+                AreaScript.currentlyActiveBackgroundMusic = null;
             if (resetVolume)
                 audioMixer.SetFloat("MusicFadeVolume", 1);
         }

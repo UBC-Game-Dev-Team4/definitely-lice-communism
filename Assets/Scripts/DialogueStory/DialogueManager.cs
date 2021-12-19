@@ -32,7 +32,7 @@ namespace DialogueStory
             Transform userInput = go.transform.Find("UserInput");
             buttons = new Button[4];
             for (int i = 0; i < 4; i++) {
-                buttons[i] = userInput.Find("Choice" + (i + 1)).GetComponent<Button>();
+                buttons[i] = userInput.Find("Choice" + (i + 1))?.GetComponent<Button>();
                 Debug.Log("Tried to locate button in dialogue canvas: " + buttons[i]);
             }
         }
@@ -61,6 +61,8 @@ namespace DialogueStory
 
             foreach (Button b in buttons)
             {
+                if (b == null) continue;
+                Debug.Log("Attaching...");
                 b.onClick.AddListener(() =>
                 {
                     Debug.Log("Clicked a choice button");
@@ -78,7 +80,7 @@ namespace DialogueStory
         /// <para>If it encounters an end tag or input tag, however, the coroutine will stop and control will be given to the
         /// respective behaviours (closing the dialogue/showing the input UI).</para>
         /// </summary>
-        private IEnumerator AdvanceDialogueAndShow()
+        public IEnumerator AdvanceDialogueAndShow()
         {
             HideChoices();
 
@@ -142,7 +144,10 @@ namespace DialogueStory
         /// </summary>
         private void HideChoices()
         {
-            foreach (Button t in buttons) t.gameObject.SetActive(false);
+            foreach (Button t in buttons)
+            {
+                if (t != null) t.gameObject.SetActive(false);
+            }
         }
 
         /// <summary>
@@ -156,10 +161,12 @@ namespace DialogueStory
 
             for (int i = 0; i < buttons.Length; i++)
             {
+                if (buttons[i] == null) continue;
                 if (i < choices.Count)
                 {
                     Debug.Log("Choice " + (i + 1) + ":" + choices[i].text);
                     buttons[i].GetComponentInChildren<Text>().text = choices[i].text;
+                    Debug.Log(buttons[i].onClick.GetPersistentEventCount());
                     buttons[i].gameObject.SetActive(true);
                 }
                 else
