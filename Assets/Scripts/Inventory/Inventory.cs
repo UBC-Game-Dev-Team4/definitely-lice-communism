@@ -10,6 +10,31 @@ namespace ItemInventory
     [DisallowMultipleComponent]
     public class Inventory : MonoBehaviour
     {
+        
+        #region Singleton Design Pattern
+
+        /// <summary>
+        ///     Singleton instance.
+        /// </summary>
+        private static Inventory _privateStaticInstance;
+
+        /// <summary>
+        ///     Getter for the singleton.
+        /// </summary>
+        public static Inventory Instance
+        {
+            get
+            {
+                if (_privateStaticInstance == null) _privateStaticInstance = FindObjectOfType<Inventory>();
+                if (_privateStaticInstance != null) return _privateStaticInstance;
+                GameObject go = new GameObject("Inventory Manager");
+                _privateStaticInstance = go.AddComponent<Inventory>();
+                return _privateStaticInstance;
+            }
+        }
+
+        #endregion
+        
         [Tooltip("Runs on item added/removed.")]
         public UnityEvent onItemChanged = new UnityEvent();
 
@@ -58,28 +83,18 @@ namespace ItemInventory
             onItemChanged.Invoke();
         }
 
-        #region Singleton Design Pattern
-
         /// <summary>
-        ///     Singleton instance.
+        /// Determines whether the item is currently being active/held in the inventory
         /// </summary>
-        private static Inventory _privateStaticInstance;
-
-        /// <summary>
-        ///     Getter for the singleton.
-        /// </summary>
-        public static Inventory Instance
+        /// <param name="item">Item in question</param>
+        /// <returns>Whether the item is active or not</returns>
+        /// <remarks>
+        /// Until @youssef032 finishes their implementation, this will default to whether the inventory has the item at all.
+        /// </remarks>
+        public bool HasActiveItem(Item item)
         {
-            get
-            {
-                if (_privateStaticInstance == null) _privateStaticInstance = FindObjectOfType<Inventory>();
-                if (_privateStaticInstance != null) return _privateStaticInstance;
-                GameObject go = new GameObject("Inventory Manager");
-                _privateStaticInstance = go.AddComponent<Inventory>();
-                return _privateStaticInstance;
-            }
+            // @youssef032 TODO IMPLEMENTATION
+            return items.Contains(item);
         }
-
-        #endregion
     }
 }

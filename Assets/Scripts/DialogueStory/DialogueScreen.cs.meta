@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9d7ec98cec8afde4ea4730a6cb851cea
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BackupPrefab: {fileID: 3259358494788075931, guid: 9a2e0fb38a2120a4a938b4f73ee53a2c,
+      type: 3}
+  - dialogueText: {instanceID: 0}
+  - characterSprite: {instanceID: 0}
+  - dialogueCanvas: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

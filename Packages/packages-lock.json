@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.inklestudios.ink-unity-integration": {
+      "version": "0.9.71",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.2d.animation": {
       "version": "3.2.11",
       "depth": 0,
