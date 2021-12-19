@@ -3,5 +3,5 @@
     /// <summary>
     /// Possible story states??? It's been a year OK???
     /// </summary>
-    public enum StoryStates { Idle, Interrogation }
+    public enum StoryStates { Idle, InDialogue }
 }

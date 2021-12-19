@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DialogueStory.Actions;
 using Ink.Runtime;
 using UnityEngine;
@@ -41,7 +40,7 @@ namespace DialogueStory
         /// <summary>
         /// Event invoked immediately after the interrogation ends. Should not be modified by non story-related scripts.
         /// </summary>
-        public UnityEvent InterrogationCloseEvent { get; private set; }
+        public UnityEvent DialogueCloseEvent { get; private set; }
 
         protected override void Awake()
         {
@@ -49,8 +48,8 @@ namespace DialogueStory
 
             State = StoryStates.Idle;
 
-            if (InterrogationCloseEvent == null) InterrogationCloseEvent = new UnityEvent();
-            InterrogationCloseEvent.AddListener(TryLeaveInterrogation);
+            if (DialogueCloseEvent == null) DialogueCloseEvent = new UnityEvent();
+            DialogueCloseEvent.AddListener(TryLeaveInterrogation);
             
         }
 
@@ -63,16 +62,16 @@ namespace DialogueStory
         /// <summary>
         /// Opens the interrogation if the game story is currently idle, otherwise does nothing. Enters UI mode.
         /// </summary>
-        public void TryInterrogate()
+        public void TryOpenDialogue()
         {
             if (State != StoryStates.Idle) return;
             // Move to the interrogation knot, but don't continue
             _inkStory.MakeChoice(1);
 
             EnterStoryMode();
-            State = StoryStates.Interrogation;
+            State = StoryStates.InDialogue;
 
-            InterrogationManager.Instance.Open();
+            DialogueManager.Instance.Open();
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace DialogueStory
         /// </summary>
         private void TryLeaveInterrogation()
         {
-            if (State != StoryStates.Interrogation) return;
+            if (State != StoryStates.InDialogue) return;
             ExitStoryMode();
             _inkStory.ContinueUntilChoice();
         }
@@ -150,15 +149,6 @@ namespace DialogueStory
             };
 
             DialogueActionManager.Instance.RunDialogueAction(id, dialogueActionData);
-        }
-
-        /// <summary>
-        /// Checks whether the current line is meant to take input from the user.
-        /// </summary>
-        /// <returns>True if the current line is user input, false otherwise.</returns>
-        public bool CheckForInput()
-        {
-            return CurrentTags.ContainsKey("input");
         }
 
         /// <summary>
