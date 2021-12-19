@@ -50,7 +50,6 @@ namespace DialogueStory
 
             if (DialogueCloseEvent == null) DialogueCloseEvent = new UnityEvent();
             DialogueCloseEvent.AddListener(TryLeaveInterrogation);
-            
         }
 
         private void Start()

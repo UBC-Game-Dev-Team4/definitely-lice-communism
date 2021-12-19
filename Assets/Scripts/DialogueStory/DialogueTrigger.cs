@@ -12,8 +12,6 @@ namespace DialogueStory
         public override void Interact(object src, params object[] args)
         {
             base.Interact(src, args);
-            // No dialogue comment should be associated with this trigger
-
             BranchingStoryController.Instance.TryOpenDialogue();
         }
     }

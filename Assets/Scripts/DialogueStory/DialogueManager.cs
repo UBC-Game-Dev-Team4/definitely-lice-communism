@@ -158,11 +158,9 @@ namespace DialogueStory
             {
                 if (i < choices.Count)
                 {
-                    buttons[i].gameObject.SetActive(true);
-
                     Debug.Log("Choice " + (i + 1) + ":" + choices[i].text);
-
                     buttons[i].GetComponentInChildren<Text>().text = choices[i].text;
+                    buttons[i].gameObject.SetActive(true);
                 }
                 else
                 {

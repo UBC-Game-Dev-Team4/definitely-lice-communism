@@ -6,7 +6,7 @@ namespace DialogueStory
     [DisallowMultipleComponent]
     public class DialogueScreen : Singleton<DialogueScreen>
     {
-        public GameObject BackupPrefab;
+        public GameObject backupPrefab;
         public Text dialogueText;
         public Image characterSprite;
         public Canvas dialogueCanvas;
@@ -51,7 +51,7 @@ namespace DialogueStory
             if (dialogueCanvas == null)
             {
                 Debug.Log("DialogueScreen.dialogueCanvas is null...attempting to find objects");
-                if (BackupPrefab == null)
+                if (backupPrefab == null)
                 {
                     go = LocateDialogueCanvas();
                     Debug.Log("BackupPrefab = null");
@@ -59,7 +59,7 @@ namespace DialogueStory
                 else
                 {
                     Debug.Log("BackupPrefab not null, instantiating backup prefab...");
-                    go = Instantiate(BackupPrefab);
+                    go = Instantiate(backupPrefab);
                 }
                 dialogueCanvas = go.GetComponent<Canvas>();
             }
