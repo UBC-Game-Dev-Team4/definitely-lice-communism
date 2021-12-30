@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DialogueStory.Actions;
 using Ink.Runtime;
 using UnityEngine;
@@ -17,7 +18,8 @@ namespace DialogueStory
     {
         private BranchingStory _inkStory;
 
-        public const int DialogueKnotChoice = 0;
+        [Tooltip("Text to determine starting interrogation choice")]
+        public string interrogationKnotTextCheck = "Interrogation";
 
         /// <summary>
         /// Current location of the story.
@@ -67,7 +69,9 @@ namespace DialogueStory
         {
             if (State != StoryStates.Idle) return;
             // Move to the interrogation knot, but don't continue
-            _inkStory.MakeChoice(DialogueKnotChoice);
+            int index = _inkStory.CurrentChoices.IndexOf(
+                _inkStory.CurrentChoices.FirstOrDefault(choice => choice.text.Contains(interrogationKnotTextCheck)));
+            if (index != -1) _inkStory.MakeChoice(index);
 
             EnterStoryMode();
             State = StoryStates.InDialogue;
