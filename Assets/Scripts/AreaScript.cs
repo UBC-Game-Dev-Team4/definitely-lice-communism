@@ -3,6 +3,7 @@ using DefaultNamespace;
 using Sound;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 namespace Util
 {
@@ -32,6 +33,23 @@ namespace Util
         [Tooltip("Whether music should be played on awake.")]
         public bool playMusicOnAwake;
 
+        /// <summary>
+        /// Unity Event called when a player passes through a door leaving the area
+        /// </summary>
+        /// <remarks>
+        /// Currently gets called on camera movement phase on door
+        /// </remarks>
+        [Tooltip("Unity Event called when player passes through a door leaving the area")]
+        public UnityEvent onRoomExit = new UnityEvent();
+        /// <summary>
+        /// Unity Event called when a player passes through a door entering the area
+        /// </summary>
+        /// <remarks>
+        /// Currently gets called on camera movement phase on door after onRoomExit
+        /// </remarks>
+        [Tooltip("Unity Event called when player passes through a door entering the area")]
+        public UnityEvent onRoomEnter = new UnityEvent();
+        
         /// <summary>
         /// Currently Playing Background Music
         /// </summary>
