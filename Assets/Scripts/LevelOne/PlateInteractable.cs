@@ -4,11 +4,12 @@ using ItemInventory;
 namespace LevelOne
 {
     /// <summary>
-    ///     Plate is an interactable item that can be collected into inventory and break.
+    ///     Plate is a collectable item that can break.
     /// </summary>
     public class PlateInteractable : CollectableItem
     {
         public bool isInteractable;
+        public Item item;
         private bool _pickedUp;
         private bool _broken;
 
@@ -29,6 +30,7 @@ namespace LevelOne
             _broken = true;
             _pickedUp = false;
             isInteractable = false;
+            Inventory.Instance.Remove(item);
         }
     }
 }
