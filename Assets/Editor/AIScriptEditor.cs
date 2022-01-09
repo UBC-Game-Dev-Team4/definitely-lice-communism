@@ -7,7 +7,7 @@ namespace Editor
     /// <summary>
     /// Custom inspector for <see cref="AIScript"/>
     /// </summary> 
-    [CustomEditor(typeof(AIScript),true), CanEditMultipleObjects]
+    [CustomEditor(typeof(AIScript)), CanEditMultipleObjects]
     public class AIScriptEditor : UnityEditor.Editor
     {
         private static readonly string[] DontInclude = new string[] {"m_Script"};
@@ -30,21 +30,32 @@ namespace Editor
                             nameof(script.deceleration), nameof(script.maxSpeed), nameof(script.directionIsLeft),
                             nameof(script.maxWanderDuration), nameof(script.minWanderDuration),
                             nameof(script.maxDelayBeforeWander), nameof(script.minDelayBeforeWander),
-                            nameof(script.wanderLockXLeft), nameof(script.wanderLockXRight));
+                            nameof(script.wanderLockXLeft), nameof(script.wanderLockXRight),
+                            nameof(script.targetX), nameof(script.targetXTolerance));
                         break;
                     case AIMode.Wander:
                         DrawPropertiesExcluding(serializedObject, "m_Script",
-                            nameof(script.wanderLockXLeft), nameof(script.wanderLockXRight), nameof(script.directionIsLeft));
+                            nameof(script.wanderLockXLeft), nameof(script.wanderLockXRight), nameof(script.directionIsLeft),
+                            nameof(script.targetX), nameof(script.targetXTolerance));
                         break;
                     case AIMode.WanderLocked:
-                        DrawPropertiesExcluding(serializedObject, "m_Script", nameof(script.directionIsLeft));
+                        DrawPropertiesExcluding(serializedObject, "m_Script", nameof(script.directionIsLeft),
+                            nameof(script.targetX), nameof(script.targetXTolerance));
                         break;
                     case AIMode.SpecificDirection:
                         DrawPropertiesExcluding(serializedObject, "m_Script",
                             nameof(script.maxWanderDuration), nameof(script.minWanderDuration),
                             nameof(script.maxDelayBeforeWander), nameof(script.minDelayBeforeWander),
-                            nameof(script.wanderLockXLeft), nameof(script.wanderLockXRight));
+                            nameof(script.wanderLockXLeft), nameof(script.wanderLockXRight),
+                            nameof(script.targetX), nameof(script.targetXTolerance));
                         break;
+                    case AIMode.SpecificX:
+                        DrawPropertiesExcluding(serializedObject, "m_Script",
+                            nameof(script.maxWanderDuration), nameof(script.minWanderDuration),
+                            nameof(script.maxDelayBeforeWander), nameof(script.minDelayBeforeWander),
+                            nameof(script.wanderLockXLeft), nameof(script.wanderLockXRight), nameof(script.directionIsLeft));
+                        break;
+                        
                 }
                 if (GUILayout.Button("Properly Set Listed AImode"))
                 {

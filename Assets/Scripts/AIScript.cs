@@ -25,7 +25,11 @@ namespace DefaultNamespace
         /// <summary>
         /// Going in a specific direction
         /// </summary>
-        SpecificDirection
+        SpecificDirection,
+        /// <summary>
+        /// Going to specific X
+        /// </summary>
+        SpecificX
     }
     
     /// <summary>
@@ -49,6 +53,10 @@ namespace DefaultNamespace
         public float wanderLockXLeft = -1;
         [Tooltip("Wander X right bound")]
         public float wanderLockXRight = -1;
+        [Tooltip("Target X position")]
+        public float targetX = -1;
+        [Tooltip("Target X Tolerance")]
+        public float targetXTolerance = 0.5f;
         [Tooltip("Max speed")]
         public float maxSpeed = 5;
         [Tooltip("Acceleration while moving")]
@@ -68,6 +76,35 @@ namespace DefaultNamespace
         {
             body = GetComponent<Rigidbody2D>();
             SetMode(mode, true);
+        }
+
+        protected virtual IEnumerator ToSpecificXCoroutine()
+        {
+            float currentX = transform.position.x;
+            float currentGoal = targetX;
+            shouldBeMoving = true;
+            directionIsLeft = currentGoal < currentX;
+            while (mode == AIMode.SpecificX)
+            {
+                bool shouldRecalculateDir = currentGoal == targetX;
+                if (shouldRecalculateDir)
+                {
+                    currentGoal = targetX;
+                    directionIsLeft = currentGoal < currentX;
+                }
+
+                currentX = transform.position.x;
+                if (Math.Abs(currentGoal - currentX) <= targetXTolerance) break;
+                // goal is on right; direction is left
+                if (currentGoal - currentX >= 0 && directionIsLeft) break;
+                // goal is on left; direction is right
+                if (currentGoal - currentX <= 0 && !directionIsLeft) break;
+                yield return new WaitForFixedUpdate();
+            }
+            
+            if (mode == AIMode.SpecificX) OnReachSpecificXDestination();
+
+            shouldBeMoving = false;
         }
 
         /// <summary>
@@ -130,7 +167,8 @@ namespace DefaultNamespace
                 }
             } else if (currentSpeed > 0)
             {
-                currentSpeed = Mathf.Max(0, currentSpeed - deceleration * Time.fixedDeltaTime);
+                if (deceleration * Time.fixedDeltaTime >= currentSpeed) currentSpeed = 0;
+                else currentSpeed -= deceleration * Time.fixedDeltaTime;
             }
             if (currentSpeed != 0)
                 body.MovePosition(body.position + new Vector2((directionIsLeft ? -1 : 1) * currentSpeed * Time.fixedDeltaTime,0));
@@ -147,7 +185,9 @@ namespace DefaultNamespace
             if (newMode == mode && !forceSet) return;
             Debug.Log("New Mode: " + newMode);
             mode = newMode;
-            StopAllCoroutines();
+            StopCoroutine(nameof(WanderCoroutine));
+            StopCoroutine(nameof(WanderLockedCoroutine));
+            StopCoroutine(nameof(ToSpecificXCoroutine));
             switch (newMode)
             {
                 case AIMode.Wander:
@@ -162,9 +202,42 @@ namespace DefaultNamespace
                 case AIMode.Stationary:
                     shouldBeMoving = false;
                     break;
+                case AIMode.SpecificX:
+                    StartCoroutine(nameof(ToSpecificXCoroutine));
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        protected virtual void OnReachSpecificXDestination()
+        {
+        }
+
+        public virtual void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.cyan;
+            switch (mode)
+            {
+                case AIMode.SpecificX:
+                {
+                    Vector3 position = transform.position;
+                    Gizmos.DrawWireSphere(new Vector3(targetX,position.y,position.z), targetXTolerance);
+                    break;
+                }
+                case AIMode.SpecificDirection:
+                    Gizmos.DrawRay(transform.position, new Vector3(directionIsLeft ? -1 : 1, 0, 0));
+                    break;
+                case AIMode.WanderLocked:
+                {
+                    var position = transform.position;
+                    Vector3 center = new Vector3((wanderLockXRight + wanderLockXLeft)/2, position.y, position.z);
+                    Vector3 size = new Vector3((wanderLockXRight - wanderLockXLeft) / 2f, 2, 2);
+                    Gizmos.DrawWireCube(center,size);
+                    break;
+                }
+            }
+            Gizmos.color = Color.white;
         }
     }
 }
