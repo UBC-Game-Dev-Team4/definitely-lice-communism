@@ -1,13 +1,14 @@
 ﻿using DefaultNamespace;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Editor
 {
     /// <summary>
     /// Custom inspector for <see cref="AIScript"/>
     /// </summary> 
-    [CustomEditor(typeof(AIScript)), CanEditMultipleObjects]
+    [CustomEditor(typeof(AIScript),true), CanEditMultipleObjects]
     public class AIScriptEditor : UnityEditor.Editor
     {
         private static readonly string[] DontInclude = new string[] {"m_Script"};
@@ -63,6 +64,7 @@ namespace Editor
                 }
             }
             if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
+            if (GUILayout.Button("test")) SceneManager.LoadScene("Scene1Det");
         }
     }
 }

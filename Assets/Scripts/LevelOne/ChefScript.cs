@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -9,6 +7,8 @@ namespace LevelOne
     [RequireComponent(typeof(Animator),typeof(SpriteRenderer))]
     public class ChefScript : AIScript
     {
+        public GameObject deadChefPrefab;
+        public Vector3 deadSpawnOffset;
         public DoorScript kitchenDoorTarget;
         public float doorTargetOffset;
         public DoorScript backroomDoorTarget;
@@ -38,6 +38,16 @@ namespace LevelOne
             {
                 _renderer.flipX = targetX > transform.position.x;
             }
+        }
+
+        public void Kill()
+        {
+            Transform thisTransform = transform;
+            Vector3 newSpawn = thisTransform.localPosition + deadSpawnOffset;
+            GameObject go = Instantiate(deadChefPrefab, thisTransform.parent);
+            go.transform.localPosition = newSpawn;
+            Destroy(gameObject);
+            LevelOneInfoStorer.CastedSingleton.CastedInfo.deadBodyLocation = go.transform.position;
         }
 
         public void MoveFromKitchen()

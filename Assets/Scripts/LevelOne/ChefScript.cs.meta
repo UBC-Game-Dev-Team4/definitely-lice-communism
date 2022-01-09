@@ -3,7 +3,11 @@ guid: fc33806940c70a74d89061092cf6acb4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - deadChefPrefab: {fileID: 5424465537080719457, guid: 60ffec06d352b3b469c48ffdab5707a3,
+      type: 3}
+  - kitchenDoorTarget: {instanceID: 0}
+  - backroomDoorTarget: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
