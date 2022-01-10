@@ -11,6 +11,11 @@ namespace LevelOne
     {
         [Tooltip("Dead chef game object to move")]
         public GameObject deadChefGameObject;
+
+        [Tooltip("Cats in Kitchen")]
+        public GameObject kitchenCattos;
+        [Tooltip("Cats in Backroom")]
+        public GameObject backroomCattos;
         private LevelOnePreviousStageInformation _info;
         /// <inheritdoc/>
         public override void ApplyInformation(PreviousStageInformation information)
@@ -20,6 +25,8 @@ namespace LevelOne
 
             _info = levelOneInfo;
             if (deadChefGameObject != null) deadChefGameObject.transform.position = _info.deadBodyLocation;
+            if (_info.deadBodyLocation.y > 5) kitchenCattos.SetActive(true);
+            else backroomCattos.SetActive(true);
         }
     }
 }
