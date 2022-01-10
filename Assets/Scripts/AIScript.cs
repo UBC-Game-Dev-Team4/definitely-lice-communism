@@ -65,6 +65,16 @@ namespace DefaultNamespace
         public float deceleration = 7.5f;
         [Tooltip("Whether the cat should move left or right")]
         public bool directionIsLeft;
+
+        /// <summary>
+        /// Definition of delegate for TargetXReached
+        /// </summary>
+        public delegate void TargetXReachedHandler(float target);
+
+        /// <summary>
+        /// Event called on Target X reached
+        /// </summary>
+        public event TargetXReachedHandler TargetXReached;
         protected bool shouldBeMoving;
         protected float currentSpeed;
         protected Rigidbody2D body;
@@ -77,7 +87,13 @@ namespace DefaultNamespace
             body = GetComponent<Rigidbody2D>();
             SetMode(mode, true);
         }
-
+        
+        /// <summary>
+        /// Coroutine for moving to a specific x location
+        /// </summary>
+        /// <remarks>
+        /// NPC can significantly overshoot if deceleration is too low
+        /// </remarks>
         protected virtual IEnumerator ToSpecificXCoroutine()
         {
             float currentX = transform.position.x;
@@ -101,8 +117,9 @@ namespace DefaultNamespace
                 if (currentGoal - currentX <= 0 && !directionIsLeft) break;
                 yield return new WaitForFixedUpdate();
             }
-            
-            if (mode == AIMode.SpecificX) OnReachSpecificXDestination();
+
+            if (mode == AIMode.SpecificX && TargetXReached != null)
+                TargetXReached(targetX);
 
             shouldBeMoving = false;
         }
@@ -208,10 +225,6 @@ namespace DefaultNamespace
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        protected virtual void OnReachSpecificXDestination()
-        {
         }
 
         public virtual void OnDrawGizmosSelected()

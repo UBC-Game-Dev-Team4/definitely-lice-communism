@@ -1745,7 +1745,7 @@ MonoBehaviour:
   delayJustAfterEnter: 0.4
   delayAfterDoorClose: 0.4
   currentArea: {fileID: 517622552}
-  locked: 1
+  locked: 0
   itemToOpen: {fileID: 11400000, guid: f6031d74e0b58414f877e2764509fd2c, type: 2}
 --- !u!212 &577358416
 SpriteRenderer:

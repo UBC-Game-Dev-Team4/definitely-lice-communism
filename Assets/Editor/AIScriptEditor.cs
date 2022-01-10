@@ -64,7 +64,6 @@ namespace Editor
                 }
             }
             if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
-            if (GUILayout.Button("test")) SceneManager.LoadScene("Scene1Det");
         }
     }
 }
