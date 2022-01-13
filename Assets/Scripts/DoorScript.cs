@@ -106,6 +106,8 @@ namespace DefaultNamespace
                 LockableCamera.Instance.SetState(ref areaToTeleportTo.cameraStateOnEnter);
                 if (!skipPlay)
                     areaToTeleportTo.PlayBackgroundMusic();
+                currentArea.onRoomExit.Invoke();
+                areaToTeleportTo.onRoomEnter.Invoke();
             }
 
             player.movementEnabled = true;
