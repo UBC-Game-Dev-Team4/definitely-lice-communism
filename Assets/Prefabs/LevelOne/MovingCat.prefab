@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 40}
+  m_Size: {x: 4, y: 8}
   m_EdgeRadius: 0
 --- !u!114 &1956663592575280048
 MonoBehaviour:
@@ -127,7 +127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
 --- !u!114 &9015810096875488014
 MonoBehaviour:
@@ -157,9 +157,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2433537374106628824}
   - component: {fileID: 2433537374106628823}
-  - component: {fileID: 2433537374106628826}
+  - component: {fileID: 3886559909217566763}
   - component: {fileID: 2433537374106628825}
   - component: {fileID: 2433537374106628827}
+  - component: {fileID: 6563039094813586612}
   m_Layer: 11
   m_Name: MovingCat
   m_TagString: Untagged
@@ -176,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 2433537374106628822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6436551327668824582}
   - {fileID: 5004735721766893144}
@@ -222,7 +223,8 @@ SpriteRenderer:
   m_SortingLayerID: 1691462895
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: af128cd02a1a6d948b7816bd97b6c156, type: 3}
+  m_Sprite: {fileID: -7741787548211343256, guid: d07fae44e05f20d4cba46a5c9bd0ddc5,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -233,8 +235,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &2433537374106628826
-PolygonCollider2D:
+--- !u!61 &3886559909217566763
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -250,21 +252,15 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.93, y: 6.86}
+    oldSize: {x: 0.8333333, y: 0.6944444}
     newSize: {x: 18.81, y: 18.51}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.8698454, y: 2.1520667}
-      - {x: -1.9555187, y: 2.1455746}
-      - {x: -3.455, y: 3.4099998}
-      - {x: -3.455, y: -3.4299998}
-      - {x: 3.465, y: -3.4299998}
-      - {x: 3.465, y: 3.3799999}
-      - {x: 3.415, y: 3.4099998}
+  serializedVersion: 2
+  m_Size: {x: 0.8333333, y: 0.6944444}
+  m_EdgeRadius: 0
 --- !u!50 &2433537374106628825
 Rigidbody2D:
   serializedVersion: 4
@@ -305,6 +301,8 @@ MonoBehaviour:
   maxWanderDuration: 4
   wanderLockXLeft: 0
   wanderLockXRight: 6
+  targetX: -1
+  targetXTolerance: 0.5
   maxSpeed: 5
   acceleration: 10
   deceleration: 25
@@ -312,6 +310,24 @@ MonoBehaviour:
   catFoodItem: {fileID: 11400000, guid: 0aeeaf61f8cc31b49b4fc629f3745d6b, type: 2}
   shouldRunAway: 1
   lookAtPlayerOffset: 0.25
-  spriteLookLeft: {fileID: 21300000, guid: af128cd02a1a6d948b7816bd97b6c156, type: 3}
-  spriteLookRight: {fileID: 21300000, guid: eb93880835ccaf74f8df420e4170814d, type: 3}
-  spriteStationary: {fileID: 21300000, guid: e2ebd1f42d9a7764a8aa977cf666e9f1, type: 3}
+  velMovementThreshold: 0.01
+  velLookValue: 0.00001
+--- !u!95 &6563039094813586612
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2433537374106628822}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2509c3e9bd6f2b14f898240409473af7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

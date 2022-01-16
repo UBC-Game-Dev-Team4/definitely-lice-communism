@@ -7,7 +7,7 @@ namespace LevelOne
     /// <summary>
     /// AI script for a cat :3
     /// </summary>
-    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(SpriteRenderer),typeof(Animator))]
     public class CatAIScript : AIScript
     {
         [Tooltip("Item to make cat not run away")]
@@ -18,23 +18,25 @@ namespace LevelOne
 
         [Tooltip("Offset when calculating looking at player direction")]
         public float lookAtPlayerOffset = 0.25f;
-        [Space]
-        [Header("Sprites")]
-        [Tooltip("Sprite of cat looking left")]
-        public Sprite spriteLookLeft;
-        [Tooltip("Sprite of cat looking right")]
-        public Sprite spriteLookRight;
-        [Tooltip("Sprite of cat not moving")]
-        public Sprite spriteStationary;
 
+        [Tooltip("X velocity before movement animation plays")]
+        public float velMovementThreshold = 0.01f;
+        
+        [Tooltip("Animation velocity parameter when stationary")]
+        public float velLookValue = 0.00001f;
+
+        private Animator _animator;
         private SpriteRenderer _renderer;
         private CatInteractable _catInteractable;
-        
+        private bool _isFacingLeft;
+        private static readonly int VelX = Animator.StringToHash("VelX");
+
         /// <inheritdoc cref="AIScript.Awake"/>
         protected override void Awake()
         {
             base.Awake();
             _catInteractable = GetComponentInChildren<CatInteractable>();
+            _animator = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
         }
 
@@ -44,34 +46,28 @@ namespace LevelOne
             base.FixedUpdate();
             shouldRunAway = !Inventory.Instance.HasActiveItem(catFoodItem);
             _catInteractable.isInteractable = !shouldRunAway;
-            if (mode == AIMode.Stationary) return;
-            switch (currentSpeed > 0)
+            if (currentSpeed > velMovementThreshold)
             {
-                case true when directionIsLeft:
-                    _renderer.sprite = spriteLookLeft;
-                    break;
-                case true when !directionIsLeft:
-                    _renderer.sprite = spriteLookRight;
-                    break;
-                default:
-                    _renderer.sprite = spriteStationary;
-                    break;
+                _isFacingLeft = directionIsLeft;
+                _animator.SetFloat(VelX,body.velocity.x);
+            } else
+            {
+                if (_isFacingLeft)
+                    _animator.SetFloat(VelX, -velLookValue);
+                else
+                    _animator.SetFloat(VelX, velLookValue);
             }
+            
+            // TODO WHEN CAT PERSON DOES IDLE FACE RIGHT/WALK FACE RIGHT REMOVE THIS
+            _renderer.flipX = !_isFacingLeft;
         }
 
         public void FacePlayer(Transform player)
         {
             if (player.transform.position.x + lookAtPlayerOffset < transform.position.x)
-                _renderer.sprite = spriteLookLeft;
+                _isFacingLeft = true;
             else if (player.transform.position.x - lookAtPlayerOffset > transform.position.x)
-                _renderer.sprite = spriteLookRight;
-            else _renderer.sprite = spriteStationary;
-        }
-
-        public void SetRunAway(bool newValue, bool forceSet = false)
-        {
-            if (shouldRunAway == newValue && !forceSet) return;
-            _catInteractable.isInteractable = !newValue;
+                _isFacingLeft = false;
         }
     }
 }
