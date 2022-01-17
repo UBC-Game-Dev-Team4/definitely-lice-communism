@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace DialogueStory
@@ -99,7 +100,7 @@ namespace DialogueStory
         {
             dialogueText.text = DefaultEmptyText;       // dialogueText is null when re-entering scene in build version, single player 
             dialogueCanvas.gameObject.SetActive(true);
-
+            PlayerScript.Instance.interactionEnabled = false;
             Debug.Log("Opened dialogue screen...");
         }
 
