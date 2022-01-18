@@ -84,7 +84,7 @@ namespace Sound
         /// <param name="duration">Duration of fade</param>
         /// <param name="resetVolume">After stopping the clip, whether the fade should reset so another fade can happen</param>
         /// <returns>Coroutine</returns>
-        public static IEnumerator StartMusicFadeOut(AudioSource source, AudioMixer audioMixer, float duration = 1, bool resetVolume = true, bool shouldClearAreaScriptBGM = false)
+        public static IEnumerator StartMusicFadeOut(IntroAndLoopPlayer source, AudioMixer audioMixer, float duration = 1, bool resetVolume = true, bool shouldClearAreaScriptBGM = false)
         {
             float currentTime = 0;
             audioMixer.GetFloat(MusicFadeVolumeParameter, out float currentVol);

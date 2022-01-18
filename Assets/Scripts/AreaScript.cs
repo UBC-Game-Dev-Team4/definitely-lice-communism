@@ -19,7 +19,7 @@ namespace Util
         public CameraState cameraStateOnEnter = CameraState.CreateFreeXYCameraState(new Vector3(0, 0, -10));
 
         [Tooltip("Background music to play upon enter?")]
-        public AudioSource backgroundMusic;
+        public IntroAndLoopPlayer backgroundMusic;
 
         [Tooltip("Background Music Target Audio Mixer")]
         public AudioMixerGroup musicTargetAudioMixer;
@@ -53,7 +53,7 @@ namespace Util
         /// <summary>
         /// Currently Playing Background Music
         /// </summary>
-        public static AudioSource currentlyActiveBackgroundMusic;
+        public static IntroAndLoopPlayer currentlyActiveBackgroundMusic;
         
         private DoorScript[] _doors;
         private AreaScript[] _adjacentAreas;
@@ -73,13 +73,15 @@ namespace Util
         {
             if (currentlyActiveBackgroundMusic != null && audioMixer != null)
             {
-                currentlyActiveBackgroundMusic.outputAudioMixerGroup = musicFadeAudioMixer;
+                currentlyActiveBackgroundMusic.StopQueue();
+                currentlyActiveBackgroundMusic.MixerGroup = musicFadeAudioMixer;
                 StartCoroutine(SoundManager.StartMusicFadeOut(currentlyActiveBackgroundMusic, audioMixer,
                     fadeoutDuration, true, true));
                 return;
             }
             if (backgroundMusic == null || audioMixer == null) return;
-            backgroundMusic.outputAudioMixerGroup = musicFadeAudioMixer;
+            backgroundMusic.StopQueue();
+            backgroundMusic.MixerGroup = musicFadeAudioMixer;
             StartCoroutine(SoundManager.StartMusicFadeOut(backgroundMusic, audioMixer, fadeoutDuration, true,true));
         }
 
@@ -97,7 +99,7 @@ namespace Util
         {
             if (backgroundMusic == null) return;
             if (musicTargetAudioMixer != null)
-                backgroundMusic.outputAudioMixerGroup = musicTargetAudioMixer;
+                backgroundMusic.MixerGroup = musicTargetAudioMixer;
             currentlyActiveBackgroundMusic = backgroundMusic;
             backgroundMusic.Play();
         }
