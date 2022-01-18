@@ -87,12 +87,12 @@ namespace DefaultNamespace
             if (currentArea != null && areaToTeleportTo != null)
             {
                 if (areaToTeleportTo.HasBackgroundMusic() && AreaScript.currentlyActiveBackgroundMusic != areaToTeleportTo.backgroundMusic &&
-                    (AreaScript.currentlyActiveBackgroundMusic == null || areaToTeleportTo.backgroundMusic == null || AreaScript.currentlyActiveBackgroundMusic.clip != areaToTeleportTo.backgroundMusic.clip))
+                    (AreaScript.currentlyActiveBackgroundMusic == null || areaToTeleportTo.backgroundMusic == null || !AreaScript.currentlyActiveBackgroundMusic.SameSound(areaToTeleportTo.backgroundMusic)))
                     currentArea.FadeBackgroundMusic(delayBeforeEnter);
                 if (AreaScript.currentlyActiveBackgroundMusic == areaToTeleportTo.backgroundMusic)
                     skipPlay = true;
                 else if (AreaScript.currentlyActiveBackgroundMusic != null && areaToTeleportTo.backgroundMusic != null)
-                    skipPlay = AreaScript.currentlyActiveBackgroundMusic.clip == areaToTeleportTo.backgroundMusic.clip;
+                    skipPlay = AreaScript.currentlyActiveBackgroundMusic.SameSound(areaToTeleportTo.backgroundMusic);
             }
             yield return new WaitForSeconds(delayBeforeEnter);
             LockableCamera.Instance.FreezeStateInCurrentPosition();
