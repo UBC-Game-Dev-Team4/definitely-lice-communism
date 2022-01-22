@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   movementSpeed: 5
-  jumpSpeed: 5
+  jumpSpeed: 0
   turnAroundMultiplier: 2
   groundCheckOffset: {x: -0.15, y: -0.9}
   groundCheckSize: {x: 0.45, y: 0.1}
