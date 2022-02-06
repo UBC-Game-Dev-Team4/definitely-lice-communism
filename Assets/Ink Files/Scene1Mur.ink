@@ -1,25 +1,62 @@
-VAR level = 1
-
 VAR interrogation_1_checkpoint = -> interrogation_1
 
 -> idle
 
 === idle ===
-{ level:
-- 1: -> idle_1
-- else: -> idle_1
-}
-
-=== idle_1 ===
 + [Interrogation] -> interrogation_1_checkpoint
++ [OnArrive] -> event_on_arrive
++ [OnHoboDiscover] -> event_on_hobo_discover
++ [OnLockedDoorInteract] -> event_on_locked_door_interact
++ [OnLockedDoorInteractMany] -> event_on_locked_door_interact_many
++ [OnSeeCat] -> event_on_see_cat
++ [OnCatRun] -> event_on_cat_run
++ [OnLureCat] -> event_on_lure_cat
++ [OnKeyGet] -> event_on_key_get
++ [OnEnterBackroom] -> event_on_enter_backroom
++ [OnPlateDrop] -> event_on_plate_drop
 
 
-=== on_arrive ===
+=== event_on_arrive ===
 EVA: I can't believe Mario is planning to rat me out. I guess I have to have a "private session" with him before he does anything stupid.
 EVA: There's an alley that leads to the back of the bar. I must find a way to get inside.
-Use A/D to move; Left click to interact with items
+Use A/D to move; Left click to interact with items; Press E to pick up items
 -> end_interrogation
 
+=== event_on_hobo_discover ===
+EVA: A sleeping hobo, fitting for such a dinghy place
+-> end_interrogation
+
+=== event_on_locked_door_interact ===
+EVA: {~Tchh... the door is locked|I need a key to open it|It won't budge}
+-> end_interrogation
+
+=== event_on_locked_door_interact_many ===
+EVA: This is getting old.
+-> end_interrogation
+
+=== event_on_see_cat ===
+EVA: I heard its a bad omen to see a black cat.
+-> end_interrogation
+
+=== event_on_cat_run ===
+EVA: Wait, was that... something shiny on its neck?
+->end_interrogation
+
+=== event_on_lure_cat ===
+EVA: Come here kitty, don't be shy.
+->end_interrogation
+
+=== event_on_key_get ===
+EVA: Ohh, you are my lucky star.
+-> end_interrogation
+
+=== event_on_enter_backroom ===
+EVA: Urgh, when was the last time they cleaned this room?
+-> end_interrogation
+
+=== event_on_plate_drop ===
+EVA: Here goes nothing!
+-> end_interrogation
 
 === interrogation_1 ===
 It's a homeless man, who has clearly been weathered by the years. Speak with him?
@@ -35,7 +72,7 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
 +   [Hey, you there?]
     -- EVA: Hey, you there?
 - HOBO: zzz... zzz...
-+   [Gently tap shoulder.]
++   [*Gently tap shoulder.*]
     -- EVA: *gently taps his shoulder*
     -- HOBO: *rolls over*
     -- EVA: *tap tap tap*
@@ -70,9 +107,9 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
 +++         [As much as I'm sorry about whatever happened to you, I'm sure we can work something out.]
             ---- EVA: As much as I'm sorry about whatever happened to you, I'm sure we can work something out.
             ---- EVA: NEED TO CONTINUE HERE BUDDY OL' PAL
-            // =======================================================================
+            // =====================================================================
             // skill issue ratio l dance dogwater seethe get rekt noobs cope 
-            // =======================================================================
+            // =====================================================================
             ->end_interrogation
 ++      [To be honest with you, nothing.]
         --- EVA: To be honest with you, nothing.
@@ -113,9 +150,9 @@ HOBO: Why do you wanna get in there?
                     ------ HOBO: DON'T TALK ABOUT MY WIFE LIKE that
                     ------ EVA: wait.... this is a dead end???? wha???
                     ------ Programmers: HEY WRITERS YO FINISH THIS SECTION LOL
-                    // =====================================================================
+                    // =============================================================
                     // skill issue ratio l dance dogwater seethe get rekt noobs cope 
-                    // =====================================================================
+                    // =============================================================
                     -> end_interrogation
 +++++               [My father was a true hero in my life.]
                     ------ EVA: My father was a true hero in my life. He loved my mother and I with everything he had. If only I can go back in time, I would have done anything to save him.
@@ -206,10 +243,8 @@ HOBO: *LAYS DOWN AND FALLS ASLEEP*
 
 
 === save_and_exit(-> address) ===
-{ level:
-- 1: 
-    ~ interrogation_1_checkpoint = address
-} -> end_interrogation
+~ interrogation_1_checkpoint = address
+-> end_interrogation
 
 === end_interrogation ===
 #end

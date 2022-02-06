@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7687330145dfc464abfee280530bab5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonAsset: {fileID: 4900000, guid: 26f3c11b135ad044b90e2040926e5f96, type: 3}
+  jsonAsset: {fileID: 4900000, guid: 218c33485f7317c45a4ff794d174d333, type: 3}
 --- !u!114 &143992085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,6 +514,51 @@ MonoBehaviour:
   - {fileID: 1408034010}
   - {fileID: 1012438929}
   - {fileID: 1790259688}
+--- !u!1 &239163197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239163199}
+  - component: {fileID: 239163198}
+  m_Layer: 2
+  m_Name: OnFirstFrameDialogueTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!114 &239163198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239163197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8af0cbc6da4e21a6f36ad38c252484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopMovement: 1
+  knot: OnArrive
+--- !u!4 &239163199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239163197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &260049183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1475,7 @@ MonoBehaviour:
     movementRangeYRight: 0
     cameraOffset: {x: 0, y: 0, z: -10}
     cameraIdealWidth: 320
-  backgroundMusic: {fileID: 1842128687}
+  backgroundMusic: {fileID: 0}
   musicTargetAudioMixer: {fileID: 7475149374305949419, guid: d6165673366359c49bb51f70071d1087,
     type: 2}
   musicFadeAudioMixer: {fileID: 3200976170318806786, guid: d6165673366359c49bb51f70071d1087,
@@ -3047,6 +3092,7 @@ Transform:
   - {fileID: 848743149}
   - {fileID: 1801732387}
   - {fileID: 954743666}
+  - {fileID: 1151978444}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3085,7 +3131,18 @@ MonoBehaviour:
       m_Calls: []
   onRoomEnter:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1151978445}
+        m_MethodName: PlayDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1045041307
 GameObject:
   m_ObjectHideFlags: 0
@@ -3521,6 +3578,51 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1151978443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1151978444}
+  - component: {fileID: 1151978445}
+  m_Layer: 0
+  m_Name: OnEnterDialogueTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1151978444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151978443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1037253939}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151978445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151978443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4e284a8dc445219b2452c6b1e531cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopMovement: 1
+  knot: OnEnterBackroom
 --- !u!1 &1244390270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5761,6 +5863,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520314030563239557, guid: 805349c46c1375e4992b0f796e71e78c,
+        type: 3}
+      propertyPath: stopMovement
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 520314030563239559, guid: 805349c46c1375e4992b0f796e71e78c,
         type: 3}
