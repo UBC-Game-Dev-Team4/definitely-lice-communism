@@ -1,4 +1,4 @@
-﻿VAR level = 1
+VAR level = 1
 
 VAR interrogation_1_checkpoint = -> interrogation_1
 

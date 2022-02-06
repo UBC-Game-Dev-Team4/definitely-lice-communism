@@ -94,7 +94,7 @@ namespace DialogueStory
         /// Chooses the choice at the given index.
         /// Does not load any text following the choice; to do so, call <see cref="Continue"/>
         /// </summary>
-        /// <param name="choiceIndex">Zero-based index of the choice (0 <= choiceIndex < current number of choices).</param>
+        /// <param name="choiceIndex">Zero-based index of the choice (0 &lt;= choiceIndex &lt; current number of choices).</param>
         public void MakeChoice(int choiceIndex)
         {
             if (choiceIndex < _story.currentChoices.Count || choiceIndex < 0)
