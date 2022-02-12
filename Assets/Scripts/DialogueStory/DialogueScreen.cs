@@ -110,6 +110,7 @@ namespace DialogueStory
         public void Hide()
         {
             CurrentlyTyping = false;
+            PlayerScript.Instance.interactionEnabled = true;
 
             dialogueCanvas.gameObject.SetActive(false);
         }
