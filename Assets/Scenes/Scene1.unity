@@ -5866,8 +5866,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 520314030563239557, guid: 805349c46c1375e4992b0f796e71e78c,
         type: 3}
-      propertyPath: stopMovement
+      propertyPath: eventOnInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520314030563239557, guid: 805349c46c1375e4992b0f796e71e78c,
+        type: 3}
+      propertyPath: eventOnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 520314030563239557, guid: 805349c46c1375e4992b0f796e71e78c,
+        type: 3}
+      propertyPath: eventOnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 520314030563239559, guid: 805349c46c1375e4992b0f796e71e78c,
         type: 3}
