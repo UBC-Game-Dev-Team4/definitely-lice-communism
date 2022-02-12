@@ -2,6 +2,7 @@
 using System.Linq;
 using DialogueStory.Actions;
 using Ink.Runtime;
+using Player;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -63,14 +64,20 @@ namespace DialogueStory
         }
 
         /// <summary>
-        /// Opens the interrogation if the game story is currently idle, otherwise does nothing. Enters UI mode.
+        /// Opens the interrogation if the game story is currently idle, otherwise does nothing.
         /// </summary>
-        public void TryOpenDialogue()
+        public void TryOpenDialogue() => TryOpenDialogue(interrogationKnotTextCheck);
+
+        /// <summary>
+        /// Opens the interrogation if game story is currently idle, otherwise does nothing.
+        /// </summary>
+        /// <param name="knot">Knot to jump to</param>
+        public void TryOpenDialogue(string knot)
         {
             if (State != StoryStates.Idle) return;
             // Move to the interrogation knot, but don't continue
             int index = _inkStory.CurrentChoices.IndexOf(
-                _inkStory.CurrentChoices.FirstOrDefault(choice => choice.text.Contains(interrogationKnotTextCheck)));
+                _inkStory.CurrentChoices.FirstOrDefault(choice => !choice.text.StartsWith("_") && choice.text.Contains(knot)));
             if (index != -1) _inkStory.MakeChoice(index);
 
             EnterStoryMode();
@@ -98,6 +105,7 @@ namespace DialogueStory
         private void ExitStoryMode()
         {
             State = StoryStates.Idle;
+            PlayerScript.Instance.movementEnabled = true;
             //CustomInputManager.CurrentMode = InputMode.GameMovement;
         }
 
