@@ -44,6 +44,8 @@ namespace ItemInventory
         [Tooltip("List of items in inventory.")]
         public List<Item> items = new List<Item>();
 
+        internal int indexOfSelection = -1;
+
         /// <summary>
         ///     On awake, set this to private static instance
         /// </summary>
@@ -88,13 +90,11 @@ namespace ItemInventory
         /// </summary>
         /// <param name="item">Item in question</param>
         /// <returns>Whether the item is active or not</returns>
-        /// <remarks>
-        /// Until @youssef032 finishes their implementation, this will default to whether the inventory has the item at all.
-        /// </remarks>
         public bool HasActiveItem(Item item)
         {
-            // @youssef032 TODO IMPLEMENTATION
-            return items.Contains(item);
+            if (indexOfSelection < 0 || indexOfSelection >= items.Count) return false;
+            if (item == null) return false;
+            return items[indexOfSelection].name == item.name;
         }
     }
 }
