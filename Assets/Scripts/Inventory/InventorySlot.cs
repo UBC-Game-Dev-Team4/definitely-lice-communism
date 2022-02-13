@@ -15,7 +15,18 @@ namespace ItemInventory
 
         [Tooltip("Button to remove item.")] public Button removeButton;
 
+        [Tooltip("Inventory highlight")] public Transform highlight;
+
         private Item _item;
+
+        /// <summary>
+        /// Gets/sets whether the inventory slot is highlighted
+        /// </summary>
+        public bool Highlighted
+        {
+            get => highlight.gameObject.activeInHierarchy;
+            set => highlight.gameObject.SetActive(value);
+        }
 
         /// <summary>
         ///     Adds the item to the slot.

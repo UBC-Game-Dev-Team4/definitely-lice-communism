@@ -23,6 +23,12 @@ namespace Util
         [Tooltip("Key to interact with objects")]
         public KeyCode interactKey = KeyCode.E;
 
+        [Tooltip("Key to move up active item in inventory")]
+        public KeyCode inventoryUp = KeyCode.UpArrow;
+
+        [Tooltip("Key to move down active item in inventory")]
+        public KeyCode inventoryDown = KeyCode.DownArrow;
+
         /// <summary>
         ///     Accessor to singleton instance of <see cref="SettingsManager" />
         /// </summary>

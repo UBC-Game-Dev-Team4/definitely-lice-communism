@@ -7,13 +7,13 @@ namespace DefaultNamespace
     /// Stores persistent information of the current stage for the next stage
     /// </summary>
     /// <typeparam name="T">Current type</typeparam>
-    public class NextStageInfoStorer<T> : Singleton<NextStageInfoStorer<T>> where T: PreviousStageInfoSetterScript
+    public class NextStageInfoStorer : Singleton<NextStageInfoStorer>
     {
         /// <summary>
         /// Information being stored
         /// </summary>
         public PreviousStageInformation information;
-        protected T setter;
+        protected PreviousStageInfoSetterScript setter;
         protected virtual void Start()
         {
             DontDestroyOnLoad(this.gameObject);
@@ -23,10 +23,10 @@ namespace DefaultNamespace
 
         protected virtual void OnSceneChange()
         {
-            setter = FindObjectOfType<T>();
+            setter = FindObjectOfType<PreviousStageInfoSetterScript>();
             if (setter == null)
             {
-                Debug.Log("Cannot find setter of type" + typeof(T));
+                Debug.Log("Cannot find setter of type" + typeof(PreviousStageInfoSetterScript));
                 return;
             }
             Debug.Log("Setter found.");

@@ -8,7 +8,7 @@ namespace LevelOne
     /// <summary>
     /// Script to contain most information about Level 1 murder stage
     /// </summary>
-    public class LevelOneInfoStorer : NextStageInfoStorer<LevelOneInfoSetterScript>
+    public class LevelOneInfoStorer : NextStageInfoStorer
     {
         /// <summary>
         /// Information casted to LevelOnePreviousStageInformation

@@ -8,6 +8,27 @@ namespace DefaultNamespace
     [System.Serializable]
     public abstract class PreviousStageInformation
     {
+        /// <summary>
+        /// On destructor called, clear event
+        /// </summary>
+        ~PreviousStageInformation()
+        {
+            Debug.Log("Cleaning up PreviousStageInformation...");
+            RespectChange = null;
+        }
+        
+        /// <summary>
+        /// Delegate used for event
+        /// </summary>
+        public delegate void RespectChangeHandler(PreviousStageInformation source);
+
+        /// <summary>
+        /// Event called on non-zero respect change
+        /// </summary>
+        public event RespectChangeHandler RespectChange;
+        /// <summary>
+        /// Total amount of respect
+        /// </summary>
         public static readonly int TotalRespect = 100;
         [SerializeField]
         public int detectiveRespect = TotalRespect/2;
@@ -26,6 +47,7 @@ namespace DefaultNamespace
             {
                 OnZeroOrNegativeRespect();
             }
+            if (amount != 0) RespectChange?.Invoke(this);
             Debug.Assert(murdererRespect + detectiveRespect == TotalRespect);
         }
         
@@ -41,6 +63,7 @@ namespace DefaultNamespace
             {
                 OnZeroOrNegativeRespect();
             }
+            if (amount != 0) RespectChange?.Invoke(this);
             Debug.Assert(murdererRespect + detectiveRespect == TotalRespect);
         }
 
