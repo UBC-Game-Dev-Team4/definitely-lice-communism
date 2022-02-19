@@ -1,5 +1,6 @@
 ﻿using System;
 using DefaultNamespace;
+using StageInfo;
 using UnityEngine;
 
 namespace LevelOne
@@ -18,15 +19,16 @@ namespace LevelOne
         public GameObject backroomCattos;
         private LevelOnePreviousStageInformation _info;
         /// <inheritdoc/>
-        public override void ApplyInformation(PreviousStageInformation information)
+        public override bool ApplyInformation(PreviousStageInformation information)
         {
             if (!(information is LevelOnePreviousStageInformation levelOneInfo))
-                throw new ArgumentException("LevelOneInfoSetterScript needs LevelOnePreviousStageInformation object");
+                return false;
 
             _info = levelOneInfo;
             if (deadChefGameObject != null) deadChefGameObject.transform.position = _info.deadBodyLocation;
             if (_info.deadBodyLocation.y > 5) kitchenCattos.SetActive(true);
             else backroomCattos.SetActive(true);
+            return true;
         }
     }
 }

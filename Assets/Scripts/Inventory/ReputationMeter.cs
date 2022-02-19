@@ -1,5 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using DefaultNamespace;
+using StageInfo;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +33,7 @@ namespace ItemInventory
             _image = GetComponent<Image>();
             _texture = new Texture2D(textureWidth, textureHeight);
             
-            var infoStore = NextStageInfoStorer.Instance;
+            var infoStore = NextStageInfoStorer.Storers.FirstOrDefault();
             if (infoStore == null) return;
             var nullableInfo = infoStore.information;
             if (nullableInfo == null)
@@ -116,7 +118,7 @@ namespace ItemInventory
         private void DrawMurderSection(Color32[] array)
         {
             int respect;
-            var infoStore = NextStageInfoStorer.Instance;
+            var infoStore = NextStageInfoStorer.Storers.FirstOrDefault();
             if (infoStore == null) return;
             var nullableInfo = infoStore.information;
             if (nullableInfo == null)
@@ -144,7 +146,7 @@ namespace ItemInventory
         private void DrawDetectiveSection(Color32[] array)
         {
             int respect;
-            var infoStore = NextStageInfoStorer.Instance;
+            var infoStore = NextStageInfoStorer.Storers.FirstOrDefault();
             if (infoStore == null) return;
             var nullableInfo = infoStore.information;
             if (nullableInfo == null)

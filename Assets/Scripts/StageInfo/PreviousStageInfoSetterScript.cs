@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace StageInfo
 {
     /// <summary>
     /// Abstract class defining a setter that applies persistent data from the previous stage
@@ -11,6 +11,6 @@ namespace DefaultNamespace
         /// Applies persistent information from the previous stage into this stage
         /// </summary>
         /// <param name="information">Persistent information</param>
-        public abstract void ApplyInformation(PreviousStageInformation information);
+        public abstract bool ApplyInformation(PreviousStageInformation information);
     }
 }

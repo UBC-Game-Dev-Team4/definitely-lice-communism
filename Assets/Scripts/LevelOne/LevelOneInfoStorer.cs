@@ -1,4 +1,5 @@
-﻿using DefaultNamespace;
+﻿using System.Linq;
+using StageInfo;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -18,20 +19,28 @@ namespace LevelOne
             get => information as LevelOnePreviousStageInformation;
             set => information = value;
         }
+        
+        private static LevelOneInfoStorer _cachedSingleton;
 
         /// <summary>
         /// Singleton casted to LevelOneInfoStorer
         /// </summary>
-        public static LevelOneInfoStorer CastedSingleton => Instance == null ? null : Instance as LevelOneInfoStorer;
+        public static LevelOneInfoStorer CastedSingleton {
+            get
+            {
+                if (_cachedSingleton) _cachedSingleton = Storers.FirstOrDefault(storer => storer is LevelOneInfoStorer) as LevelOneInfoStorer;
+                return _cachedSingleton;
+            }
+        }
 
         [Tooltip("Next scene to move to")]
         public string nextScene = "Scene1Det";
         [Tooltip("Event triggered on chef kill")]
         public UnityEvent eventOnKill = new UnityEvent();
         
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             if (setter != null) return;
             information = new LevelOnePreviousStageInformation();
         }

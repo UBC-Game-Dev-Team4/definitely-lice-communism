@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace StageInfo
 {
     /// <summary>
     /// Abstract class containing some shared stage information
