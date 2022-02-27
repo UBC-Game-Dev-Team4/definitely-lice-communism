@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
+using Singleton;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
 
 namespace DialogueStory
 {
-    public class DialogueManager : Singleton<DialogueManager>, IStoryPlayer
+    public class DialogueManager : DestroySingleton<DialogueManager>, IStoryPlayer
     {
         [Tooltip("Array of buttons for choices, in the same order as the hierarchy.")]
         public Button[] buttons;

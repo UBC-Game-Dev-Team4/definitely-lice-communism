@@ -36,6 +36,32 @@ namespace StageInfo
         public int murdererRespect = TotalRespect/2;
 
         /// <summary>
+        /// Manually trigger refresh
+        /// </summary>
+        public void TriggerRefreshManual()
+        {
+            RespectChange?.Invoke(this);
+        }
+
+        /// <summary>
+        /// Sets the murder and detective respect
+        /// </summary>
+        /// <param name="mur">New murder respect</param>
+        /// <param name="det">New detective respect</param>
+        public virtual void SetRespects(int mur, int det)
+        {
+            bool shouldTrigger = murdererRespect != mur || detectiveRespect != det;
+            murdererRespect = mur;
+            detectiveRespect = det;
+            
+            if (detectiveRespect <= 0 || murdererRespect <= 0)
+            {
+                OnZeroOrNegativeRespect();
+            }
+            if (shouldTrigger) RespectChange?.Invoke(this);
+        }
+
+        /// <summary>
         /// Adds murder respect and removes detective respect
         /// </summary>
         /// <param name="amount">Respect to add</param>

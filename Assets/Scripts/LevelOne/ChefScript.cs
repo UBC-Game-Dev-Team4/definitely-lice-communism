@@ -66,6 +66,7 @@ namespace LevelOne
             go.transform.localPosition = newSpawn;
             Destroy(gameObject);
             LevelOneInfoStorer.CastedSingleton.OnKilledChef(go.transform.position);
+            LevelOneInfoStorer.CastedSingleton.CastedInfo.AddMurderRespect(30);
         }
 
         /// <summary>

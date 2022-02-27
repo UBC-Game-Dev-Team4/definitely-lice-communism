@@ -43,6 +43,15 @@ namespace LevelOne
             if (setter != null) return;
             information = new LevelOneSwitchStageInformation();
         }
+
+        /// <summary>
+        /// Sets information from the previous stage information
+        /// </summary>
+        /// <param name="info">Previous substage information</param>
+        public void SetData(LevelOnePreviousStageInformation info)
+        {
+            information.SetRespects(info.murdererRespect,info.detectiveRespect);
+        }
         
         /// <summary>
         /// Loads the next scene

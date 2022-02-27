@@ -28,7 +28,8 @@ namespace LevelOne
         public static LevelOneInfoStorer CastedSingleton {
             get
             {
-                if (_cachedSingleton) _cachedSingleton = Storers.FirstOrDefault(storer => storer is LevelOneInfoStorer) as LevelOneInfoStorer;
+                if (_cachedSingleton != null) return _cachedSingleton;
+                _cachedSingleton = Storers.FirstOrDefault(storer => storer is LevelOneInfoStorer) as LevelOneInfoStorer;
                 return _cachedSingleton;
             }
         }

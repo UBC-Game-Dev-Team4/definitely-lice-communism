@@ -1,5 +1,6 @@
 ﻿using System;
 using DefaultNamespace;
+using Singleton;
 using UnityEngine;
 using Util;
 
@@ -10,7 +11,7 @@ namespace Player
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Animator)), RequireComponent(typeof(SpriteRenderer))]
-    public class PlayerScript : MonoBehaviour
+    public class PlayerScript : DestroySingleton<PlayerScript>
     {
         [Tooltip("Whether debug data is drawn")]
         public bool debug;
@@ -47,43 +48,18 @@ namespace Player
         
         private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
         private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
-        
-        #region singleton
-
-        /// <summary>
-        ///     Private single instance of <see cref="PlayerScript" />
-        /// </summary>
-        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
-        private static PlayerScript _player;
-
-        /// <summary>
-        ///     Accessor to singleton instance of <see cref="PlayerScript" />
-        /// </summary>
-        /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
-        public static PlayerScript Instance
-        {
-            get
-            {
-                if (_player == null)
-                    _player = FindObjectOfType<PlayerScript>();
-                if (_player == null) Debug.LogWarning("Warning: player singleton is still null.");
-
-                return _player;
-            }
-        }
-
-        #endregion
 
         /// <summary>
         ///     Locates required objects and sets singleton instance
         ///     Runs upon object being added/initialized, but before Start
         /// </summary>
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _body = GetComponent<Rigidbody2D>();
             _detector = GetComponentInChildren<InteractableDetector>();
             _animator = GetComponent<Animator>();
-            _player = this;
+            instance = this;
         }
 
         /// <summary>
@@ -127,14 +103,6 @@ namespace Player
             }
             if (_body.velocity.x < -0.01 || _body.velocity.x > 0.01)
                 _animator.SetFloat(VelocityXParameter,_body.velocity.x);
-        }
-
-        /// <summary>
-        ///     On object destroy, remove singleton instance
-        /// </summary>
-        private void OnDestroy()
-        {
-            _player = null;
         }
 
         /// <summary>

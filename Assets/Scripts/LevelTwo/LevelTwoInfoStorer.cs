@@ -54,8 +54,7 @@ namespace LevelTwo
         {
             if (info == null) return;
             if (information == null) information = new LevelTwoPreviousStageInformation();
-            information.detectiveRespect = info.detectiveRespect;
-            information.murdererRespect = info.murdererRespect;
+            information.SetRespects(info.murdererRespect,info.detectiveRespect);
         }
 
         /// <summary>

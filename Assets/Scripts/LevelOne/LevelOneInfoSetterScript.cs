@@ -25,6 +25,7 @@ namespace LevelOne
                 return false;
 
             _info = levelOneInfo;
+            LevelOneSwitchInfoStorer.CastedSingleton?.SetData(_info);
             if (deadChefGameObject != null) deadChefGameObject.transform.position = _info.deadBodyLocation;
             if (_info.deadBodyLocation.y > 5) kitchenCattos.SetActive(true);
             else backroomCattos.SetActive(true);
