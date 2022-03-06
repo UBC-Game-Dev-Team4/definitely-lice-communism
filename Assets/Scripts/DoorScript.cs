@@ -107,7 +107,7 @@ namespace DefaultNamespace
                 if (!skipPlay)
                     areaToTeleportTo.PlayBackgroundMusic();
                 currentArea.onRoomExit.Invoke();
-                areaToTeleportTo.onRoomEnter.Invoke();
+                areaToTeleportTo.Enter();
             }
 
             player.movementEnabled = true;

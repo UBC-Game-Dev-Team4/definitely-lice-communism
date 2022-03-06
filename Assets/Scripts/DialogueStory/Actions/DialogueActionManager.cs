@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Singleton;
 using UnityEngine;
 
 namespace DialogueStory.Actions
@@ -12,7 +13,7 @@ namespace DialogueStory.Actions
     /// Copied over from old code
     /// </remarks>
     [AddComponentMenu("Dialogue/DialogueActionManager")]
-    public sealed class DialogueActionManager : Singleton<DialogueActionManager>
+    public sealed class DialogueActionManager : DestroySingleton<DialogueActionManager>
     {
         public DialogueAction[] actions = Array.Empty<DialogueAction>();
         private readonly List<DialogueAction> _listOfActions = new List<DialogueAction>();

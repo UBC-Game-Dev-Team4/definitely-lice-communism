@@ -50,6 +50,16 @@ namespace Util
         [Tooltip("Unity Event called when player passes through a door entering the area")]
         public UnityEvent onRoomEnter = new UnityEvent();
         
+        
+        /// <summary>
+        /// Unity Event called when a player passes through a door entering the area for the first time
+        /// </summary>
+        /// <remarks>
+        /// Currently gets called on camera movement phase on door after onRoomExit
+        /// </remarks>
+        [Tooltip("Unity Event called when player passes through a door entering the area for the first time")]
+        public UnityEvent onRoomFirstEnter = new UnityEvent();
+        
         /// <summary>
         /// Currently Playing Background Music
         /// </summary>
@@ -57,6 +67,7 @@ namespace Util
         
         private DoorScript[] _doors;
         private AreaScript[] _adjacentAreas;
+        private bool _hasEntered;
         
         private void Awake()
         {
@@ -83,6 +94,16 @@ namespace Util
             backgroundMusic.StopQueue();
             backgroundMusic.MixerGroup = musicFadeAudioMixer;
             StartCoroutine(SoundManager.StartMusicFadeOut(backgroundMusic, audioMixer, fadeoutDuration, true,true));
+        }
+
+        /// <summary>
+        /// Enters this room.
+        /// </summary>
+        public void Enter()
+        {
+            if (!_hasEntered) onRoomFirstEnter.Invoke();
+            _hasEntered = true;
+            onRoomEnter.Invoke();
         }
 
         

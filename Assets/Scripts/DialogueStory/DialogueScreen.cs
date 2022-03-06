@@ -1,11 +1,12 @@
 ﻿using Player;
+using Singleton;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DialogueStory
 {
     [DisallowMultipleComponent]
-    public class DialogueScreen : Singleton<DialogueScreen>
+    public class DialogueScreen : DestroySingleton<DialogueScreen>
     {
         public GameObject backupPrefab;
         public Text dialogueText;
@@ -52,22 +53,23 @@ namespace DialogueStory
             if (dialogueCanvas == null)
             {
                 Debug.Log("DialogueScreen.dialogueCanvas is null...attempting to find objects");
-                if (backupPrefab == null)
+                go = LocateDialogueCanvas();
+                if (go == null)
                 {
-                    go = LocateDialogueCanvas();
-                    Debug.Log("BackupPrefab = null");
+                    Debug.Log("Cannot locate canvas.");
+                    if (backupPrefab != null)
+                    {
+                        Debug.Log("BackupPrefab not null, instantiating backup prefab...");
+                        go = Instantiate(backupPrefab);
+                    }
                 }
-                else
-                {
-                    Debug.Log("BackupPrefab not null, instantiating backup prefab...");
-                    go = Instantiate(backupPrefab);
-                }
+
                 dialogueCanvas = go.GetComponent<Canvas>();
             }
 
             if (dialogueText == null)
             {
-                dialogueText = dialogueCanvas.transform.Find("Dialogue").GetComponent<Text>();
+                dialogueText = dialogueCanvas.transform.Find("DialogueText").GetComponent<Text>();
                 Debug.Log("DialogueScreen.dialogueText is null...tried to find it: " + dialogueText);
             }
 
@@ -99,6 +101,7 @@ namespace DialogueStory
         public void Show()
         {
             dialogueText.text = DefaultEmptyText;       // dialogueText is null when re-entering scene in build version, single player 
+            if (dialogueCanvas == null) InstantiateFieldsIfNull(); // i don't wanna debug myra's singleton code or why this s--- is null
             dialogueCanvas.gameObject.SetActive(true);
             PlayerScript.Instance.interactionEnabled = false;
             Debug.Log("Opened dialogue screen...");

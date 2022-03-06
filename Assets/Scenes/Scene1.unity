@@ -822,6 +822,9 @@ MonoBehaviour:
   onRoomEnter:
     m_PersistentCalls:
       m_Calls: []
+  onRoomFirstEnter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &370421544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,6 +1489,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRoomEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoomFirstEnter:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &517622553
@@ -3130,6 +3136,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRoomEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoomFirstEnter:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1151978445}
@@ -5666,6 +5675,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onRoomFirstEnter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2106335646
 Transform:
   m_ObjectHideFlags: 0

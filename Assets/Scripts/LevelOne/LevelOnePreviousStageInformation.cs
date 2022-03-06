@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace;
+using StageInfo;
 using UnityEngine;
 
 namespace LevelOne

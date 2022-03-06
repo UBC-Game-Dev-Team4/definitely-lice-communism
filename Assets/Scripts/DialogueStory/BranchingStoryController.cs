@@ -3,6 +3,7 @@ using System.Linq;
 using DialogueStory.Actions;
 using Ink.Runtime;
 using Player;
+using Singleton;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +16,7 @@ namespace DialogueStory
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(BranchingStory))]
-    public sealed class BranchingStoryController : Singleton<BranchingStoryController>
+    public sealed class BranchingStoryController : DestroySingleton<BranchingStoryController>
     {
         private BranchingStory _inkStory;
 
@@ -50,6 +51,7 @@ namespace DialogueStory
         protected override void Awake()
         {
             base.Awake();
+            _inkStory = GetComponent<BranchingStory>();
 
             State = StoryStates.Idle;
 
@@ -59,7 +61,6 @@ namespace DialogueStory
 
         private void Start()
         {
-            _inkStory = GetComponent<BranchingStory>();
             _inkStory.ContinueUntilChoice();
         }
 
