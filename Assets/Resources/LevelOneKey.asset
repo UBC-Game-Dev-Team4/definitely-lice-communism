@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d87bc48e4cf0a43b992b27a6a60808, type: 3}
   m_Name: LevelOneKey
   m_EditorClassIdentifier: 
-  name: LevelOneKey
+  name: Storage Room Key
   icon: {fileID: 21300000, guid: 4e369bcc983218346adf2875eb10efec, type: 3}
   isDefaultItem: 0
