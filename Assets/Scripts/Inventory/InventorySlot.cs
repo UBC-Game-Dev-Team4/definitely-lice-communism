@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,8 @@ namespace ItemInventory
     /// </remarks>
     public class InventorySlot : MonoBehaviour
     {
-        [Tooltip("Name of item.")] public TextMeshProUGUI text;
+        [Tooltip("Displayed name of item.")] public TextMeshProUGUI nameDisplay;
+        [Tooltip("Displayed description of item.")] public TextMeshProUGUI descriptionDisplay;
         [Tooltip("Displayed icon.")] public Image icon;
 
         [Tooltip("Button to remove item.")] public Button removeButton;
@@ -20,6 +22,15 @@ namespace ItemInventory
         [Tooltip("Inventory highlight")] public Transform highlight;
 
         private Item _item;
+
+        /// <summary>
+        /// On awake clear slot just in case
+        /// </summary>
+        private void Awake()
+        {
+            if (_item == null)
+                ClearSlot();
+        }
 
         /// <summary>
         /// Gets/sets whether the inventory slot is highlighted
@@ -39,8 +50,10 @@ namespace ItemInventory
             _item = newItem;
             icon.color = new Color(255, 255, 255, 255);
             icon.sprite = _item.icon;
-            text.text = _item.name;
-            text.enabled = true;
+            nameDisplay.text = _item.name;
+            nameDisplay.enabled = true;
+            descriptionDisplay.text = _item.description;
+            descriptionDisplay.enabled = true;
             icon.enabled = true;
             removeButton.interactable = true;
         }
@@ -53,8 +66,10 @@ namespace ItemInventory
             _item = null;
             icon.color = new Color(0, 0, 0, 0);
             icon.sprite = null;
-            text.text = "";
-            text.enabled = false;
+            nameDisplay.text = "";
+            nameDisplay.enabled = false;
+            descriptionDisplay.text = "";
+            descriptionDisplay.enabled = false;
             icon.enabled = false;
             removeButton.interactable = false;
         }
