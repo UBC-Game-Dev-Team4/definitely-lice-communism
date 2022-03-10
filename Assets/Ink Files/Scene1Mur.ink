@@ -106,11 +106,8 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
 +++         [What happened with your wife?] -> _interrogation_what_happened_with_wife
 +++         [As much as I'm sorry about whatever happened to you, I'm sure we can work something out.]
             ---- EVA: As much as I'm sorry about whatever happened to you, I'm sure we can work something out.
-            ---- EVA: NEED TO CONTINUE HERE BUDDY OL' PAL
-            // =====================================================================
-            // skill issue ratio l dance dogwater seethe get rekt noobs cope 
-            // =====================================================================
-            ->end_interrogation
+            ---- HOBO: If things worked out, I won't be here. Get lost, missy, I don't wanna talk no more.
+            -> _interrogation_fail_state
 ++      [To be honest with you, nothing.]
         --- EVA: To be honest with you, nothing.
         --- HOBO: HAH! Looong shot then, missy. I ain't helping you.
@@ -122,9 +119,25 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
             ---- HOBO: *cough* I dunno if there's anythin' I even want back there!
 ++++            [Right.]
                 ----- EVA: Right.
-                ----- EVA: NEED TO CONTINUE HERE BUDDY OL' PAL
-                ----- EVA: skill issue ratio l dance dogwater seethe get rekt noobs
-                -> end_interrogation
+                ----- HOBO: *shrugs* If that's all you got to say, I'm headin' back to bed.
+                ----- EVA: Do you like the way you live right now?
+                ----- HOBO: Missy, you would give a damn if there is enough alcohol? Would you?
++++++               [There is a whole world out there, do you really want to live like this for the rest of your life?]
+                    ------ EVA: There is a whole world out there, do you really want to live like this for the rest of your life?
+                    ------ HOBO: WHY SHOULD I CARE? I've got nothing! NOTHING!
+                    -> _interrogation_hate_remembering
++++++               [You are right. Speaking of alcohol, I could gets you some if you can help me inside.]
+                    ------ EVA: You are right. Speaking of alcohol, I could get you some if you can help me inside.
+                    ------ HOBO: Now we are talkin! Missy, you kept blabbing about life and that kind of nonsense, who even cares if you got BOOZE! There, there, you are thinking too much. Here, have a sip. *offers alcohol*
+                    ------ *there's white stuff floating in the brown liquid. Take a sip?
+++++++                  [*No.]
+                        ------- HOBO: You are no fun. Reminds me of that friend I had. Hmmm... what happened to him? Oh, he got murdered, by a fair lady that looks just like you...
+                        ------- HOBO: Or am I mistaken? Whatever, I am heading back to sleep.
+                        -> _interrogation_fail_state
+++++++                  [*Yes.]
+                        ------- *you take a small sip. It burns.*
+                        ------- HOBO: A sip of booze clears all your whooze!
+                        -> _interrogation_alright_missy_section
 ++++            [It's a bar. There likely is alcohol.]
                 ----- EVA: It's a bar. There likely is alcohol.
                 -> _interrogation_alright_missy_section
@@ -148,12 +161,8 @@ HOBO: Why do you wanna get in there?
 +++++               [You are right, your wife is dumb for leaving you.]
                     ------ EVA: You are right, your wife is dumb for leaving you.
                     ------ HOBO: DON'T TALK ABOUT MY WIFE LIKE that
-                    ------ EVA: wait.... this is a dead end???? wha???
-                    ------ Programmers: HEY WRITERS YO FINISH THIS SECTION LOL
-                    // =============================================================
-                    // skill issue ratio l dance dogwater seethe get rekt noobs cope 
-                    // =============================================================
-                    -> end_interrogation
+                    ------ HOBO: I love her... my kids... if only... *DRINKS ALCOHOL*
+                    -> _interrogation_fail_state
 +++++               [My father was a true hero in my life.]
                     ------ EVA: My father was a true hero in my life. He loved my mother and I with everything he had. If only I can go back in time, I would have done anything to save him.
                     ------ HOBO: Hell, aren't you something.
@@ -212,8 +221,7 @@ HOBO: Arghh... somethin' about me not lovin' her enough. She.... she didn't unde
 +   [What happened to your kids?]
     -- EVA: What happened to your kids?
     -- HOBO: My- my wife... sold our kids. For two dollars. I dunno where they are...
-    -- HOBO: Damn it! I hate rememberin'! Fuck you, fuck you, fuck you! *DRINKS ALCOHOL*
-    -> _interrogation_fail_state
+    -> _interrogation_hate_remembering
 
 
 === _interrogation_from_south ===
@@ -234,6 +242,12 @@ HOBO: Alrighty, missy. I'll help ya out. Let me just... urgh...
 === _interrogation_hobo_is_sus ===
 HOBO: Missy, you are hella fishy. I ain't helping you.
 -> _interrogation_fail_state
+
+
+=== _interrogation_hate_remembering ===
+HOBO: Damn it! I hate rememberin'! Fuck you, fuck you, fuck you! *DRINKS ALCOHOL*
+-> _interrogation_fail_state
+
 
 
 === _interrogation_fail_state ===
