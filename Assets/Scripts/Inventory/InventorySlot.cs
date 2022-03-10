@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ namespace ItemInventory
     /// </remarks>
     public class InventorySlot : MonoBehaviour
     {
+        [Tooltip("Name of item.")] public TextMeshProUGUI text;
         [Tooltip("Displayed icon.")] public Image icon;
 
         [Tooltip("Button to remove item.")] public Button removeButton;
@@ -37,6 +39,8 @@ namespace ItemInventory
             _item = newItem;
             icon.color = new Color(255, 255, 255, 255);
             icon.sprite = _item.icon;
+            text.text = _item.name;
+            text.enabled = true;
             icon.enabled = true;
             removeButton.interactable = true;
         }
@@ -49,6 +53,8 @@ namespace ItemInventory
             _item = null;
             icon.color = new Color(0, 0, 0, 0);
             icon.sprite = null;
+            text.text = "";
+            text.enabled = false;
             icon.enabled = false;
             removeButton.interactable = false;
         }
