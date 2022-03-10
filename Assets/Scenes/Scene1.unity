@@ -278,7 +278,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97526564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.819, z: 0}
+  m_LocalPosition: {x: -3, y: -0.819, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2106335646}
@@ -388,7 +388,7 @@ MonoBehaviour:
   secondRoomDoorTargetOffset: 0
   secondRoomTarget: 40
   delayAfterBackroomTarget: 3
-  kitchenResetTarget: 39.6
+  kitchenResetTarget: 36.6
   delayBeforeTeleport: 1
   delayAfterTeleport: 1
 --- !u!61 &97526569
