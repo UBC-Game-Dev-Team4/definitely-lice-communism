@@ -23,6 +23,9 @@ namespace Util
         [Tooltip("Key to interact with objects")]
         public KeyCode interactKey = KeyCode.E;
 
+        [Tooltip("Key to use an item")]
+        public KeyCode useItemKey = KeyCode.Z;
+
         [Tooltip("Key to move up active item in inventory")]
         public KeyCode inventoryUp = KeyCode.UpArrow;
 

@@ -13,6 +13,11 @@ namespace ItemInventory
         [TextArea]
         public string description = "";
         public bool isDefaultItem;
+        public bool isUsable = false;
+
+        public virtual void Use()
+        {
+        }
 
         public override bool Equals(object other)
         {
