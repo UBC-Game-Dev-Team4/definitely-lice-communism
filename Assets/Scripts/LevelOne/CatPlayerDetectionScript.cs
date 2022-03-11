@@ -14,6 +14,7 @@ namespace LevelOne
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (CatFoodItem.IsPlaced) return;
             if (cat.shouldRunAway)
             {
                 cat.directionIsLeft = other.transform.position.x > cat.transform.position.x;
@@ -27,6 +28,7 @@ namespace LevelOne
 
         private void OnTriggerStay2D(Collider2D other)
         {
+            if (CatFoodItem.IsPlaced) return;
             if (cat.shouldRunAway)
                 cat.directionIsLeft = other.transform.position.x > cat.transform.position.x;
             else
@@ -37,6 +39,7 @@ namespace LevelOne
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (CatFoodItem.IsPlaced) return;
             cat.SetMode(AIMode.WanderLocked);
         }
     }

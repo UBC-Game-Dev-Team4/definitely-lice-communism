@@ -99,7 +99,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   priority: 0
-  item: {fileID: 11400000, guid: 0aeeaf61f8cc31b49b4fc629f3745d6b, type: 2}
+  item: {fileID: 11400000, guid: 434a1d675e1d9e94b803ea5163480e53, type: 2}
   destroyOnPickup: 0
 --- !u!61 &4579936225994520662
 BoxCollider2D:
@@ -111,7 +111,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

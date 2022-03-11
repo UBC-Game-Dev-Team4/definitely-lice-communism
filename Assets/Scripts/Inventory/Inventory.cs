@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Util;
 
 namespace ItemInventory
 {
@@ -54,6 +56,17 @@ namespace ItemInventory
             if (_privateStaticInstance != null && _privateStaticInstance != this)
                 Debug.LogWarning("More than one instance of Inventory found!");
             else _privateStaticInstance = this;
+        }
+
+        /// <summary>
+        /// Run the interact with item key
+        /// </summary>
+        private void Update()
+        {
+            if (!Input.GetKeyDown(SettingsManager.Instance.useItemKey)) return;
+            if (indexOfSelection < 0 || indexOfSelection >= items.Count) return;
+            if (items[indexOfSelection] == null || !items[indexOfSelection].isUsable) return;
+            items[indexOfSelection].Use();
         }
 
         /// <summary>

@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05d87bc48e4cf0a43b992b27a6a60808, type: 3}
-  m_Name: CatFoodItem
+  m_Name: LevelOneKey
   m_EditorClassIdentifier: 
-  name: Cat Food
-  icon: {fileID: 21300000, guid: b1c864b3a1305a547960491832dc3f73, type: 3}
+  name: Keys
+  icon: {fileID: 21300000, guid: 4e369bcc983218346adf2875eb10efec, type: 3}
+  description: Looks to be keys of some storage room.
   isDefaultItem: 0

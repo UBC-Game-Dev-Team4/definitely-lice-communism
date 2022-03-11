@@ -278,7 +278,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97526564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.819, z: 0}
+  m_LocalPosition: {x: -3, y: -0.819, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2106335646}
@@ -320,8 +320,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1691462895
-  m_SortingLayer: 3
+  m_SortingLayerID: -102313829
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -1332084275704107186, guid: fc831bd136377d04687b5fb0f1190fa1,
     type: 3}
@@ -388,7 +388,7 @@ MonoBehaviour:
   secondRoomDoorTargetOffset: 0
   secondRoomTarget: 40
   delayAfterBackroomTarget: 3
-  kitchenResetTarget: 39.6
+  kitchenResetTarget: 36.6
   delayBeforeTeleport: 1
   delayAfterTeleport: 1
 --- !u!61 &97526569
@@ -4751,11 +4751,6 @@ PrefabInstance:
     - target: {fileID: 285535333495973686, guid: 9342b7bb08828da45b6246f7f8ca8e42,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579936225994520662, guid: 9342b7bb08828da45b6246f7f8ca8e42,
-        type: 3}
-      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
