@@ -13,8 +13,12 @@ namespace ItemInventory
         [TextArea]
         public string description = "";
         public bool isDefaultItem;
+        [Tooltip("Whether the item is usable")]
         public bool isUsable = false;
 
+        /// <summary>
+        /// Use the current item
+        /// </summary>
         public virtual void Use()
         {
         }
