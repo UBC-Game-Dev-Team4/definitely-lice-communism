@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036f2ee0056e41c59190f9d903954e4a, type: 3}
+  m_Name: Mallet Item
+  m_EditorClassIdentifier: 
+  name: Mallet
+  icon: {fileID: 21300000, guid: 9eb539fd095f0e240a3d779c72a9e87f, type: 3}
+  description: Plain old meat mallet, perfect for tenderizing any kind of meat.
+  isDefaultItem: 0
+  isUsable: 1
+  killWidth: 1
+  xOffset: 0
+  xFacingOffset: 0.3
+  killHeight: 0.4
+  yOffset: 0.3
