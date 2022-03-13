@@ -129,13 +129,13 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
 +++++               [You are right. Speaking of alcohol, I could gets you some if you can help me inside.]
                     ------ EVA: You are right. Speaking of alcohol, I could get you some if you can help me inside.
                     ------ HOBO: Now we are talkin! Missy, you kept blabbing about life and that kind of nonsense, who even cares if you got BOOZE! There, there, you are thinking too much. Here, have a sip. *offers alcohol*
-                    ------ *there's white stuff floating in the brown liquid. Take a sip?
+                    ------ \*there's white stuff floating in the brown liquid. Take a sip?
 ++++++                  [*No.]
                         ------- HOBO: You are no fun. Reminds me of that friend I had. Hmmm... what happened to him? Oh, he got murdered, by a fair lady that looks just like you...
                         ------- HOBO: Or am I mistaken? Whatever, I am heading back to sleep.
                         -> _interrogation_fail_state
 ++++++                  [*Yes.]
-                        ------- *you take a small sip. It burns.*
+                        ------- \*you take a small sip. It burns.*
                         ------- HOBO: A sip of booze clears all your whooze!
                         -> _interrogation_alright_missy_section
 ++++            [It's a bar. There likely is alcohol.]
