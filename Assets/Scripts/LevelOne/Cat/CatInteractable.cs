@@ -1,8 +1,7 @@
-﻿using System;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using ItemInventory;
 
-namespace LevelOne
+namespace LevelOne.Cat
 {
     public class CatInteractable : Interactable
     {

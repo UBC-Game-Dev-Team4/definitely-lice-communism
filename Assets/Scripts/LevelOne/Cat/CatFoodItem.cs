@@ -3,7 +3,7 @@ using ItemInventory;
 using Player;
 using UnityEngine;
 
-namespace LevelOne
+namespace LevelOne.Cat
 {
     /// <summary>
     /// Item to define custom logic for an inventory item
