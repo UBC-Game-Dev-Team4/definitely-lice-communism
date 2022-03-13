@@ -138,10 +138,10 @@ TextureImporter:
       name: Door_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 42.5
-        height: 80
+        x: 2
+        y: 4
+        width: 40
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: Door_1
       rect:
         serializedVersion: 2
-        x: 42
-        y: 0
-        width: 42.5
-        height: 80
+        x: 44
+        y: 4
+        width: 40
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,10 +180,10 @@ TextureImporter:
       name: Door_2
       rect:
         serializedVersion: 2
-        x: 84
-        y: 0
-        width: 42.5
-        height: 80
+        x: 86
+        y: 4
+        width: 40
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,10 +201,10 @@ TextureImporter:
       name: Door_3
       rect:
         serializedVersion: 2
-        x: 126
-        y: 0
-        width: 42.5
-        height: 80
+        x: 128
+        y: 4
+        width: 40
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
