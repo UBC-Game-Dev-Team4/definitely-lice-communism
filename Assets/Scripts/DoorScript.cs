@@ -34,6 +34,8 @@ namespace DefaultNamespace
         [Tooltip("Item to open the door")]
         public Item itemToOpen;
 
+        public int LockedInteractCount { get; protected set; }
+        
         private Animator _animator;
         private static readonly int OpenTrigger = Animator.StringToHash("OpenTrigger");
         private static readonly int CloseTrigger = Animator.StringToHash("CloseTrigger");
@@ -57,19 +59,25 @@ namespace DefaultNamespace
         /// <inheritdoc cref="Interactable" />
         public override void Interact(object src, params object[] args)
         {
-            base.Interact(src, args);
-            if (!(src is PlayerScript player)) return;
-            
-            if (!locked)
-                StartCoroutine(nameof(DoorInteractCoroutine), player);
-            else
+            if (src is PlayerScript player)
             {
-                if (Inventory.Instance.HasActiveItem(itemToOpen))
+                if (!locked)
+                    StartCoroutine(nameof(DoorInteractCoroutine), player);
+                else
                 {
-                    locked = false;
-                    Debug.Log("Door unlocked!!!!!!!");
+                    if (Inventory.Instance.HasActiveItem(itemToOpen))
+                    {
+                        locked = false;
+                        Debug.Log("Door unlocked!!!!!!!");
+                    }
+                    else
+                    {
+                        LockedInteractCount++;
+                    }
                 }
             }
+            base.Interact(src, args);
+
         }
 
         /// <summary>
