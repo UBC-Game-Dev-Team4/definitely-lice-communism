@@ -11,7 +11,8 @@ namespace Editor
         {
             base.OnInspectorGUI();
             if (GUILayout.Button("Test Move From Kitchen")) ((ChefScript) target).MoveFromKitchen();
-            if (GUILayout.Button("Kill")) ((ChefScript) target).Kill();
+            if (GUILayout.Button("Kill (mallet)")) ((ChefScript) target).Kill(false);
+            if (GUILayout.Button("Kill (oil)")) ((ChefScript) target).Kill(true);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace LevelOne
         /// <summary>
         /// Kill the chef by creating a prefab and signaling the LevelOneInfoStorer about the dead chef's position
         /// </summary>
-        public void Kill()
+        public void Kill(bool isViaHotOil)
         {
             Transform thisTransform = transform;
             Vector3 newSpawn = thisTransform.localPosition + deadSpawnOffset;
@@ -67,6 +67,7 @@ namespace LevelOne
             Destroy(gameObject);
             LevelOneInfoStorer.CastedSingleton.OnKilledChef(go.transform.position);
             LevelOneInfoStorer.CastedSingleton.CastedInfo.AddMurderRespect(30);
+            LevelOneInfoStorer.CastedSingleton.CastedInfo.wasKilledViaHotOil = isViaHotOil;
         }
 
         /// <summary>
