@@ -15,7 +15,7 @@ namespace LevelOne
 
         [Tooltip("Cats in Kitchen")]
         public GameObject kitchenCattos;
-        [Tooltip("Cats in Backroom")]
+        [Tooltip("Cats in Storage Room")]
         public GameObject backroomCattos;
         private LevelOnePreviousStageInformation _info;
         /// <inheritdoc/>
