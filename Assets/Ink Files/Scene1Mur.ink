@@ -1,4 +1,5 @@
 VAR interrogation_1_checkpoint = -> interrogation_1
+VAR interrogation_failed = false
 
 -> idle
 
@@ -59,6 +60,9 @@ EVA: Here goes nothing!
 -> end_interrogation
 
 === interrogation_1 ===
+{ interrogation_failed:
+        -> end_interrogation
+}
 It's a homeless man, who has clearly been weathered by the years. Speak with him?
 // because of course i can't f---ing figure out how to do nested choices without text i have to make another thing
 +   [Yes] -> _interrogation_start
@@ -252,6 +256,7 @@ HOBO: Damn it! I hate rememberin'! Fuck you, fuck you, fuck you! *DRINKS ALCOHOL
 
 === _interrogation_fail_state ===
 HOBO: *LAYS DOWN AND FALLS ASLEEP*
+~ interrogation_failed = true
 // TODO IMPLEMENT ENDING PUZZLE
 -> end_interrogation
 
