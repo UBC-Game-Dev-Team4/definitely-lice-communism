@@ -1,11 +1,13 @@
-﻿using DialogueStory;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace LevelOne.Cat
+namespace DialogueStory
 {
     /// <summary>
-    /// Trigger to display dialogue upon player seeing the cat
+    /// One-time trigger to display dialogue upon player seeing the object
     /// </summary>
+    /// <remarks>
+    /// Object gets deleted, so do not attach anything else that is important.
+    /// </remarks>
     [DisallowMultipleComponent, RequireComponent(typeof(Collider2D))]
     public class OnSeePlayerDialogueTrigger : DialogueTrigger
     {
