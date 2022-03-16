@@ -34,8 +34,12 @@ namespace DefaultNamespace
         [Tooltip("Item to open the door")]
         public Item itemToOpen;
 
+        [Tooltip("Whether the door is breakable or not")]
+        public bool breakable;
+
         public int LockedInteractCount { get; protected set; }
         
+        private bool _broken;
         private Animator _animator;
         private static readonly int OpenTrigger = Animator.StringToHash("OpenTrigger");
         private static readonly int CloseTrigger = Animator.StringToHash("CloseTrigger");
@@ -90,7 +94,7 @@ namespace DefaultNamespace
             player.movementEnabled = false;
             player.interactionEnabled = false;
             bool skipPlay = false;
-            if (_animator != null)
+            if (_animator != null && !_broken)
                 _animator.SetTrigger(OpenTrigger);
             if (currentArea != null && areaToTeleportTo != null)
             {
@@ -106,7 +110,7 @@ namespace DefaultNamespace
             LockableCamera.Instance.FreezeStateInCurrentPosition();
             player.transform.position = positionOnInteract;
             yield return new WaitForSeconds(delayJustAfterEnter);
-            if (_animator != null)
+            if (_animator != null && !_broken)
                 _animator.SetTrigger(CloseTrigger);
             yield return new WaitForSeconds(delayAfterDoorClose);
             if (areaToTeleportTo != null)
@@ -120,6 +124,24 @@ namespace DefaultNamespace
 
             player.movementEnabled = true;
             player.interactionEnabled = true;
+        }
+
+        /// <summary>
+        /// Breaks this door.
+        /// </summary>
+        public void BreakDoor()
+        {
+            if (breakable)
+            {
+                if (_broken) return;
+                _animator.SetTrigger(OpenTrigger);
+                _broken = true;
+                locked = false;
+            }
+            else
+            {
+                Debug.LogWarning("Tried to break non-breakable door.");
+            }
         }
     }
 }

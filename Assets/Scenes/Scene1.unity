@@ -1814,6 +1814,7 @@ MonoBehaviour:
   currentArea: {fileID: 517622552}
   locked: 1
   itemToOpen: {fileID: 11400000, guid: f6031d74e0b58414f877e2764509fd2c, type: 2}
+  breakable: 1
 --- !u!212 &577358416
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2753,6 +2754,7 @@ MonoBehaviour:
   currentArea: {fileID: 346242092}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!61 &799522840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2882,6 +2884,7 @@ MonoBehaviour:
   currentArea: {fileID: 1037253940}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!212 &848743153
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3190,6 +3193,7 @@ MonoBehaviour:
   currentArea: {fileID: 1037253940}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!212 &954743670
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5951,6 +5955,7 @@ MonoBehaviour:
   currentArea: {fileID: 517622552}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &2083894547
 GameObject:
   m_ObjectHideFlags: 0
@@ -6235,6 +6240,7 @@ MonoBehaviour:
   currentArea: {fileID: 2106335645}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!212 &2111042365
 SpriteRenderer:
   m_ObjectHideFlags: 0
