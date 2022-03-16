@@ -1,5 +1,6 @@
 VAR interrogation_1_checkpoint = -> interrogation_1
 VAR interrogation_failed = false
+VAR interrogation_done = false
 
 -> idle
 
@@ -61,6 +62,9 @@ EVA: Here goes nothing!
 
 === interrogation_1 ===
 { interrogation_failed:
+        -> end_interrogation
+}
+{ interrogation_done:
         -> end_interrogation
 }
 It's a homeless man, who has clearly been weathered by the years. Speak with him?
@@ -144,7 +148,7 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
                         -> _interrogation_alright_missy_section
 ++++            [It's a bar. There likely is alcohol.]
                 ----- EVA: It's a bar. There likely is alcohol.
-                -> _interrogation_alright_missy_section
+                -> _interrogation_pre_alrighty_missy_section
 
 === _interrogation_why_get_in_there ===
 HOBO: Why do you wanna get in there?
@@ -239,7 +243,8 @@ HOBO: Speaking of, I've sobered up wayyy too much fer my tastes. I hate remember
 HOBO: You sure are one direct little lady. I like that about'cha. Too many fake people in this world, all tryna sugar coat how absolute horse manure this world is. And ALCOHOL! That's my favourite word.
 -> _interrogation_alright_missy_section
 === _interrogation_alright_missy_section ===
-HOBO: Alrighty, missy. I'll help ya out. Let me just... urgh...
+HOBO: Alrighty, missy. I'll help ya out. Let me just... urgh... #name: BreakDownDoor
+~ interrogation_done = true
 // TODO IMPLEMENT BREAKING DOWN DOOR
 // TODO IMPLEMENT ENDING PUZZLE
 -> end_interrogation
