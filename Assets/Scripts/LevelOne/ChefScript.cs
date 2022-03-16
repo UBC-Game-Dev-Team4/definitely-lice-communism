@@ -18,14 +18,14 @@ namespace LevelOne
         public DoorScript kitchenDoorTarget;
         [Tooltip("X Offset of position of door in kitchen to move towards")]
         public float doorTargetOffset;
-        [Tooltip("Door in backroom to move towards")]
-        public DoorScript backroomDoorTarget;
-        [Tooltip("X offset of door in backroom to move towards")]
+        [Tooltip("Door in storage room to move towards")]
+        public DoorScript storageRoomTarget;
+        [Tooltip("X offset of door in storage room to move towards")]
         public float secondRoomDoorTargetOffset;
-        [Tooltip("After entering door in kitchen, x position of target in backroom to move towards")]
+        [Tooltip("After entering door in kitchen, x position of target in storage room to move towards")]
         public float secondRoomTarget;
-        [Tooltip("Delay after reaching target in backroom")]
-        public float delayAfterBackroomTarget = 3;
+        [Tooltip("Delay after reaching target in storage room")]
+        public float delayAfterStorageRoomTarget = 3;
         [Tooltip("X position of point in kitchen to reset position to")]
         public float kitchenResetTarget;
         [Tooltip("Delay before teleporting through a door")]
@@ -71,7 +71,7 @@ namespace LevelOne
         }
 
         /// <summary>
-        /// Begins the process of moving the chef from the kitchen to the backroom and back, if not already doing so
+        /// Begins the process of moving the chef from the kitchen to the storage room and back, if not already doing so
         /// </summary>
         public void MoveFromKitchen()
         {
@@ -101,27 +101,27 @@ namespace LevelOne
         {
             switch (_state)
             {
-                case ChefState.MovingToBackroomDoor:
+                case ChefState.MovingToStorageRoomDoor:
                 case ChefState.MovingToKitchenDoor:
                     StartCoroutine(nameof(TeleportAndMoveAfterDoorOpen));
                     break;
                 case ChefState.MovingToKitchenReset:
                     StopMoving();
                     break;
-                case ChefState.MovingToBackroomTarget:
-                    StartCoroutine(nameof(OnBackroomTargetReachedCoroutine));
+                case ChefState.MovingToStorageRoomTarget:
+                    StartCoroutine(nameof(OnStorageRoomTargetReachedCoroutine));
                     break;
             }
         }
 
-        private IEnumerator OnBackroomTargetReachedCoroutine()
+        private IEnumerator OnStorageRoomTargetReachedCoroutine()
         {
             shouldBeMoving = false;
             SetMode(AIMode.Stationary);
-            yield return new WaitForSeconds(delayAfterBackroomTarget);
+            yield return new WaitForSeconds(delayAfterStorageRoomTarget);
             shouldBeMoving = true;
-            targetX = backroomDoorTarget.transform.position.x + secondRoomDoorTargetOffset;
-            _state = ChefState.MovingToBackroomDoor;
+            targetX = storageRoomTarget.transform.position.x + secondRoomDoorTargetOffset;
+            _state = ChefState.MovingToStorageRoomDoor;
             SetMode(AIMode.SpecificX);
             SetCorrectSpriteRendererFlip();
         }
@@ -136,11 +136,11 @@ namespace LevelOne
             {
                 body.position = kitchenDoorTarget.positionOnInteract;
                 targetX = secondRoomTarget;
-                _state = ChefState.MovingToBackroomTarget;
+                _state = ChefState.MovingToStorageRoomTarget;
             }
             else
             {
-                body.position = backroomDoorTarget.positionOnInteract;
+                body.position = storageRoomTarget.positionOnInteract;
                 targetX = kitchenResetTarget;
                 _state = ChefState.MovingToKitchenReset;
             }
@@ -154,7 +154,7 @@ namespace LevelOne
         {
             base.OnDrawGizmosSelected();
             Vector3 doorTargetPos = kitchenDoorTarget.transform.position;
-            Vector3 secondDoorPos = backroomDoorTarget.transform.position;
+            Vector3 secondDoorPos = storageRoomTarget.transform.position;
             
             Gizmos.DrawWireSphere(new Vector3(doorTargetPos.x + doorTargetOffset, doorTargetPos.y, doorTargetPos.z),1);
             Gizmos.DrawWireSphere(new Vector3(secondDoorPos.x + secondRoomDoorTargetOffset, secondDoorPos.y, secondDoorPos.z),1);
@@ -165,8 +165,8 @@ namespace LevelOne
         private enum ChefState
         {
             Still,
-            MovingToBackroomDoor,
-            MovingToBackroomTarget,
+            MovingToStorageRoomDoor,
+            MovingToStorageRoomTarget,
             MovingToKitchenDoor,
             MovingToKitchenReset
         }

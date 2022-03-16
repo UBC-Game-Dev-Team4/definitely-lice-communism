@@ -1,8 +1,9 @@
-﻿using ItemInventory;
+﻿using DialogueStory;
+using ItemInventory;
 using Player;
 using UnityEngine;
 
-namespace LevelOne
+namespace LevelOne.Cat
 {
     /// <summary>
     /// Item to define custom logic for an inventory item
@@ -40,6 +41,9 @@ namespace LevelOne
         }
         [Tooltip("Prefab of the cat food object to be created")]
         public GameObject catFoodPrefab;
+
+        [Tooltip("Knot of dialogue to play")]
+        public string dialogueEvent;
         /// <inheritdoc cref="ItemInventory.Item.Use"/>
         public override void Use()
         {
@@ -48,6 +52,7 @@ namespace LevelOne
             PlacedLocation = go != null ? go.transform : null;
             Inventory.Instance.Remove(this);
             OnPlaceEvent?.Invoke();
+            DialogueTrigger.TriggerDialogue(dialogueEvent, true);
         }
 
         /// <summary>

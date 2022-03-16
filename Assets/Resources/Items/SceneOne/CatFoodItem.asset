@@ -19,3 +19,4 @@ MonoBehaviour:
   isUsable: 1
   catFoodPrefab: {fileID: 6773251569498574953, guid: 2d5ef64410a565542bb68e51a37059e4,
     type: 3}
+  dialogueEvent: OnLureCat

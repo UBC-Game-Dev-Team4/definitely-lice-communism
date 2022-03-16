@@ -1,17 +1,20 @@
 ﻿using DefaultNamespace;
+using DialogueStory;
 using UnityEngine;
 
-namespace LevelOne
+namespace LevelOne.Cat
 {
     /// <summary>
     /// Script to detect player and make the cat move away
     /// </summary>
     [DisallowMultipleComponent,RequireComponent(typeof(Collider2D))]
-    public class CatPlayerDetectionScript : MonoBehaviour
+    public class CatPlayerDetectionScript : DialogueTrigger
     {
         [Tooltip("Cat to make move away from player")]
         public CatAIScript cat;
 
+        private bool _hasRanAwayBefore;
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (CatFoodItem.IsPlaced) return;
@@ -19,6 +22,11 @@ namespace LevelOne
             {
                 cat.directionIsLeft = other.transform.position.x > cat.transform.position.x;
                 cat.SetMode(AIMode.SpecificDirection);
+                if (!_hasRanAwayBefore)
+                {
+                    PlayDialogue();
+                    _hasRanAwayBefore = true;
+                }
             }
             else
             {

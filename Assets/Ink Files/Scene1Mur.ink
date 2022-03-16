@@ -1,4 +1,6 @@
 VAR interrogation_1_checkpoint = -> interrogation_1
+VAR interrogation_failed = false
+VAR interrogation_done = false
 
 -> idle
 
@@ -59,6 +61,12 @@ EVA: Here goes nothing!
 -> end_interrogation
 
 === interrogation_1 ===
+{ interrogation_failed:
+        -> end_interrogation
+}
+{ interrogation_done:
+        -> end_interrogation
+}
 It's a homeless man, who has clearly been weathered by the years. Speak with him?
 // because of course i can't f---ing figure out how to do nested choices without text i have to make another thing
 +   [Yes] -> _interrogation_start
@@ -129,18 +137,18 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
 +++++               [You are right. Speaking of alcohol, I could gets you some if you can help me inside.]
                     ------ EVA: You are right. Speaking of alcohol, I could get you some if you can help me inside.
                     ------ HOBO: Now we are talkin! Missy, you kept blabbing about life and that kind of nonsense, who even cares if you got BOOZE! There, there, you are thinking too much. Here, have a sip. *offers alcohol*
-                    ------ *there's white stuff floating in the brown liquid. Take a sip?
+                    ------ \*there's white stuff floating in the brown liquid. Take a sip?
 ++++++                  [*No.]
                         ------- HOBO: You are no fun. Reminds me of that friend I had. Hmmm... what happened to him? Oh, he got murdered, by a fair lady that looks just like you...
                         ------- HOBO: Or am I mistaken? Whatever, I am heading back to sleep.
                         -> _interrogation_fail_state
 ++++++                  [*Yes.]
-                        ------- *you take a small sip. It burns.*
+                        ------- \*you take a small sip. It burns.*
                         ------- HOBO: A sip of booze clears all your whooze!
                         -> _interrogation_alright_missy_section
 ++++            [It's a bar. There likely is alcohol.]
                 ----- EVA: It's a bar. There likely is alcohol.
-                -> _interrogation_alright_missy_section
+                -> _interrogation_pre_alrighty_missy_section
 
 === _interrogation_why_get_in_there ===
 HOBO: Why do you wanna get in there?
@@ -235,7 +243,8 @@ HOBO: Speaking of, I've sobered up wayyy too much fer my tastes. I hate remember
 HOBO: You sure are one direct little lady. I like that about'cha. Too many fake people in this world, all tryna sugar coat how absolute horse manure this world is. And ALCOHOL! That's my favourite word.
 -> _interrogation_alright_missy_section
 === _interrogation_alright_missy_section ===
-HOBO: Alrighty, missy. I'll help ya out. Let me just... urgh...
+HOBO: Alrighty, missy. I'll help ya out. Let me just... urgh... #name: BreakDownDoor
+~ interrogation_done = true
 // TODO IMPLEMENT BREAKING DOWN DOOR
 // TODO IMPLEMENT ENDING PUZZLE
 -> end_interrogation
@@ -252,6 +261,7 @@ HOBO: Damn it! I hate rememberin'! Fuck you, fuck you, fuck you! *DRINKS ALCOHOL
 
 === _interrogation_fail_state ===
 HOBO: *LAYS DOWN AND FALLS ASLEEP*
+~ interrogation_failed = true
 // TODO IMPLEMENT ENDING PUZZLE
 -> end_interrogation
 
