@@ -15,6 +15,27 @@ namespace DefaultNamespace
         public int priority;
 
         /// <summary>
+        /// Whether the current object is highlighted
+        /// </summary>
+        public bool Highlighted { get; protected set; }
+
+        /// <summary>
+        /// Indicate the object is being highlighted/active.
+        /// </summary>
+        public virtual void Highlight()
+        {
+            Highlighted = true;
+        }
+
+        /// <summary>
+        /// Indicate the object is no longer being highlighted.
+        /// </summary>
+        public virtual void DeHighlight()
+        {
+            Highlighted = false;
+        }
+        
+        /// <summary>
         ///     Interact with this object by triggering the events on interact
         /// </summary>
         /// <param name="src">Object that interacted with this object</param>

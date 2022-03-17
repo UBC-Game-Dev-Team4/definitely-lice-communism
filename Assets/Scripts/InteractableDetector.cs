@@ -20,6 +20,31 @@ namespace DefaultNamespace
             _collider = GetComponent<Collider2D>();
         }
 
+        private void FixedUpdate()
+        {
+            Interactable prevInteractable = null;
+            if (_list.Count > 0) prevInteractable = _list[0];
+            _list.Sort(new InteractableComparator(transform.position));
+            if (_list.Count <= 0) return;
+            if (_list[0] == prevInteractable)
+            {
+#if UNITY_EDITOR
+                Debug.Assert(prevInteractable != null);
+#endif
+                if (!prevInteractable.Highlighted)
+                {
+                    prevInteractable.Highlight();
+                }
+
+                return;
+            }
+#if UNITY_EDITOR
+            Debug.Assert(prevInteractable != null);
+#endif
+            prevInteractable.DeHighlight();
+            _list[0].Highlight();
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             Interactable interactable = other.GetComponent<Interactable>();
@@ -36,7 +61,6 @@ namespace DefaultNamespace
         public override void Interact(object src, params object[] args)
         {
             base.Interact(src, args);
-            _list.Sort(new InteractableComparator(transform.position));
             if (_list.Count > 0) _list[0].Interact(src, args);
         }
 

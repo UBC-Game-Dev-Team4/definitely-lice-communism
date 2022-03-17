@@ -15,8 +15,10 @@ namespace LevelOne
 
         [Tooltip("Cats in Kitchen")]
         public GameObject kitchenCattos;
-        [Tooltip("Cats in Backroom")]
+        [Tooltip("Cats in Storage Room")]
         public GameObject backroomCattos;
+        [Tooltip("Door that was broken")]
+        public DoorScript doorBroken;
         private LevelOnePreviousStageInformation _info;
         /// <inheritdoc/>
         public override bool ApplyInformation(PreviousStageInformation information)
@@ -29,6 +31,10 @@ namespace LevelOne
             if (deadChefGameObject != null) deadChefGameObject.transform.position = _info.deadBodyLocation;
             if (_info.deadBodyLocation.y > 5) kitchenCattos.SetActive(true);
             else backroomCattos.SetActive(true);
+            if (_info.doorBroken)
+            {
+                doorBroken.BreakDoor();
+            }
             return true;
         }
     }

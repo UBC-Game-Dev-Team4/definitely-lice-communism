@@ -39,12 +39,20 @@ namespace Player
         [Tooltip("Whether interaction is disabled")]
         public bool interactionEnabled = true;
 
+        /// <summary>
+        /// Whether the player is currently facing left or right
+        /// </summary>
+        public bool IsFacingLeft
+        {
+            get;
+            private set;
+        }
+
         private Rigidbody2D _body;
 
         private InteractableDetector _detector;
 
         private Animator _animator;
-        private bool _isFacingLeft;
         
         private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
         private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
@@ -95,11 +103,11 @@ namespace Player
                 _animator.SetFloat(WalkSpeedParameter,1);
             
             
-            if (_body.velocity.x < -0.01) _isFacingLeft = true;
-            else if (_body.velocity.x > 0.01) _isFacingLeft = false;
+            if (_body.velocity.x < -0.01) IsFacingLeft = true;
+            else if (_body.velocity.x > 0.01) IsFacingLeft = false;
             else
             {
-                _animator.SetFloat(VelocityXParameter, _isFacingLeft ? -0.0001f : 0.0001f);
+                _animator.SetFloat(VelocityXParameter, IsFacingLeft ? -0.0001f : 0.0001f);
             }
             if (_body.velocity.x < -0.01 || _body.velocity.x > 0.01)
                 _animator.SetFloat(VelocityXParameter,_body.velocity.x);
