@@ -25,7 +25,7 @@ Use A/D to move; Left click to interact with items; Press E to pick up items
 -> end_interrogation
 
 === event_on_hobo_discover ===
-EVA: A sleeping hobo, fitting for such a dinghy place
+EVA: A sleeping hobo, fitting for such a dingy place
 -> end_interrogation
 
 === event_on_locked_door_interact ===

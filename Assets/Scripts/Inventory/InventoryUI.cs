@@ -47,7 +47,7 @@ namespace ItemInventory
                     if (oldIndex >= 0 && oldIndex < _slots.Length)
                         _slots[oldIndex].Highlighted = false;
                     int newIndex = oldIndex - 1;
-                    if (newIndex < 0) newIndex = _inventory.items.Count - 1;
+                    if (newIndex < 0) newIndex = _slots.Length - 1;
                     _inventory.indexOfSelection = newIndex;
                     if (newIndex >= 0 && newIndex < _slots.Length)
                         _slots[newIndex].Highlighted = true;
