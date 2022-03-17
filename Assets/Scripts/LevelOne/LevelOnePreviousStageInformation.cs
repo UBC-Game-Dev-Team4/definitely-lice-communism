@@ -20,5 +20,11 @@ namespace LevelOne
         /// </summary>
         [SerializeField]
         public Vector3 deadBodyLocation;
+
+        /// <summary>
+        /// Whether the door was broken
+        /// </summary>
+        [SerializeField]
+        public bool doorBroken;
     }
 }

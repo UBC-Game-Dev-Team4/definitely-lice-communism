@@ -1,10 +1,9 @@
-﻿using System;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using ItemInventory;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace LevelOne
+namespace LevelOne.Cat
 {
     /// <summary>
     /// AI script for a cat :3

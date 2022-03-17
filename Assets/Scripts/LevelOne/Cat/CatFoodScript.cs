@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LevelOne
+namespace LevelOne.Cat
 {
     /// <summary>
     /// Script to be attached to the created cat food object to lure the cat over

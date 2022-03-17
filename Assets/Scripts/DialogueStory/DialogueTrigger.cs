@@ -19,12 +19,21 @@ namespace DialogueStory
         /// </summary>
         public virtual void PlayDialogue()
         {
-            if (string.IsNullOrEmpty(knot)) return;
-            if (stopMovement)
-            {
-                PlayerScript.Instance.movementEnabled = false;
-            }
-            BranchingStoryController.Instance.TryOpenDialogue(knot);
+            TriggerDialogue(knot, stopMovement);
+        }
+
+        /// <summary>
+        /// Trigger dialogue with given starting knot/dialogue and whether movement is stopped
+        /// </summary>
+        /// <param name="dialogue">Starting knot/dialogue option</param>
+        /// <param name="stopMovement">Whether movement should be stopped</param>
+        /// <returns>True if dialogue is played (i.e. dialogue knot is not null/empty), false otherwise</returns>
+        public static bool TriggerDialogue(string dialogue, bool stopMovement = false)
+        {
+            if (string.IsNullOrWhiteSpace(dialogue)) return false;
+            if (stopMovement) PlayerScript.Instance.movementEnabled = false;
+            BranchingStoryController.Instance.TryOpenDialogue(dialogue);
+            return true;
         }
     }
 }
