@@ -6508,6 +6508,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7727797871777599336, guid: 4bb08f4b3a19b0449a0c0297d6e03e58,
         type: 3}
+      propertyPath: startingArea
+      value: 
+      objectReference: {fileID: 346242092}
+    - target: {fileID: 7727797871777599336, guid: 4bb08f4b3a19b0449a0c0297d6e03e58,
+        type: 3}
       propertyPath: startingCameraState.movementFixedY
       value: 1.2
       objectReference: {fileID: 0}

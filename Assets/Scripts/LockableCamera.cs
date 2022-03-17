@@ -17,8 +17,12 @@ namespace Util
         /// <see href="https://en.wikipedia.org/wiki/Singleton_pattern" />
         private static LockableCamera _instance;
 
-        [Tooltip("Camera state to start at")]
-        public CameraState startingCameraState = CameraState.CreateFreeXYCameraState(new Vector3(0, 0, -10));
+        /// <summary>
+        /// If starting area is not found, default camera state
+        /// </summary>
+        private static readonly CameraState DefaultCameraState = CameraState.CreateFreeXYCameraState(new Vector3(0, 0, -10));
+        [Tooltip("Area to start at and acquire camera state of")]
+        public AreaScript startingArea;
 
         private PixelPerfectCamera _camera;
         private CameraState _cameraState;
@@ -53,8 +57,16 @@ namespace Util
             _instance = this;
             _camera = GetComponent<PixelPerfectCamera>();
             _player = PlayerScript.Instance;
-            _cameraState = startingCameraState;
-            ApplyState(startingCameraState);
+            if (startingArea != null)
+            {
+                _cameraState = startingArea.cameraStateOnEnter;
+                ApplyState(_cameraState);
+            }
+            else
+            {
+                _cameraState = DefaultCameraState;
+                ApplyState(_cameraState);
+            }
         }
 
         /// <summary>
