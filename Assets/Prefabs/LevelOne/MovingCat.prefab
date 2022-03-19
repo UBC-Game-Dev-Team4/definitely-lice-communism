@@ -397,7 +397,7 @@ MonoBehaviour:
   catFoodItem: {fileID: 11400000, guid: 434a1d675e1d9e94b803ea5163480e53, type: 2}
   shouldRunAway: 1
   lookAtPlayerOffset: 0.25
-  velMovementThreshold: 0.01
+  velMovementThreshold: 0.001
   velLookValue: 0.00001
   delayBeforeBendOver: 1
 --- !u!95 &6563039094813586612

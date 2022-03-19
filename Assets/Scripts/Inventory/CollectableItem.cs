@@ -9,14 +9,14 @@ namespace ItemInventory
         public bool destroyOnPickup = true;
         public bool hasHighlight;
         public Sprite spriteOnHighlight;
-        private bool _pickedUp;
+        protected bool _pickedUp;
         private SpriteRenderer _spriteRenderer;
         private Sprite _prevSprite;
         
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _prevSprite = _spriteRenderer?.sprite;
+            _prevSprite = _spriteRenderer == null ? null : _spriteRenderer.sprite;
         }
 
         public override void Highlight()
