@@ -54,10 +54,12 @@ namespace LevelOne.Cat
         {
             base.FixedUpdate();
             shouldRunAway = !Inventory.Instance.HasActiveItem(catFoodItem);
+            bool isRunning = false;
             if (currentSpeed > velMovementThreshold)
             {
                 _isFacingLeft = directionIsLeft;
-                _animator.SetFloat(VelX,body.velocity.x);
+                _animator.SetFloat(VelX,_isFacingLeft? -currentSpeed : currentSpeed);
+                isRunning = true;
             } else
             {
                 if (_isFacingLeft)
@@ -66,8 +68,9 @@ namespace LevelOne.Cat
                     _animator.SetFloat(VelX, velLookValue);
             }
             
-            // TODO WHEN CAT PERSON DOES IDLE FACE RIGHT/WALK FACE RIGHT REMOVE THIS
             _renderer.flipX = !_isFacingLeft;
+            // Run animation is in... opposite direction of the idle animation
+            if (isRunning) _renderer.flipX = !_renderer.flipX;
         }
 
         public void FacePlayer(Transform player)

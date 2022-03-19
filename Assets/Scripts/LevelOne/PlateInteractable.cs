@@ -1,5 +1,4 @@
-﻿using DefaultNamespace;
-using ItemInventory;
+﻿using ItemInventory;
 
 namespace LevelOne
 {
@@ -9,8 +8,6 @@ namespace LevelOne
     public class PlateInteractable : CollectableItem
     {
         public bool isInteractable;
-        public Item item;
-        private bool _pickedUp;
         private bool _broken;
 
         public override void Interact(object src, params object[] args)

@@ -601,7 +601,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -634,6 +634,7 @@ MonoBehaviour:
   currentArea: {fileID: 1355421341}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &422913884
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,7 +756,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -788,6 +789,7 @@ MonoBehaviour:
   currentArea: {fileID: 1355421341}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &560301800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2876,7 +2878,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2909,6 +2911,7 @@ MonoBehaviour:
   currentArea: {fileID: 693584740}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &1165150596
 GameObject:
   m_ObjectHideFlags: 0
@@ -2992,6 +2995,7 @@ MonoBehaviour:
   currentArea: {fileID: 1355421341}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &1208025668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3639,7 +3643,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3672,6 +3676,7 @@ MonoBehaviour:
   currentArea: {fileID: 1208025669}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &1284196063
 GameObject:
   m_ObjectHideFlags: 0
@@ -5548,7 +5553,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5581,6 +5586,7 @@ MonoBehaviour:
   currentArea: {fileID: 1029209651}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &1724788457
 GameObject:
   m_ObjectHideFlags: 0
@@ -5837,7 +5843,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5870,6 +5876,7 @@ MonoBehaviour:
   currentArea: {fileID: 1355421341}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &1796649640
 GameObject:
   m_ObjectHideFlags: 0
@@ -6352,6 +6359,7 @@ MonoBehaviour:
   currentArea: {fileID: 893599315}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!1 &2100500440
 GameObject:
   m_ObjectHideFlags: 0
@@ -6580,6 +6588,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7727797871777599336, guid: 4bb08f4b3a19b0449a0c0297d6e03e58,
+        type: 3}
+      propertyPath: startingArea
+      value: 
+      objectReference: {fileID: 1355421341}
     - target: {fileID: 7727797871777599336, guid: 4bb08f4b3a19b0449a0c0297d6e03e58,
         type: 3}
       propertyPath: startingCameraState.movementFixedY

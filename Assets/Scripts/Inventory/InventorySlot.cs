@@ -17,8 +17,6 @@ namespace ItemInventory
         [Tooltip("Displayed description of item.")] public TextMeshProUGUI descriptionDisplay;
         [Tooltip("Displayed icon.")] public Image icon;
 
-        [Tooltip("Button to remove item.")] public Button removeButton;
-
         [Tooltip("Inventory highlight")] public Transform highlight;
 
         private Item _item;
@@ -55,7 +53,6 @@ namespace ItemInventory
             descriptionDisplay.text = _item.description;
             descriptionDisplay.enabled = true;
             icon.enabled = true;
-            removeButton.interactable = true;
         }
 
         /// <summary>
@@ -71,12 +68,6 @@ namespace ItemInventory
             descriptionDisplay.text = "";
             descriptionDisplay.enabled = false;
             icon.enabled = false;
-            removeButton.interactable = false;
-        }
-
-        public void OnRemoveButton()
-        {
-            Inventory.Instance.Remove(_item);
         }
     }
 }

@@ -87,14 +87,13 @@ namespace DialogueStory
 
             while (BranchingStoryController.Instance.TryMoveNext(this))
             {
+                BranchingStoryController.Instance.RunPuzzleEvents(this);
                 if (BranchingStoryController.Instance.CheckForEnd(this))
                 {
                     // Stop this coroutine and hide the dialogue screen - ensures this coroutine won't be called again
                     Close();
                     yield break;
                 }
-
-                BranchingStoryController.Instance.RunPuzzleEvents(this);
 
                 // Type out the line only if it is not empty.
                 string line = BranchingStoryController.Instance.CurrentLine;

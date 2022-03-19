@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace DefaultNamespace
 {
@@ -13,13 +14,17 @@ namespace DefaultNamespace
         [Tooltip("Enable these objects upon fade completion")]
         public GameObject[] objectsToEnable;
 
+        public UnityEvent eventOnFinish;
+
         // ReSharper disable once UnusedMember.Global
         public void OnFadeFinish()
         {
             foreach (GameObject go in objectsToEnable)
             {
                 if (go != null) go.SetActive(true);
-            }    
+            }
+
+            eventOnFinish?.Invoke();
         }
     }
 }

@@ -150,7 +150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 990395961}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &59354523
 SpriteRenderer:
@@ -577,6 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034eac0acc00a5740b939d345ae8ebc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interrogationKnotTextCheck: Interrogation
 --- !u!114 &310938541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,6 +1291,15 @@ MonoBehaviour:
     type: 2}
   audioMixer: {fileID: 24100000, guid: d6165673366359c49bb51f70071d1087, type: 2}
   playMusicOnAwake: 0
+  onRoomExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoomEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoomFirstEnter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &990395961
 Transform:
   m_ObjectHideFlags: 0
@@ -1305,9 +1315,9 @@ Transform:
   - {fileID: 1609843247}
   - {fileID: 1297232062}
   - {fileID: 1443179185}
-  - {fileID: 1643125361}
   - {fileID: 59354522}
   - {fileID: 1659624035}
+  - {fileID: 285535331857055043}
   - {fileID: 119033453}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1388,6 +1398,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7727797871777599336, guid: 4bb08f4b3a19b0449a0c0297d6e03e58,
+        type: 3}
+      propertyPath: startingArea
+      value: 
+      objectReference: {fileID: 990395960}
     - target: {fileID: 7727797871777599336, guid: 4bb08f4b3a19b0449a0c0297d6e03e58,
         type: 3}
       propertyPath: startingCameraState.movementModeX
@@ -1514,13 +1529,22 @@ MonoBehaviour:
     movementRangeYRight: 0
     cameraOffset: {x: 0, y: 0, z: -10}
     cameraIdealWidth: 320
-  backgroundMusic: {fileID: 974696593}
+  backgroundMusic: {fileID: 0}
   musicTargetAudioMixer: {fileID: 7475149374305949419, guid: d6165673366359c49bb51f70071d1087,
     type: 2}
   musicFadeAudioMixer: {fileID: 3200976170318806786, guid: d6165673366359c49bb51f70071d1087,
     type: 2}
   audioMixer: {fileID: 24100000, guid: d6165673366359c49bb51f70071d1087, type: 2}
   playMusicOnAwake: 0
+  onRoomExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoomEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoomFirstEnter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1180950859
 Transform:
   m_ObjectHideFlags: 0
@@ -1776,7 +1800,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1809,6 +1833,7 @@ MonoBehaviour:
   currentArea: {fileID: 990395960}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!212 &1443179189
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2208,12 +2233,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1643125361 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 285535333495973683, guid: 9342b7bb08828da45b6246f7f8ca8e42,
-    type: 3}
-  m_PrefabInstance: {fileID: 285535331857055042}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1659624034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,7 +2262,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 990395961}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1659624036
 SpriteRenderer:
@@ -2705,7 +2724,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
+    oldSize: {x: 1.1111112, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2738,6 +2757,7 @@ MonoBehaviour:
   currentArea: {fileID: 1180950858}
   locked: 0
   itemToOpen: {fileID: 0}
+  breakable: 0
 --- !u!212 &1979768203
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3067,3 +3087,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9342b7bb08828da45b6246f7f8ca8e42, type: 3}
+--- !u!4 &285535331857055043 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 285535331857055042}
+  m_PrefabAsset: {fileID: 0}
