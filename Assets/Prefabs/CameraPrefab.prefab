@@ -117,14 +117,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e19c02e4c285ec45ba249bd908b92ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCameraState:
-    movementModeX: 1
-    movementFixedX: 0
-    movementRangeXLeft: -5.05
-    movementRangeXRight: 35.05
-    movementModeY: 0
-    movementFixedY: 1.7
-    movementRangeYLeft: 0
-    movementRangeYRight: 0
-    cameraOffset: {x: 0, y: 0, z: -10}
-    cameraIdealWidth: 320
+  startingArea: {fileID: 0}

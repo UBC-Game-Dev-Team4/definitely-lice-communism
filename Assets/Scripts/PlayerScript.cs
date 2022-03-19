@@ -39,6 +39,9 @@ namespace Player
         [Tooltip("Whether interaction is disabled")]
         public bool interactionEnabled = true;
 
+        [Tooltip("Whether animation is updated")]
+        public bool updateAnimation = true;
+
         /// <summary>
         /// Whether the player is currently facing left or right
         /// </summary>
@@ -48,14 +51,14 @@ namespace Player
             private set;
         }
 
-        private Rigidbody2D _body;
+        public Rigidbody2D Body { get; private set; }
 
         private InteractableDetector _detector;
 
-        private Animator _animator;
+        public Animator Animator { get; private set; }
         
         private static readonly int WalkSpeedParameter = Animator.StringToHash("WalkSpeedParameter");
-        private static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
+        public static readonly int VelocityXParameter = Animator.StringToHash("VelocityX");
 
         /// <summary>
         ///     Locates required objects and sets singleton instance
@@ -64,9 +67,9 @@ namespace Player
         protected override void Awake()
         {
             base.Awake();
-            _body = GetComponent<Rigidbody2D>();
+            Body = GetComponent<Rigidbody2D>();
             _detector = GetComponentInChildren<InteractableDetector>();
-            _animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
             instance = this;
         }
 
@@ -79,10 +82,10 @@ namespace Player
             {
                 float multiplier = 1;
                 float horizontalAxis = Input.GetAxis("Horizontal");
-                if (_body.velocity.x * horizontalAxis < 0)
+                if (Body.velocity.x * horizontalAxis < 0)
                     multiplier = turnAroundMultiplier; // turn around faster
 
-                _body.AddForce(new Vector2(movementSpeed * Time.deltaTime * horizontalAxis * multiplier, 0), ForceMode2D.Impulse);
+                Body.AddForce(new Vector2(movementSpeed * Time.deltaTime * horizontalAxis * multiplier, 0), ForceMode2D.Impulse);
                 if (debug)
                 {
                     Vector3 position = transform.position;
@@ -92,25 +95,29 @@ namespace Player
                 if (Physics2D.OverlapBox((Vector2) transform.position + groundCheckOffset, groundCheckSize, 0,
                     groundCheckLayerMask) != null && Input.GetKeyDown(SettingsManager.Instance.jumpKey))
                 {
-                    _body.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
-                    _animator.SetFloat(WalkSpeedParameter, 0);
+                    Body.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
+                    Animator.SetFloat(WalkSpeedParameter, 0);
                 }
             }
 
             if (interactionEnabled && Input.GetKeyDown(SettingsManager.Instance.interactKey)) _detector.Interact(this);
 
-            if (Math.Abs(_body.velocity.y) < 0.001f)
-                _animator.SetFloat(WalkSpeedParameter,1);
-            
-            
-            if (_body.velocity.x < -0.01) IsFacingLeft = true;
-            else if (_body.velocity.x > 0.01) IsFacingLeft = false;
-            else
+            if (updateAnimation)
             {
-                _animator.SetFloat(VelocityXParameter, IsFacingLeft ? -0.0001f : 0.0001f);
+                if (Math.Abs(Body.velocity.y) < 0.001f)
+                    Animator.SetFloat(WalkSpeedParameter, 1);
+
+
+                if (Body.velocity.x < -0.01) IsFacingLeft = true;
+                else if (Body.velocity.x > 0.01) IsFacingLeft = false;
+                else
+                {
+                    Animator.SetFloat(VelocityXParameter, IsFacingLeft ? -0.0001f : 0.0001f);
+                }
+
+                if (Body.velocity.x < -0.01 || Body.velocity.x > 0.01)
+                    Animator.SetFloat(VelocityXParameter, Body.velocity.x);
             }
-            if (_body.velocity.x < -0.01 || _body.velocity.x > 0.01)
-                _animator.SetFloat(VelocityXParameter,_body.velocity.x);
         }
 
         /// <summary>
@@ -118,8 +125,8 @@ namespace Player
         /// </summary>
         public void StopMoving()
         {
-            _body.velocity = Vector2.zero;
-            _animator.SetFloat(VelocityXParameter,0);
+            Body.velocity = Vector2.zero;
+            Animator.SetFloat(VelocityXParameter,0);
         }
     }
 }

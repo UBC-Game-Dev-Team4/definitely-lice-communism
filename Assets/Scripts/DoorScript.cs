@@ -127,6 +127,32 @@ namespace DefaultNamespace
         }
 
         /// <summary>
+        /// Open but do nothing
+        /// </summary>
+        /// <param name="eventOnTp">Event called on teleport phase</param>
+        public void FakeOpen(UnityEngine.Events.UnityEvent eventOnTp = null)
+        {
+            StartCoroutine(FakeOpenCoroutine(eventOnTp));
+        }
+
+        /// <summary>
+        /// Open but do nothing
+        /// </summary>
+        /// <param name="eventOnTp">Event called on teleport phase</param>
+        /// <returns>Coroutine</returns>
+        private IEnumerator FakeOpenCoroutine(UnityEngine.Events.UnityEvent eventOnTp = null)
+        {
+            if (_animator != null && !_broken)
+                _animator.SetTrigger(OpenTrigger);
+            yield return new WaitForSeconds(delayBeforeEnter);
+            eventOnTp?.Invoke();
+            yield return new WaitForSeconds(delayJustAfterEnter);
+            if (_animator != null && !_broken)
+                _animator.SetTrigger(CloseTrigger);
+            yield return new WaitForSeconds(delayAfterDoorClose);
+        }
+
+        /// <summary>
         /// Breaks this door.
         /// </summary>
         public void BreakDoor()

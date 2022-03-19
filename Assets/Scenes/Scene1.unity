@@ -6203,7 +6203,6 @@ MonoBehaviour:
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
   isInteractable: 0
-  item: {fileID: 0}
 --- !u!1 &2043827783
 GameObject:
   m_ObjectHideFlags: 0
