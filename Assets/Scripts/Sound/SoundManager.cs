@@ -104,6 +104,35 @@ namespace Sound
             if (resetVolume)
                 audioMixer.SetFloat("MusicFadeVolume", 1);
         }
+        
+        /// <summary>
+        /// Coroutine to fade out the music fade audio mixer group over a set duration.
+        /// </summary>
+        /// <param name="source">Audio source playing (to fade)</param>
+        /// <param name="audioMixer">Audio mixer containing MusicFadeVolume parameter</param>
+        /// <param name="duration">Duration of fade</param>
+        /// <param name="resetVolume">After stopping the clip, whether the fade should reset so another fade can happen</param>
+        /// <returns>Coroutine</returns>
+        public static IEnumerator StartMusicFadeOut(AudioSource source, AudioMixer audioMixer, float duration = 1, bool resetVolume = true, bool shouldClearAreaScriptBGM = false)
+        {
+            float currentTime = 0;
+            audioMixer.GetFloat(MusicFadeVolumeParameter, out float currentVol);
+            currentVol = Mathf.Pow(10, currentVol / 20);
+
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                float newVol = Mathf.Lerp(currentVol, SilentVolume, currentTime / duration);
+                audioMixer.SetFloat(MusicFadeVolumeParameter, Mathf.Log10(newVol) * 20);
+                yield return null;
+            }
+            
+            source.Stop();
+            if (shouldClearAreaScriptBGM)
+                AreaScript.currentlyActiveBackgroundMusic = null;
+            if (resetVolume)
+                audioMixer.SetFloat("MusicFadeVolume", 1);
+        }
 
         /// <summary>
         ///     Changes the pitch of selected audio mixer from sound audio type.
