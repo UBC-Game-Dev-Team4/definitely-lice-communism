@@ -86,7 +86,7 @@ It's a homeless man, who has clearly been weathered by the years. Speak with him
     -- EVA: *tap tap tap*
 +   [Can you hear me? C'mon, wake up.]
     -- EVA: Can you hear me? C'mon, wake up.
-- HOBO: Alriiiight, alriiiight, I'm awaaaaake. Whaddoya wan?
+- HOBO: Alriiiight, alriiiight, I'm awaaaaake. Whaddoya wan? #name: HoboWakeUp
 +   [Hey, are you busy? I want to get into this bar.]
     -- EVA: Hey, are you busy? I want to get into this bar.
     -- HOBO: Yeah, I'm busy. Away you go.
@@ -245,8 +245,6 @@ HOBO: You sure are one direct little lady. I like that about'cha. Too many fake 
 === _interrogation_alright_missy_section ===
 HOBO: Alrighty, missy. I'll help ya out. Let me just... urgh... #name: BreakDownDoor
 ~ interrogation_done = true
-// TODO IMPLEMENT BREAKING DOWN DOOR
-// TODO IMPLEMENT ENDING PUZZLE
 -> end_interrogation
 === _interrogation_hobo_is_sus ===
 HOBO: Missy, you are hella fishy. I ain't helping you.
@@ -262,7 +260,7 @@ HOBO: Damn it! I hate rememberin'! Fuck you, fuck you, fuck you! *DRINKS ALCOHOL
 === _interrogation_fail_state ===
 HOBO: *LAYS DOWN AND FALLS ASLEEP*
 ~ interrogation_failed = true
-// TODO IMPLEMENT ENDING PUZZLE
+#name: HoboSleep
 -> end_interrogation
 
 

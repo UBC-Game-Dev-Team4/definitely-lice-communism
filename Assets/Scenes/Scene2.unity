@@ -2435,6 +2435,9 @@ MonoBehaviour:
   - {fileID: 1085638518}
   - {fileID: 1471531117}
   - {fileID: 2100500440}
+  eventOnFinish:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &900215442
 Animator:
   serializedVersion: 3
@@ -5700,6 +5703,13 @@ MonoBehaviour:
   minDelay: 15
   maxDelay: 30
   additionalSources: []
+  accountForAudioLength: 0
+  playOnAwake: 1
+  delayOnStart: 1
+  fadeOnStop: 0
+  musicMixer: {fileID: 0}
+  musicAudioGroup: {fileID: 0}
+  musicFadeGroup: {fileID: 0}
 --- !u!4 &1759739349
 Transform:
   m_ObjectHideFlags: 0
