@@ -1444,7 +1444,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7475149374305949419, guid: d6165673366359c49bb51f70071d1087,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 8f3eeecc4cc39d04b86faa43a3f8e415, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c7ecd621d5694fe44a6059a1e360443e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5422,6 +5422,9 @@ MonoBehaviour:
   - {fileID: 1038640007}
   - {fileID: 1907327073}
   - {fileID: 1279907911}
+  eventOnFinish:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &1867985109
 Animator:
   serializedVersion: 3
@@ -6880,7 +6883,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7475149374305949419, guid: d6165673366359c49bb51f70071d1087,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 0b215fa3f03c75143ac5a5144be45f77, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0ea12b383bacab74f8da2c7bf2bdd05b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
