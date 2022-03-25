@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Ink.Runtime;
 using Singleton;
 using UnityEngine;
@@ -12,6 +13,10 @@ namespace DialogueStory
     {
         [Tooltip("Array of buttons for choices, in the same order as the hierarchy.")]
         public Button[] buttons;
+        [Tooltip("Voices")]
+        public NameAndVoice[] voices;
+
+        private Dictionary<string, AudioSource[]> _voiceDict;
 
         public StoryStates State => StoryStates.InDialogue;
 
@@ -107,6 +112,8 @@ namespace DialogueStory
             ShowChoices();
         }
 
+        private bool _shouldPlayVoice = false;
+
         /// <summary>
         /// Coroutine that types out a line character by character.
         /// If typing is interrupted by pressing the next key, skips to the end of the line.
@@ -119,6 +126,11 @@ namespace DialogueStory
 
             DialogueScreen.Instance.Speaker = speaker;
             DialogueScreen.Instance.Text = "";
+            if (speaker != null && _voiceDict.TryGetValue(speaker, out AudioSource[] sources))
+            {
+                _shouldPlayVoice = true;
+                StartCoroutine(RandomVoiceCoroutine(sources));
+            }
 
             foreach (char letter in text)
             {
@@ -132,10 +144,32 @@ namespace DialogueStory
                 break;
             }
 
+            if (speaker != null && _voiceDict.ContainsKey(speaker))
+            {
+                _shouldPlayVoice = false;
+                StopCoroutine(nameof(RandomVoiceCoroutine));
+            }
+
             // Wait for next key press to advance dialogue.
             while (!Input.GetKeyDown(SettingsManager.Instance.nextDialogueKey))
             {
                 yield return null;
+            }
+        }
+
+        /// <summary>
+        /// Plays a random voice continuously until stopped
+        /// </summary>
+        /// <param name="sources">List of sources</param>
+        /// <returns>Coroutine</returns>
+        private IEnumerator RandomVoiceCoroutine(IReadOnlyList<AudioSource> sources)
+        {
+            if (sources == null || sources.Count == 0) yield break;
+            while (_shouldPlayVoice)
+            {
+                int index = Random.Range(0, sources.Count);
+                sources[index].Play();
+                yield return new WaitForSeconds(sources[index].clip.length);
             }
         }
 
@@ -195,5 +229,22 @@ namespace DialogueStory
             // Game story will handle releasing the input manager here.
             BranchingStoryController.Instance.DialogueCloseEvent.Invoke();
         }
+
+        /// <summary>
+        /// Adjust voiceDict on validate
+        /// </summary>
+        private void OnValidate()
+        {
+            _voiceDict = voices.ToDictionary(pair => pair.name, pair => pair.sources);
+        }
+    }
+
+    [System.Serializable]
+    public class NameAndVoice
+    {
+        [SerializeField]
+        public string name;
+        [SerializeField]
+        public AudioSource[] sources;
     }
 }
