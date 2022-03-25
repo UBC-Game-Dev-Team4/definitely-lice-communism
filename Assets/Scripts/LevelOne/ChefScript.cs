@@ -37,10 +37,13 @@ namespace LevelOne
         private Animator _animator;
         private static readonly int StationaryTrigger = Animator.StringToHash("StationaryTrigger");
         private static readonly int WalkTrigger = Animator.StringToHash("WalkTrigger");
+        public static ChefScript InstanceIfPresent { get; private set; }
 
+        
         protected override void Awake()
         {
             base.Awake();
+            InstanceIfPresent = this;
             _animator = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
             TargetXReached += OnReachSpecificXDestination;

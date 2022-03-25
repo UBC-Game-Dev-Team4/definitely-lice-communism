@@ -16,6 +16,16 @@ namespace LevelOne
         [SerializeField]
         public bool wasKilledViaHotOil = false;
         /// <summary>
+        /// Whether the plate was picked up
+        /// </summary>
+        [SerializeField]
+        public bool wasPlatePickedUp = false;
+        /// <summary>
+        /// Whether the mallet was picked up
+        /// </summary>
+        [SerializeField]
+        public bool wasMalletPickedUp = false;
+        /// <summary>
         /// Dead body location
         /// </summary>
         [SerializeField]
