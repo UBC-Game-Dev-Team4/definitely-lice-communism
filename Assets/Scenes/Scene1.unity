@@ -6294,9 +6294,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1963987428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0f30c69d3159842a417fff25ffa7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: adfe8568f8814d72881c9b0f9ea12b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventOnInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  priority: 0
+  item: {fileID: 0}
+  destroyOnPickup: 1
+  hasHighlight: 0
+  spriteOnHighlight: {fileID: 0}
+  isInteractable: 0
 --- !u!1001 &2019784969
 PrefabInstance:
   m_ObjectHideFlags: 0
