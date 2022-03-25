@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using DefaultNamespace;
+using Sound;
 using UnityEngine;
+using Util;
 
 namespace LevelOne
 {
     /// <summary>
     /// Script that controls the Chef in Level 1 (when alive)
     /// </summary>
-    [RequireComponent(typeof(Animator),typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Animator),typeof(SpriteRenderer), typeof(AmbientSoundPlayer))]
     public class ChefScript : AIScript
     {
         [Tooltip("Prefab of the dead chef")]
@@ -33,6 +35,7 @@ namespace LevelOne
         [Tooltip("Delay after teleporting through a door")]
         public float delayAfterTeleport = 1;
         private SpriteRenderer _renderer;
+        private AmbientSoundPlayer _player;
         private ChefState _state = ChefState.Still;
         private Animator _animator;
         private static readonly int StationaryTrigger = Animator.StringToHash("StationaryTrigger");
@@ -46,6 +49,7 @@ namespace LevelOne
             InstanceIfPresent = this;
             _animator = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
+            _player = GetComponent<AmbientSoundPlayer>();
             TargetXReached += OnReachSpecificXDestination;
             SetMode(AIMode.Stationary);
         }
@@ -71,6 +75,7 @@ namespace LevelOne
             LevelOneInfoStorer.CastedSingleton.OnKilledChef(go.transform.position);
             LevelOneInfoStorer.CastedSingleton.CastedInfo.AddMurderRespect(30);
             LevelOneInfoStorer.CastedSingleton.CastedInfo.wasKilledViaHotOil = isViaHotOil;
+            _player.StopPlaying();
         }
 
         /// <summary>
@@ -86,6 +91,7 @@ namespace LevelOne
                 _state = ChefState.MovingToKitchenDoor;
                 SetMode(AIMode.SpecificX);
                 SetCorrectSpriteRendererFlip();
+                _player.StopPlaying();
             }
         }
 
@@ -98,6 +104,10 @@ namespace LevelOne
             SetMode(AIMode.Stationary);
             _state = ChefState.Still;
             shouldBeMoving = false;
+            if (AreaScript.currentArea == kitchenDoorTarget.currentArea)
+            {
+                _player.StartPlaying();
+            }
         }
 
         private void OnReachSpecificXDestination(float ignoredTarget)

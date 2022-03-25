@@ -42,7 +42,7 @@ namespace LevelOne
             }
             plate.SetActive(!_info.wasPlatePickedUp);
             mallet.SetActive(!_info.wasMalletPickedUp);
-            if (_info.wasKilledViaHotOil) deepFryer.MakeOilVisible();
+            if (_info.wasKilledViaHotOil) deepFryer.OnKill();
             return true;
         }
     }

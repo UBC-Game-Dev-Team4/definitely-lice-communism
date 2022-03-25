@@ -59,6 +59,10 @@ namespace Util
         /// </remarks>
         [Tooltip("Unity Event called when player passes through a door entering the area for the first time")]
         public UnityEvent onRoomFirstEnter = new UnityEvent();
+        /// <summary>
+        /// Current active area that contains player
+        /// </summary>
+        public static AreaScript currentArea;
         
         /// <summary>
         /// Currently Playing Background Music
@@ -104,6 +108,7 @@ namespace Util
             if (!_hasEntered) onRoomFirstEnter.Invoke();
             _hasEntered = true;
             onRoomEnter.Invoke();
+            currentArea = this;
         }
 
         
