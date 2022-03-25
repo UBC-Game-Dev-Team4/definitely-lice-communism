@@ -20,5 +20,5 @@ MonoBehaviour:
   isUsable: 1
   platePrefab: {fileID: 1482696190560103977, guid: d15f00d067891c84e9340959f67c68c9,
     type: 3}
-  positionOffset: {x: 0, y: 0, z: 0}
+  positionOffset: {x: 0, y: -0.63, z: 0}
   dialogueEvent: OnPlateDrop
