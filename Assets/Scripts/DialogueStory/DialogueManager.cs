@@ -16,7 +16,7 @@ namespace DialogueStory
         [Tooltip("Voices")]
         public NameAndVoice[] voices;
 
-        private Dictionary<string, AudioSource[]> _voiceDict;
+        private Dictionary<string, AudioSource[]> _voiceDict = new Dictionary<string, AudioSource[]>();
 
         public StoryStates State => StoryStates.InDialogue;
 
@@ -27,6 +27,7 @@ namespace DialogueStory
             InitializeFieldsIfNull();
 
             InitializeChoiceButtons();
+            _voiceDict = voices.ToDictionary(pair => pair.name, pair => pair.sources);
         }
 
         private void InitializeFieldsIfNull()
