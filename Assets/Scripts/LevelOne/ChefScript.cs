@@ -34,6 +34,8 @@ namespace LevelOne
         public float delayBeforeTeleport = 1;
         [Tooltip("Delay after teleporting through a door")]
         public float delayAfterTeleport = 1;
+        [Tooltip("Bonk noise")]
+        public AudioSource bonkNoise;
         private SpriteRenderer _renderer;
         private AmbientSoundPlayer _player;
         private ChefState _state = ChefState.Still;
@@ -71,6 +73,7 @@ namespace LevelOne
             Vector3 newSpawn = thisTransform.localPosition + deadSpawnOffset;
             GameObject go = Instantiate(deadChefPrefab, thisTransform.parent);
             go.transform.localPosition = newSpawn;
+            bonkNoise.Play();
             Destroy(gameObject);
             LevelOneInfoStorer.CastedSingleton.OnKilledChef(go.transform.position);
             LevelOneInfoStorer.CastedSingleton.CastedInfo.AddMurderRespect(30);
