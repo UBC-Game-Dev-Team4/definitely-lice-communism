@@ -76,6 +76,7 @@ namespace ItemInventory
         /// <returns>Whether or not the item was successfully added</returns>
         public bool Add(Item item)
         {
+            if (item == null) return false;
             if (item.isDefaultItem) return true;
             if (items.Count >= space)
             {

@@ -1,5 +1,4 @@
-﻿using System;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using StageInfo;
 using UnityEngine;
 
@@ -19,6 +18,10 @@ namespace LevelOne
         public GameObject backroomCattos;
         [Tooltip("Door that was broken")]
         public DoorScript doorBroken;
+        [Tooltip("Plate to hide/show")]
+        public GameObject plate;
+        [Tooltip("Deep Fryer to show/hide oil")]
+        public DeepFryerScript deepFryer;
         private LevelOnePreviousStageInformation _info;
         /// <inheritdoc/>
         public override bool ApplyInformation(PreviousStageInformation information)
@@ -35,6 +38,8 @@ namespace LevelOne
             {
                 doorBroken.BreakDoor();
             }
+            plate.SetActive(!_info.wasPlatePickedUp);
+            if (_info.wasKilledViaHotOil) deepFryer.MakeOilVisible();
             return true;
         }
     }

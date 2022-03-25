@@ -16,6 +16,7 @@ namespace LevelOne
             if (!isInteractable) return;
             if (_broken) return;
             base.Interact(src, args);
+            LevelOneInfoStorer.CastedSingleton.CastedInfo.wasPlatePickedUp = true;
             _broken = false;
         }
         
