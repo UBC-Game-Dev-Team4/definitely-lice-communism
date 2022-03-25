@@ -36,6 +36,12 @@ namespace DefaultNamespace
 
         [Tooltip("Whether the door is breakable or not")]
         public bool breakable;
+        [Tooltip("Sound played on lock")]
+        public AudioSource lockedSound;
+        [Tooltip("Sound played on unlock")]
+        public AudioSource unlockSound;
+        [Tooltip("Sounds played on close")]
+        public AudioSource[] closeSounds;
 
         public int LockedInteractCount { get; protected set; }
         
@@ -72,16 +78,28 @@ namespace DefaultNamespace
                     if (Inventory.Instance.HasActiveItem(itemToOpen))
                     {
                         locked = false;
+                        unlockSound?.Play();
                         Debug.Log("Door unlocked!!!!!!!");
                     }
                     else
                     {
+                        lockedSound?.Play();
                         LockedInteractCount++;
                     }
                 }
             }
             base.Interact(src, args);
 
+        }
+
+        /// <summary>
+        /// Play the door close sound
+        /// </summary>
+        private void PlayDoorCloseSound()
+        {
+            if (closeSounds.Length == 0) return;
+            int index = Random.Range(0, closeSounds.Length);
+            closeSounds[index]?.Play();
         }
 
         /// <summary>
@@ -110,6 +128,7 @@ namespace DefaultNamespace
             LockableCamera.Instance.FreezeStateInCurrentPosition();
             player.transform.position = positionOnInteract;
             yield return new WaitForSeconds(delayJustAfterEnter);
+            PlayDoorCloseSound();
             if (_animator != null && !_broken)
                 _animator.SetTrigger(CloseTrigger);
             yield return new WaitForSeconds(delayAfterDoorClose);
