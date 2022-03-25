@@ -57,6 +57,14 @@ namespace LevelOne
         }
 
         /// <summary>
+        /// Sets casted info's wasMalletPickedUp to true
+        /// </summary>
+        public void OnMalletPickedUp()
+        {
+            CastedInfo.wasMalletPickedUp = true;
+        }
+
+        /// <summary>
         /// Loads the next scene
         /// </summary>
         public void LoadNextScene()

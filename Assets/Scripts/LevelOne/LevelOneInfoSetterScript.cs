@@ -22,6 +22,8 @@ namespace LevelOne
         public GameObject plate;
         [Tooltip("Deep Fryer to show/hide oil")]
         public DeepFryerScript deepFryer;
+        [Tooltip("Mallet to hide/show")]
+        public GameObject mallet;
         private LevelOnePreviousStageInformation _info;
         /// <inheritdoc/>
         public override bool ApplyInformation(PreviousStageInformation information)
@@ -39,6 +41,7 @@ namespace LevelOne
                 doorBroken.BreakDoor();
             }
             plate.SetActive(!_info.wasPlatePickedUp);
+            mallet.SetActive(!_info.wasMalletPickedUp);
             if (_info.wasKilledViaHotOil) deepFryer.MakeOilVisible();
             return true;
         }

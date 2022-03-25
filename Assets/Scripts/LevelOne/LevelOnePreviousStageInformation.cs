@@ -21,6 +21,11 @@ namespace LevelOne
         [SerializeField]
         public bool wasPlatePickedUp = false;
         /// <summary>
+        /// Whether the mallet was picked up
+        /// </summary>
+        [SerializeField]
+        public bool wasMalletPickedUp = false;
+        /// <summary>
         /// Dead body location
         /// </summary>
         [SerializeField]

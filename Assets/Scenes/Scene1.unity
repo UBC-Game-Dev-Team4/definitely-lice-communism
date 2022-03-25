@@ -2722,7 +2722,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventOnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1564216735}
+        m_MethodName: OnMalletPickedUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   priority: 0
   item: {fileID: 11400000, guid: a34a0c207b7d05149a0edf32ed55f756, type: 2}
   destroyOnPickup: 1
@@ -6464,7 +6475,6 @@ MonoBehaviour:
   destroyOnPickup: 1
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
-  isInteractable: 1
 --- !u!61 &1963987432
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6776,7 +6786,6 @@ MonoBehaviour:
   destroyOnPickup: 1
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
-  isInteractable: 0
 --- !u!1 &2043827783
 GameObject:
   m_ObjectHideFlags: 0
