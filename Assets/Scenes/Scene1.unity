@@ -1835,9 +1835,9 @@ Transform:
   - {fileID: 1127008524}
   - {fileID: 725862274}
   - {fileID: 574087497}
-  - {fileID: 799522838}
-  - {fileID: 1862937624}
   - {fileID: 798002980}
+  - {fileID: 1287400105}
+  - {fileID: 1862937624}
   - {fileID: 285535331690520285}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -2589,7 +2589,7 @@ Transform:
   - {fileID: 577358412}
   - {fileID: 1842128688}
   - {fileID: 487857002}
-  - {fileID: 2043827784}
+  - {fileID: 1970181286}
   - {fileID: 860522606}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -2893,6 +2893,10 @@ MonoBehaviour:
   locked: 1
   itemToOpen: {fileID: 11400000, guid: f6031d74e0b58414f877e2764509fd2c, type: 2}
   breakable: 1
+  lockedSound: {fileID: 0}
+  unlockSound: {fileID: 0}
+  closeSounds: []
+  forceOpenSound: {fileID: 0}
 --- !u!212 &577358416
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4129,7 +4133,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 346242091}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &798002981
 BoxCollider2D:
@@ -4174,89 +4178,6 @@ MonoBehaviour:
       m_Calls: []
   priority: -1
   menuToEnable: {fileID: 523876632}
---- !u!1 &799522836
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 799522838}
-  - component: {fileID: 799522839}
-  - component: {fileID: 799522840}
-  m_Layer: 9
-  m_Name: DoorToAlleyTwo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &799522838
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 799522836}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.74, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.8, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 346242091}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &799522839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 799522836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76fe4f2cd6542b9bd7f4a98f9ff3c06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventOnInteract:
-    m_PersistentCalls:
-      m_Calls: []
-  priority: 0
-  positionOnInteract: {x: -6.2, y: 15.5, z: 0}
-  areaToTeleportTo: {fileID: 517622552}
-  delayBeforeEnter: 0.4
-  delayJustAfterEnter: 0.4
-  delayAfterDoorClose: 0.4
-  currentArea: {fileID: 346242092}
-  locked: 0
-  itemToOpen: {fileID: 0}
-  breakable: 0
---- !u!61 &799522840
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 799522836}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
 --- !u!1 &848743148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4361,6 +4282,10 @@ MonoBehaviour:
   locked: 0
   itemToOpen: {fileID: 0}
   breakable: 0
+  lockedSound: {fileID: 0}
+  unlockSound: {fileID: 0}
+  closeSounds: []
+  forceOpenSound: {fileID: 0}
 --- !u!212 &848743153
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4820,6 +4745,10 @@ MonoBehaviour:
   locked: 0
   itemToOpen: {fileID: 0}
   breakable: 0
+  lockedSound: {fileID: 0}
+  unlockSound: {fileID: 0}
+  closeSounds: []
+  forceOpenSound: {fileID: 0}
 --- !u!212 &954743670
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5881,6 +5810,98 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1287400104
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 346242091}
+    m_Modifications:
+    - target: {fileID: 1688856640279215127, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorToAlleyTwo
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: currentArea
+      value: 
+      objectReference: {fileID: 346242092}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: areaToTeleportTo
+      value: 
+      objectReference: {fileID: 517622552}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: delayBeforeEnter
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: positionOnInteract.x
+      value: -6.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: positionOnInteract.y
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: closeSounds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7058846405524821009, guid: bb8bc22c6b99f5d49adda39c485f32d0, type: 3}
+    - {fileID: 4132098382710832366, guid: bb8bc22c6b99f5d49adda39c485f32d0, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: bb8bc22c6b99f5d49adda39c485f32d0, type: 3}
+--- !u!4 &1287400105 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1287400104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1408034010 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3259358495166607713, guid: 9a2e0fb38a2120a4a938b4f73ee53a2c,
@@ -7858,6 +7879,88 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &1970181285
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 517622553}
+    m_Modifications:
+    - target: {fileID: 1688856640279215127, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorToAlleyOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: currentArea
+      value: 
+      objectReference: {fileID: 517622552}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: areaToTeleportTo
+      value: 
+      objectReference: {fileID: 346242092}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: positionOnInteract.x
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: positionOnInteract.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: closeSounds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4132098382710832366, guid: bb8bc22c6b99f5d49adda39c485f32d0, type: 3}
+    - {fileID: 7058846405524821009, guid: bb8bc22c6b99f5d49adda39c485f32d0, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: bb8bc22c6b99f5d49adda39c485f32d0, type: 3}
+--- !u!4 &1970181286 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4607325547210353451, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1970181285}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2019784969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8143,89 +8246,6 @@ MonoBehaviour:
   destroyOnPickup: 1
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
---- !u!1 &2043827783
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2043827784}
-  - component: {fileID: 2043827786}
-  - component: {fileID: 2043827785}
-  m_Layer: 9
-  m_Name: DoorToAlleyOne
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2043827784
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2043827783}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.3, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.8, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 517622553}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2043827785
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2043827783}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1805556, y: 2.2222223}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
---- !u!114 &2043827786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2043827783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76fe4f2cd6542b9bd7f4a98f9ff3c06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventOnInteract:
-    m_PersistentCalls:
-      m_Calls: []
-  priority: 0
-  positionOnInteract: {x: 0.67, y: 0.5, z: 0}
-  areaToTeleportTo: {fileID: 346242092}
-  delayBeforeEnter: 1
-  delayJustAfterEnter: 0.4
-  delayAfterDoorClose: 0.4
-  currentArea: {fileID: 517622552}
-  locked: 0
-  itemToOpen: {fileID: 0}
-  breakable: 0
 --- !u!1 &2083894547
 GameObject:
   m_ObjectHideFlags: 0
@@ -8580,6 +8600,10 @@ MonoBehaviour:
   locked: 0
   itemToOpen: {fileID: 0}
   breakable: 0
+  lockedSound: {fileID: 0}
+  unlockSound: {fileID: 0}
+  closeSounds: []
+  forceOpenSound: {fileID: 0}
 --- !u!212 &2111042365
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8957,7 +8981,7 @@ PrefabInstance:
     - target: {fileID: 2433537374106628824, guid: b4bcf8dc912a99443a5881185474a912,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2433537374106628824, guid: b4bcf8dc912a99443a5881185474a912,
         type: 3}

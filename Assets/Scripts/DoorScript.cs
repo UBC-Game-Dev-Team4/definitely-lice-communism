@@ -42,6 +42,8 @@ namespace DefaultNamespace
         public AudioSource unlockSound;
         [Tooltip("Sounds played on close")]
         public AudioSource[] closeSounds;
+        [Tooltip("Force open sound")]
+        public AudioSource forceOpenSound;
 
         public int LockedInteractCount { get; protected set; }
         
@@ -180,6 +182,7 @@ namespace DefaultNamespace
             {
                 if (_broken) return;
                 _animator.SetTrigger(OpenTrigger);
+                forceOpenSound?.Play();
                 _broken = true;
                 locked = false;
             }
