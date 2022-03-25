@@ -16,6 +16,8 @@ namespace LevelOne
         [Tooltip("Audio that normally plays")] public AudioSource normalAudio;
         [Tooltip("Audio to switch to on kill")]
         public AudioSource onKillAudio;
+        [Tooltip("Audio on dunk")]
+        public AudioSource dunkNoise;
         private ChefScript _chef = null;
         private bool _killed = false;
         private AreaScript _area;
@@ -40,6 +42,7 @@ namespace LevelOne
             if (_chef != null)
             {
                 _chef.Kill(true);
+                dunkNoise.Play();
                 OnKill();
             }
         }
