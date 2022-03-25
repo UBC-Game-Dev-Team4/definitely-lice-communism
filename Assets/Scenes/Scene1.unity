@@ -463,6 +463,7 @@ MonoBehaviour:
   musicMixer: {fileID: 0}
   musicAudioGroup: {fileID: 0}
   musicFadeGroup: {fileID: 0}
+  onlyUseSelectedSources: 0
 --- !u!1 &143992081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,10 +1739,32 @@ MonoBehaviour:
   playMusicOnAwake: 0
   onRoomExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871456571}
+        m_MethodName: StopPlayingAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onRoomEnter:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871456571}
+        m_MethodName: StartPlayingAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onRoomFirstEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -3211,6 +3234,7 @@ MonoBehaviour:
     type: 2}
   musicFadeGroup: {fileID: 3200976170318806786, guid: d6165673366359c49bb51f70071d1087,
     type: 2}
+  onlyUseSelectedSources: 0
 --- !u!95 &700019088
 Animator:
   serializedVersion: 3
@@ -6885,6 +6909,7 @@ MonoBehaviour:
   musicMixer: {fileID: 0}
   musicAudioGroup: {fileID: 0}
   musicFadeGroup: {fileID: 0}
+  onlyUseSelectedSources: 0
 --- !u!1 &1707704264
 GameObject:
   m_ObjectHideFlags: 0
@@ -7379,6 +7404,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2433537374526447296}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1871456571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2433537374106628827, guid: b4bcf8dc912a99443a5881185474a912,
+    type: 3}
+  m_PrefabInstance: {fileID: 2433537374526447296}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c982e2ba9b49b894a8503342a33170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1898958042
 GameObject:
   m_ObjectHideFlags: 0
@@ -8735,6 +8772,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975816025243460834, guid: b4bcf8dc912a99443a5881185474a912,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214098134672431808, guid: b4bcf8dc912a99443a5881185474a912,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4bcf8dc912a99443a5881185474a912, type: 3}

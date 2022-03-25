@@ -1,6 +1,7 @@
 ﻿using DefaultNamespace;
 using ItemInventory;
 using JetBrains.Annotations;
+using Sound;
 using UnityEngine;
 
 namespace LevelOne.Cat
@@ -28,6 +29,15 @@ namespace LevelOne.Cat
 
         [Tooltip("Delay before bending over occurs")]
         public float delayBeforeBendOver = 1;
+
+        [Tooltip("Key ambient noises")]
+        public AmbientSoundPlayer keyAmbient;
+        [Tooltip("Normal ambient noises")]
+        public AmbientSoundPlayer normalAmbient;
+        /// <summary>
+        /// Whether the key was taken or not
+        /// </summary>
+        public bool KeyTaken { get; private set; }
 
         private Animator _animator;
         private SpriteRenderer _renderer;
@@ -73,6 +83,24 @@ namespace LevelOne.Cat
             if (isRunning) _renderer.flipX = !_renderer.flipX;
         }
 
+        /// <summary>
+        /// Stop playing normal/key ambient audio
+        /// </summary>
+        public void StopPlayingAudio()
+        {
+            normalAmbient.StopPlaying();
+            keyAmbient.StopPlaying();
+        }
+
+        /// <summary>
+        /// Start playing audio
+        /// </summary>
+        public void StartPlayingAudio()
+        {
+            normalAmbient.StartPlaying();
+            if (!KeyTaken) keyAmbient.StartPlaying();
+        }
+
         public void FacePlayer(Transform player)
         {
             if (player.transform.position.x + lookAtPlayerOffset < transform.position.x)
@@ -108,6 +136,7 @@ namespace LevelOne.Cat
         public void OnKeyTaken()
         {
             _animator.SetTrigger(RemoveKey);
+            KeyTaken = true;
         }
         #endregion
 

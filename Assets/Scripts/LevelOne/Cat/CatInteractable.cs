@@ -1,5 +1,6 @@
 ﻿using DefaultNamespace;
 using ItemInventory;
+using UnityEngine;
 
 namespace LevelOne.Cat
 {
@@ -7,6 +8,7 @@ namespace LevelOne.Cat
     {
         public bool isInteractable;
         public Item item;
+        public AudioSource onTakeSound;
         private CatAIScript _cat;
         private bool _pickedUp;
 
@@ -21,6 +23,8 @@ namespace LevelOne.Cat
             if (!isInteractable) return;
             base.Interact(src, args);
             Inventory.Instance.Add(item);
+            _cat.keyAmbient.StopPlaying();
+            onTakeSound.Play();
             Destroy(gameObject);
             _pickedUp = true;
             _cat.OnKeyTaken();
