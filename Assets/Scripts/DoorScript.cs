@@ -130,7 +130,8 @@ namespace DefaultNamespace
             LockableCamera.Instance.FreezeStateInCurrentPosition();
             player.transform.position = positionOnInteract;
             yield return new WaitForSeconds(delayJustAfterEnter);
-            PlayDoorCloseSound();
+            if (!_broken)
+                PlayDoorCloseSound();
             if (_animator != null && !_broken)
                 _animator.SetTrigger(CloseTrigger);
             yield return new WaitForSeconds(delayAfterDoorClose);

@@ -73,7 +73,8 @@ namespace LevelOne
             Vector3 newSpawn = thisTransform.localPosition + deadSpawnOffset;
             GameObject go = Instantiate(deadChefPrefab, thisTransform.parent);
             go.transform.localPosition = newSpawn;
-            bonkNoise.Play();
+            if (!isViaHotOil)
+                bonkNoise.Play();
             Destroy(gameObject);
             LevelOneInfoStorer.CastedSingleton.OnKilledChef(go.transform.position);
             LevelOneInfoStorer.CastedSingleton.CastedInfo.AddMurderRespect(30);

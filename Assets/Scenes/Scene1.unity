@@ -3071,7 +3071,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2106335646}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!167 &682812893
 AudioReverbZone:
@@ -4684,10 +4684,10 @@ Transform:
   - {fileID: 1045041308}
   - {fileID: 1095815094}
   - {fileID: 696546618}
-  - {fileID: 436950039}
   - {fileID: 1801732387}
-  - {fileID: 193260869}
+  - {fileID: 436950039}
   - {fileID: 1151978444}
+  - {fileID: 193260869}
   - {fileID: 764089091}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -5409,7 +5409,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1037253939}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1151978445
 MonoBehaviour:
@@ -7077,7 +7077,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1037253939}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1801732388
 SpriteRenderer:
@@ -8360,8 +8360,8 @@ Transform:
   - {fileID: 968824154}
   - {fileID: 419066211}
   - {fileID: 260049184}
-  - {fileID: 1149143679}
   - {fileID: 682812892}
+  - {fileID: 1149143679}
   - {fileID: 97526565}
   - {fileID: 1963987429}
   - {fileID: 700019086}
