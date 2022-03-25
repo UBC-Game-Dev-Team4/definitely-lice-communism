@@ -6460,7 +6460,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   priority: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: df60ec6c7060da140bf399d05b2bd7cf, type: 2}
   destroyOnPickup: 1
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
