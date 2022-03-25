@@ -1,6 +1,7 @@
 ﻿using System;
 using DefaultNamespace;
 using Singleton;
+using Sound;
 using UnityEngine;
 using Util;
 
@@ -41,6 +42,9 @@ namespace Player
 
         [Tooltip("Whether animation is updated")]
         public bool updateAnimation = true;
+
+        [Tooltip("Footstep sounds. It's in the name.")]
+        public AmbientSoundPlayer footstepSounds;
 
         /// <summary>
         /// Whether the player is currently facing left or right
@@ -105,18 +109,29 @@ namespace Player
             if (updateAnimation)
             {
                 if (Math.Abs(Body.velocity.y) < 0.001f)
+                {
+                    footstepSounds.StartPlaying();
                     Animator.SetFloat(WalkSpeedParameter, 1);
+                }
+                else
+                {
+                    footstepSounds.StopPlaying();
+                }
 
 
                 if (Body.velocity.x < -0.01) IsFacingLeft = true;
                 else if (Body.velocity.x > 0.01) IsFacingLeft = false;
                 else
                 {
+                    footstepSounds.StopPlaying();
                     Animator.SetFloat(VelocityXParameter, IsFacingLeft ? -0.0001f : 0.0001f);
                 }
 
                 if (Body.velocity.x < -0.01 || Body.velocity.x > 0.01)
+                {
+                    footstepSounds.StartPlaying();
                     Animator.SetFloat(VelocityXParameter, Body.velocity.x);
+                }
             }
         }
 

@@ -21,7 +21,7 @@ VAR interrogation_done = false
 === event_on_arrive ===
 EVA: I can't believe Mario is planning to rat me out. I guess I have to have a "private session" with him before he does anything stupid.
 EVA: There's an alley that leads to the back of the bar. I must find a way to get inside.
-Use A/D to move; Left click to interact with items; Press E to pick up items
+Use A/D to move; Press Z to use items; Press E to pick up items; Press I to open the inventory; Use up/down arrow to select an inventory item
 -> end_interrogation
 
 === event_on_hobo_discover ===

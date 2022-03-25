@@ -38,13 +38,16 @@ namespace Sound
         public AudioMixerGroup musicAudioGroup;
         [Tooltip("Audio mixer group to be switched to on fade")]
         public AudioMixerGroup musicFadeGroup;
+        [Tooltip("Only use additional sources")]
+        public bool onlyUseSelectedSources;
         private AudioSource[] _sources;
         private int _currentIndex = -1;
         private bool _stop = true;
 
         private void Awake()
         {
-            List<AudioSource> sources = GetComponentsInChildren<AudioSource>().ToList();
+            List<AudioSource> sources = new List<AudioSource>();
+            if (!onlyUseSelectedSources) sources = GetComponentsInChildren<AudioSource>().ToList();
             sources.AddRange(additionalSources);
             _sources = sources.ToArray();
             #if UNITY_EDITOR

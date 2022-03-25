@@ -34,7 +34,7 @@ DETECTIVE 1: We are going to go tomorrow afternoon at thirteen hundred hours. Th
 EVA: I'll be there, Robert. And where exactly is 'there'?
 DETECTIVE 1: Uncle John's Bar. I do have to leave, now. I have an appointment with a stunning young lady very soon. As the kids say nowadays, do not 'snap your cap' because I knew about this before you. I know you love your case but you just have to accept that you won't always live up to your father's reputation.
 EVA: Hey, I can and am living up to his reputation! Ugh. See you tomorrow. Oh, and you said the man we are interviewing is a chef... correct?
-DETECTIVE: You do crack me up! That is correct. Goodbye now. #name: DetectiveLeave
+DETECTIVE 1: You do crack me up! That is correct. Goodbye now. #name: DetectiveLeave
 // this is said to herself
 EVA: How on earth would a chef know about... wait... damn it.
 EVA: He knew what would happen if he told anyone. I guess I'd better do something about this. #name: EvaLeave

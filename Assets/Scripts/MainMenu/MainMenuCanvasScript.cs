@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sound;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace MainMenu
@@ -9,6 +10,10 @@ namespace MainMenu
     [DisallowMultipleComponent]
     public class MainMenuCanvasScript : MonoBehaviour
     {
+        [Tooltip("Scene where music will be persistent from the title")]
+        public string sceneToPersistMusic = "PreScene1MurCutscene";
+        [Tooltip("Music to keep around on switch if switched to correct scene")]
+        public IntroAndLoopPlayer music;
         /// <summary>
         ///     Loads a scene by given name, if it exists
         /// </summary>
@@ -19,7 +24,13 @@ namespace MainMenu
         public void LoadScene(string scene)
         {
             if (Application.CanStreamedLevelBeLoaded(scene))
+            {
+                if (scene != sceneToPersistMusic)
+                {
+                    Destroy(music.gameObject);
+                }
                 SceneManager.LoadScene(scene);
+            }
             else
                 Debug.LogError("Could not load scene: " + scene);
         }

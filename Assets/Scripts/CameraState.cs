@@ -166,7 +166,7 @@ namespace Util
 
         public CameraState Copy() =>
             new CameraState(movementModeX, movementFixedX, movementRangeXLeft, movementRangeXRight,
-                movementModeY, movementFixedY, movementRangeYLeft, movementRangeYRight, cameraOffset.normalized,
+                movementModeY, movementFixedY, movementRangeYLeft, movementRangeYRight, cameraOffset,
                 cameraIdealWidth);
     }
 }
