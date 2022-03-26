@@ -116,6 +116,8 @@ namespace DefaultNamespace
             bool skipPlay = false;
             if (_animator != null && !_broken)
                 _animator.SetTrigger(OpenTrigger);
+            if (!_broken)
+                PlayDoorCloseSound();
             if (currentArea != null && areaToTeleportTo != null)
             {
                 if (areaToTeleportTo.HasBackgroundMusic() && AreaScript.currentlyActiveBackgroundMusic != areaToTeleportTo.backgroundMusic &&
@@ -130,8 +132,6 @@ namespace DefaultNamespace
             LockableCamera.Instance.FreezeStateInCurrentPosition();
             player.transform.position = positionOnInteract;
             yield return new WaitForSeconds(delayJustAfterEnter);
-            if (!_broken)
-                PlayDoorCloseSound();
             if (_animator != null && !_broken)
                 _animator.SetTrigger(CloseTrigger);
             yield return new WaitForSeconds(delayAfterDoorClose);

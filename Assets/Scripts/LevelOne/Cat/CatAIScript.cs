@@ -131,6 +131,7 @@ namespace LevelOne.Cat
         {
             _animator.SetTrigger(StartEat);
             _catInteractable.isInteractable = true;
+            _catInteractable.priority += _catInteractable.priorityChangeWhenInteractable;
         }
         
         public void OnKeyTaken()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ink.Runtime;
 using Singleton;
+using Sound;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
@@ -16,7 +17,7 @@ namespace DialogueStory
         [Tooltip("Voices")]
         public NameAndVoice[] voices;
 
-        private Dictionary<string, AudioSource[]> _voiceDict = new Dictionary<string, AudioSource[]>();
+        private Dictionary<string, AmbientSoundPlayer> _voiceDict = new Dictionary<string, AmbientSoundPlayer>();
 
         public StoryStates State => StoryStates.InDialogue;
 
@@ -27,7 +28,7 @@ namespace DialogueStory
             InitializeFieldsIfNull();
 
             InitializeChoiceButtons();
-            _voiceDict = voices.ToDictionary(pair => pair.name, pair => pair.sources);
+            _voiceDict = voices.ToDictionary(pair => pair.name, pair => pair.voices);
         }
 
         private void InitializeFieldsIfNull()
@@ -113,8 +114,6 @@ namespace DialogueStory
             ShowChoices();
         }
 
-        private bool _shouldPlayVoice = false;
-
         /// <summary>
         /// Coroutine that types out a line character by character.
         /// If typing is interrupted by pressing the next key, skips to the end of the line.
@@ -127,10 +126,9 @@ namespace DialogueStory
 
             DialogueScreen.Instance.Speaker = speaker;
             DialogueScreen.Instance.Text = "";
-            if (speaker != null && _voiceDict.TryGetValue(speaker, out AudioSource[] sources))
+            if (speaker != null && _voiceDict.TryGetValue(speaker, out AmbientSoundPlayer voice))
             {
-                _shouldPlayVoice = true;
-                StartCoroutine(RandomVoiceCoroutine(sources));
+                voice.StartPlaying();
             }
 
             foreach (char letter in text)
@@ -145,32 +143,15 @@ namespace DialogueStory
                 break;
             }
 
-            if (speaker != null && _voiceDict.ContainsKey(speaker))
+            if (speaker != null && _voiceDict.TryGetValue(speaker, out AmbientSoundPlayer voiceToStop))
             {
-                _shouldPlayVoice = false;
-                StopCoroutine(nameof(RandomVoiceCoroutine));
+                voiceToStop.StopPlaying();
             }
 
             // Wait for next key press to advance dialogue.
             while (!Input.GetKeyDown(SettingsManager.Instance.nextDialogueKey))
             {
                 yield return null;
-            }
-        }
-
-        /// <summary>
-        /// Plays a random voice continuously until stopped
-        /// </summary>
-        /// <param name="sources">List of sources</param>
-        /// <returns>Coroutine</returns>
-        private IEnumerator RandomVoiceCoroutine(IReadOnlyList<AudioSource> sources)
-        {
-            if (sources == null || sources.Count == 0) yield break;
-            while (_shouldPlayVoice)
-            {
-                int index = Random.Range(0, sources.Count);
-                sources[index].Play();
-                yield return new WaitForSeconds(sources[index].clip.length);
             }
         }
 
@@ -236,7 +217,7 @@ namespace DialogueStory
         /// </summary>
         private void OnValidate()
         {
-            _voiceDict = voices.ToDictionary(pair => pair.name, pair => pair.sources);
+            _voiceDict = voices.ToDictionary(pair => pair.name, pair => pair.voices);
         }
     }
 
@@ -246,6 +227,6 @@ namespace DialogueStory
         [SerializeField]
         public string name;
         [SerializeField]
-        public AudioSource[] sources;
+        public AmbientSoundPlayer voices;
     }
 }

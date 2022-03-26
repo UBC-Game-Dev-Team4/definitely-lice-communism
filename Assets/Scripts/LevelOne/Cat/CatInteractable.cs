@@ -9,6 +9,7 @@ namespace LevelOne.Cat
         public bool isInteractable;
         public Item item;
         public AudioSource onTakeSound;
+        public int priorityChangeWhenInteractable = 3;
         private CatAIScript _cat;
         private bool _pickedUp;
 

@@ -695,12 +695,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e83cb21953772c548a66566d9bb8079a, type: 3}
---- !u!82 &387657866 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 4896670966363296558, guid: e83cb21953772c548a66566d9bb8079a,
+--- !u!114 &387657866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2628784288337651961, guid: e83cb21953772c548a66566d9bb8079a,
     type: 3}
   m_PrefabInstance: {fileID: 387657865}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2709992f7494adbbed1d2d1ff381ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &560301800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3907,8 +3913,7 @@ MonoBehaviour:
   - {fileID: 780030099}
   voices:
   - name: EVA
-    sources:
-    - {fileID: 387657866}
+    voices: {fileID: 387657866}
 --- !u!114 &1314979336
 MonoBehaviour:
   m_ObjectHideFlags: 0

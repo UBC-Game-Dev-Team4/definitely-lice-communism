@@ -14,7 +14,7 @@ namespace DefaultNamespace
         /// List of interactable items within range
         /// </summary>
         private readonly List<Interactable> _list = new List<Interactable>();
-
+        private Interactable _highlighted;
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
@@ -22,27 +22,25 @@ namespace DefaultNamespace
 
         private void FixedUpdate()
         {
-            Interactable prevInteractable = null;
-            if (_list.Count > 0) prevInteractable = _list[0];
             _list.Sort(new InteractableComparator(transform.position));
-            if (_list.Count <= 0) return;
-            if (_list[0] == prevInteractable)
+            if (_list.Count <= 0)
             {
-#if UNITY_EDITOR
-                Debug.Assert(prevInteractable != null);
-#endif
-                if (!prevInteractable.Highlighted)
+                if (_highlighted == null) return;
+                _highlighted.DeHighlight();
+                _highlighted = null;
+            }
+            else
+            {
+                if (_list[0] != _highlighted)
                 {
-                    prevInteractable.Highlight();
+                    if (_highlighted != null)
+                        _highlighted.DeHighlight();
+                    _highlighted = null;
                 }
 
-                return;
+                _list[0].Highlight();
+                _highlighted = _list[0];
             }
-#if UNITY_EDITOR
-            Debug.Assert(prevInteractable != null);
-#endif
-            prevInteractable.DeHighlight();
-            _list[0].Highlight();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -90,7 +88,7 @@ namespace DefaultNamespace
                 if (ReferenceEquals(null, y)) return 1;
                 if (ReferenceEquals(null, x)) return -1;
                 int priorityDiff = x.priority.CompareTo(y.priority);
-                if (priorityDiff != 0) return priorityDiff;
+                if (priorityDiff != 0) return -priorityDiff; // priority must be flipped????????
                 Vector3 xdiff = x.transform.position - _position;
                 Vector3 ydiff = y.transform.position - _position;
                 // sqrMagnitude is faster than magnitude due to the lack of sqrt call
