@@ -183,7 +183,8 @@ namespace DefaultNamespace
             {
                 if (_broken) return;
                 _animator.SetTrigger(OpenTrigger);
-                forceOpenSound?.Play();
+                if (forceOpenSound != null)
+                    forceOpenSound.Play();
                 _broken = true;
                 locked = false;
             }

@@ -57,6 +57,7 @@ namespace LevelOne
             // this SHOULD be on the player but i'm too damn lazy
             Animator animator = player.Animator;
             animator.SetFloat(PlayerScript.VelocityXParameter,1);
+            player.footstepSounds.StartPlaying();
             Rigidbody2D body = player.Body;
             while (body.position.x < door.transform.position.x)
             {
@@ -64,6 +65,7 @@ namespace LevelOne
                 yield return null;
             }
             animator.SetFloat(PlayerScript.VelocityXParameter,0);
+            player.footstepSounds.StopPlaying();
             yield return new WaitForSeconds(playerDelayBeforeOpen);
             UnityEvent e = new UnityEvent();
             e.AddListener(() => player.gameObject.SetActive(false));
