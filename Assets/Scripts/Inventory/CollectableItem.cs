@@ -9,6 +9,7 @@ namespace ItemInventory
         public bool destroyOnPickup = true;
         public bool hasHighlight;
         public Sprite spriteOnHighlight;
+        public int priorityChangeOnPickup = 2;
         protected bool _pickedUp;
         private SpriteRenderer _spriteRenderer;
         private Sprite _prevSprite;
@@ -46,6 +47,7 @@ namespace ItemInventory
             Inventory.Instance.Add(item);
             if (destroyOnPickup)
                 Destroy(gameObject);
+            priority -= priorityChangeOnPickup;
             _pickedUp = true;
         }
     }

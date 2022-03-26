@@ -3630,12 +3630,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  priority: 0
+  priority: 1
   item: {fileID: 11400000, guid: a34a0c207b7d05149a0edf32ed55f756, type: 2}
   destroyOnPickup: 1
   hasHighlight: 1
   spriteOnHighlight: {fileID: 5886069538104928708, guid: 3724f69432e6e2c48b5eb5448bcf8409,
     type: 3}
+  priorityChangeOnPickup: 1
 --- !u!1 &765211505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5469,6 +5470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DoorToAlleyTwo
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
+        type: 3}
+      propertyPath: priority
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3254974356272696339, guid: bb8bc22c6b99f5d49adda39c485f32d0,
         type: 3}
@@ -8858,6 +8864,7 @@ MonoBehaviour:
   destroyOnPickup: 1
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
+  priorityChangeOnPickup: 1
 --- !u!61 &1963987432
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9251,6 +9258,7 @@ MonoBehaviour:
   destroyOnPickup: 1
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
+  priorityChangeOnPickup: 1
 --- !u!1 &2083894547
 GameObject:
   m_ObjectHideFlags: 0
@@ -9713,6 +9721,7 @@ MonoBehaviour:
   destroyOnPickup: 0
   hasHighlight: 0
   spriteOnHighlight: {fileID: 0}
+  priorityChangeOnPickup: 2
 --- !u!1001 &1774311142892353841
 PrefabInstance:
   m_ObjectHideFlags: 0
