@@ -374,12 +374,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bed8c33b8d0a4734fbb977a67971c6c8, type: 3}
---- !u!82 &131777080 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 8758262606018196668, guid: bed8c33b8d0a4734fbb977a67971c6c8,
+--- !u!114 &131777080 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2163047522388332395, guid: bed8c33b8d0a4734fbb977a67971c6c8,
     type: 3}
   m_PrefabInstance: {fileID: 131777079}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2709992f7494adbbed1d2d1ff381ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &137721218
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,8 +550,7 @@ MonoBehaviour:
   - {fileID: 1790259688}
   voices:
   - name: EVA
-    sources:
-    - {fileID: 131777080}
+    voices: {fileID: 131777080}
 --- !u!1 &156161680
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,7 +3137,7 @@ AudioSource:
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -7334,7 +7339,7 @@ AudioSource:
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:

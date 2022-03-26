@@ -565,6 +565,9 @@ MonoBehaviour:
   - {fileID: 116995254}
   - {fileID: 116995253}
   - {fileID: 116995250}
+  voices:
+  - name: EVA
+    voices: {fileID: 810169287}
 --- !u!114 &310938540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +941,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bed8c33b8d0a4734fbb977a67971c6c8, type: 3}
+--- !u!114 &810169287 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2163047522388332395, guid: bed8c33b8d0a4734fbb977a67971c6c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 810169286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2709992f7494adbbed1d2d1ff381ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &942866231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,6 +1849,10 @@ MonoBehaviour:
   locked: 0
   itemToOpen: {fileID: 0}
   breakable: 0
+  lockedSound: {fileID: 0}
+  unlockSound: {fileID: 0}
+  closeSounds: []
+  forceOpenSound: {fileID: 0}
 --- !u!212 &1443179189
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2758,6 +2777,10 @@ MonoBehaviour:
   locked: 0
   itemToOpen: {fileID: 0}
   breakable: 0
+  lockedSound: {fileID: 0}
+  unlockSound: {fileID: 0}
+  closeSounds: []
+  forceOpenSound: {fileID: 0}
 --- !u!212 &1979768203
 SpriteRenderer:
   m_ObjectHideFlags: 0
