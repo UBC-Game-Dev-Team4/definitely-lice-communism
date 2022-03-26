@@ -36,6 +36,8 @@ namespace LevelOne
         public float delayAfterTeleport = 1;
         [Tooltip("Bonk noise")]
         public AudioSource bonkNoise;
+        [Tooltip("Footstep noises")]
+        public AmbientSoundPlayer footstepNoise;
         private SpriteRenderer _renderer;
         private AmbientSoundPlayer _player;
         private ChefState _state = ChefState.Still;
@@ -73,6 +75,7 @@ namespace LevelOne
             Vector3 newSpawn = thisTransform.localPosition + deadSpawnOffset;
             GameObject go = Instantiate(deadChefPrefab, thisTransform.parent);
             go.transform.localPosition = newSpawn;
+            footstepNoise.StopPlaying();
             if (!isViaHotOil)
                 bonkNoise.Play();
             Destroy(gameObject);
@@ -96,6 +99,7 @@ namespace LevelOne
                 SetMode(AIMode.SpecificX);
                 SetCorrectSpriteRendererFlip();
                 _player.StopPlaying();
+                footstepNoise.StartPlaying();
             }
         }
 
@@ -108,6 +112,7 @@ namespace LevelOne
             SetMode(AIMode.Stationary);
             _state = ChefState.Still;
             shouldBeMoving = false;
+            footstepNoise.StopPlaying();
             if (AreaScript.currentArea == kitchenDoorTarget.currentArea)
             {
                 _player.StartPlaying();
@@ -134,6 +139,7 @@ namespace LevelOne
         private IEnumerator OnStorageRoomTargetReachedCoroutine()
         {
             shouldBeMoving = false;
+            footstepNoise.StopPlaying();
             SetMode(AIMode.Stationary);
             yield return new WaitForSeconds(delayAfterStorageRoomTarget);
             shouldBeMoving = true;
@@ -141,11 +147,13 @@ namespace LevelOne
             _state = ChefState.MovingToStorageRoomDoor;
             SetMode(AIMode.SpecificX);
             SetCorrectSpriteRendererFlip();
+            footstepNoise.StartPlaying();
         }
 
         private IEnumerator TeleportAndMoveAfterDoorOpen()
         {
             shouldBeMoving = false;
+            footstepNoise.StopPlaying();
             SetMode(AIMode.Stationary);
             yield return new WaitForSeconds(delayBeforeTeleport);
             shouldBeMoving = true;
@@ -165,6 +173,7 @@ namespace LevelOne
             yield return new WaitForSeconds(delayAfterTeleport);
             SetMode(AIMode.SpecificX);
             SetCorrectSpriteRendererFlip();
+            footstepNoise.StartPlaying();
         }
 
         public override void OnDrawGizmosSelected()
