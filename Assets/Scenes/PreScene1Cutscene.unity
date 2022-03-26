@@ -2657,10 +2657,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2709992f7494adbbed1d2d1ff381ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDelay: 0
-  maxDelay: 0
+  minDelay: 0.2
+  maxDelay: 0.2
   additionalSources: []
-  accountForAudioLength: 1
+  accountForAudioLength: 0
   playOnAwake: 0
   delayOnStart: 0
   fadeOnStop: 0

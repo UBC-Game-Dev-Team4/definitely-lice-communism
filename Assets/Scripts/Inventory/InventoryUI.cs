@@ -8,15 +8,16 @@ namespace ItemInventory
     /// </summary>
     public class InventoryUI : MonoBehaviour
     {
-        /// <summary>
-        ///     Parent transform of all inventory slots.
-        /// </summary>
+        [Tooltip("Parent transform of all inventory slots")]
         public Transform itemsParent;
 
-        /// <summary>
-        ///     Current Inventory UI. Note: NOT THE PREFAB.
-        /// </summary>
+        /// <remarks>
+        /// NOT THE PREFAB
+        /// </remarks>
         [Tooltip("Current inventory UI.")] public GameObject inventoryUI;
+
+        [Tooltip("Audio source on switch")]
+        public AudioSource audioSourceOnSwitch;
 
         private Inventory _inventory;
         private InventorySlot[] _slots;
@@ -39,30 +40,30 @@ namespace ItemInventory
         {
             if (Input.GetKeyDown(SettingsManager.Instance.inventoryKey)) inventoryUI.SetActive(!inventoryUI.activeSelf);
 
-            if (inventoryUI.activeInHierarchy)
+            if (!inventoryUI.activeInHierarchy) return;
+            if (Input.GetKeyDown(SettingsManager.Instance.inventoryUp))
             {
-                if (Input.GetKeyDown(SettingsManager.Instance.inventoryUp))
-                {
-                    int oldIndex = _inventory.indexOfSelection;
-                    if (oldIndex >= 0 && oldIndex < _slots.Length)
-                        _slots[oldIndex].Highlighted = false;
-                    int newIndex = oldIndex - 1;
-                    if (newIndex < 0) newIndex = _slots.Length - 1;
-                    _inventory.indexOfSelection = newIndex;
-                    if (newIndex >= 0 && newIndex < _slots.Length)
-                        _slots[newIndex].Highlighted = true;
-                }
-                if (Input.GetKeyDown(SettingsManager.Instance.inventoryDown))
-                {
-                    int oldIndex = _inventory.indexOfSelection;
-                    if (oldIndex >= 0 && oldIndex < _slots.Length)
-                        _slots[oldIndex].Highlighted = false;
-                    int newIndex = oldIndex + 1;
-                    if (newIndex >= _slots.Length) newIndex = 0;
-                    _inventory.indexOfSelection = newIndex;
-                    if (newIndex >= 0 && newIndex < _slots.Length)
-                        _slots[newIndex].Highlighted = true;
-                }
+                int oldIndex = _inventory.indexOfSelection;
+                if (oldIndex >= 0 && oldIndex < _slots.Length)
+                    _slots[oldIndex].Highlighted = false;
+                int newIndex = oldIndex - 1;
+                if (newIndex < 0) newIndex = _slots.Length - 1;
+                _inventory.indexOfSelection = newIndex;
+                if (newIndex >= 0 && newIndex < _slots.Length)
+                    _slots[newIndex].Highlighted = true;
+                audioSourceOnSwitch.Play();
+            }
+            if (Input.GetKeyDown(SettingsManager.Instance.inventoryDown))
+            {
+                int oldIndex = _inventory.indexOfSelection;
+                if (oldIndex >= 0 && oldIndex < _slots.Length)
+                    _slots[oldIndex].Highlighted = false;
+                int newIndex = oldIndex + 1;
+                if (newIndex >= _slots.Length) newIndex = 0;
+                _inventory.indexOfSelection = newIndex;
+                if (newIndex >= 0 && newIndex < _slots.Length)
+                    _slots[newIndex].Highlighted = true;
+                audioSourceOnSwitch.Play();
             }
         }
 

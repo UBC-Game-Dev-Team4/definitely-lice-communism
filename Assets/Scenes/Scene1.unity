@@ -165,10 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2709992f7494adbbed1d2d1ff381ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDelay: 0
-  maxDelay: 0
+  minDelay: 0.2
+  maxDelay: 0.2
   additionalSources: []
-  accountForAudioLength: 1
+  accountForAudioLength: 0
   playOnAwake: 0
   delayOnStart: 0
   fadeOnStop: 0
@@ -318,7 +318,6 @@ GameObject:
   - component: {fileID: 97526568}
   - component: {fileID: 97526570}
   - component: {fileID: 97526569}
-  - component: {fileID: 97526571}
   m_Layer: 11
   m_Name: Chef
   m_TagString: Untagged
@@ -337,7 +336,7 @@ Transform:
   m_LocalPosition: {x: -3, y: -0.819, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 315857191}
+  - {fileID: 1095154817}
   - {fileID: 1459127716}
   m_Father: {fileID: 2106335646}
   m_RootOrder: 6
@@ -451,6 +450,7 @@ MonoBehaviour:
   delayAfterTeleport: 1
   bonkNoise: {fileID: 896909869}
   footstepNoise: {fileID: 1459127717}
+  chopNoises: {fileID: 0}
 --- !u!61 &97526569
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -498,30 +498,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &97526571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97526564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2709992f7494adbbed1d2d1ff381ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minDelay: 0
-  maxDelay: 0
-  additionalSources:
-  - {fileID: 315857192}
-  accountForAudioLength: 1
-  playOnAwake: 0
-  delayOnStart: 0
-  fadeOnStop: 0
-  musicMixer: {fileID: 0}
-  musicAudioGroup: {fileID: 0}
-  musicFadeGroup: {fileID: 0}
-  onlyUseSelectedSources: 1
 --- !u!1 &143992081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,11 +1000,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315857190}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 97526565}
+  m_Father: {fileID: 1095154817}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &315857192
@@ -4907,6 +4883,61 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1095154816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1095154817}
+  - component: {fileID: 1095154818}
+  m_Layer: 11
+  m_Name: Sounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1095154817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095154816}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 315857191}
+  m_Father: {fileID: 97526565}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1095154818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095154816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2709992f7494adbbed1d2d1ff381ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDelay: 0
+  maxDelay: 0
+  additionalSources: []
+  accountForAudioLength: 1
+  playOnAwake: 0
+  delayOnStart: 0
+  fadeOnStop: 0
+  musicMixer: {fileID: 0}
+  musicAudioGroup: {fileID: 0}
+  musicFadeGroup: {fileID: 0}
+  onlyUseSelectedSources: 0
 --- !u!1 &1095815093
 GameObject:
   m_ObjectHideFlags: 0
@@ -10186,7 +10217,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 97526571}
+      - m_Target: {fileID: 1095154818}
         m_MethodName: StopPlaying
         m_Mode: 1
         m_Arguments:
@@ -10233,7 +10264,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 97526571}
+      - m_Target: {fileID: 1095154818}
         m_MethodName: StartPlaying
         m_Mode: 1
         m_Arguments:
